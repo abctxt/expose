@@ -1,0 +1,15 @@
+node_modules/
+build/
+bin/
+obj/
+
+.vs/
+.vscode/
+.fleet/
+.idea/
+*.DotSettings
+*.user
+*.log
+
+config/*.*
+!config/~*.*

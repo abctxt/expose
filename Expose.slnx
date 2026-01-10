@@ -1,0 +1,4 @@
+<Solution>
+    <Project Path="src/Expose/Expose.csproj"/>
+    <Project Path="src/Expose.FSharp/Expose.FSharp.fsproj"/>
+</Solution>
