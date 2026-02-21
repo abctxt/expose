@@ -10,6 +10,10 @@ obj/
 *.DotSettings
 *.user
 *.log
+*.local
+
+*.code-workspace
+.cursor/rules/local-rules.mdc
 
 config/*.*
 !config/~*.*
