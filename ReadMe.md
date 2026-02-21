@@ -7,7 +7,8 @@ For investors who want to understand their true portfolio structure, uncover con
 ## Why Expose
 
 Most portfolio tools stop at ETF-level allocation. `Expose` looks through ETFs to reveal your real asset exposure, so you can make allocation decisions with better transparency.
-`Expose` is open source and licensed under GNU AGPL v3.0 (AGPL-3.0), so anyone can use it, inspect the code, and contribute improvements under the same license terms.
+`Expose` is open source and licensed under GNU AGPL v3.0 (AGPL-3.0-or-later), so anyone can use it,
+inspect the code, and contribute improvements under the same license terms.
 
 ## Core Capabilities
 
