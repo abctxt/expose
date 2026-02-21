@@ -1,4 +1,4 @@
-﻿namespace Expose.FSharp
+﻿namespace Expose
 
 module Say =
     let hello name =
