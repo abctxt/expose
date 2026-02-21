@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Expose.FSharp\Expose.FSharp.fsproj"/>
-    <ProjectReference Include="..\..\Expose.Automation\Expose.Automation.csproj"/>
+    <ProjectReference Include="..\Expose.Automation\Expose.Automation.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
