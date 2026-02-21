@@ -156,6 +156,15 @@ const Dashboard = () => {
         return list
     }, [quotes, sortPrimary, sortSecondary])
 
+    const formattedCurrentDate = useMemo(() => {
+        const now = new Date()
+        const weekday = new Intl.DateTimeFormat("en-US", {weekday: "short"}).format(now)
+        const month = new Intl.DateTimeFormat("en-US", {month: "short"}).format(now)
+        const day = new Intl.DateTimeFormat("en-US", {day: "numeric"}).format(now)
+        const year = new Intl.DateTimeFormat("en-US", {year: "numeric"}).format(now)
+        return `${weekday} ${month} ${day}, ${year}`
+    }, [])
+
     return (
         <Layout>
             <section className={styl.dashboard}>
@@ -201,17 +210,20 @@ const Dashboard = () => {
                 )}
 
                 {!loading && !error && (
-                    <div className={styl.priceSettings}>
-                        <label htmlFor="price-digits">Price digits after dot:</label>
-                        <select
-                            id="price-digits"
-                            value={priceDigits}
-                            onChange={e => setPriceDigits(Math.min(kMaxPriceDigits, Math.max(kMinPriceDigits, Number(e.currentTarget.value) || 0)))}
-                        >
-                            {Array.from({length: kMaxPriceDigits + 1}, (_, value) => (
-                                <option key={value} value={value}>{value}</option>
-                            ))}
-                        </select>
+                    <div className={styl.controlsRow}>
+                        <div className={styl.priceSettings}>
+                            <label htmlFor="price-digits">Price digits after dot:</label>
+                            <select
+                                id="price-digits"
+                                value={priceDigits}
+                                onChange={e => setPriceDigits(Math.min(kMaxPriceDigits, Math.max(kMinPriceDigits, Number(e.currentTarget.value) || 0)))}
+                            >
+                                {Array.from({length: kMaxPriceDigits + 1}, (_, value) => (
+                                    <option key={value} value={value}>{value}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <span className={styl.currentDate}>{formattedCurrentDate}</span>
                     </div>
                 )}
             </section>
