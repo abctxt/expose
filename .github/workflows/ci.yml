@@ -33,6 +33,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Prepare frontend config
+        run: cp config/~frontend.toml config/frontend.toml
+
       - name: Install frontend dependencies
         working-directory: src/expose-frontend
         run: npm ci

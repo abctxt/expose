@@ -19,8 +19,12 @@ const cfgPath = "../../config/frontend.toml"
 const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8"))
 const devServer: DevServer = tomlCfg["DevServer"]
 
-const cert = fs.readFileSync(devServer.Cert)
-const privKey = fs.readFileSync(devServer.PrivKey)
+const https = devServer.Cert && devServer.PrivKey
+    ? {
+        cert: fs.readFileSync(devServer.Cert),
+        key: fs.readFileSync(devServer.PrivKey)
+    }
+    : undefined
 
 
 // https://vitejs.dev/config/
@@ -58,7 +62,7 @@ export default defineConfig({
         port: devServer.Port,
         open: devServer.Open,
         host: devServer.Host,
-        https: {cert, key: privKey}
+        https
     },
     plugins: [
         preact(),
