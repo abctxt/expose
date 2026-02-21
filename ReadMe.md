@@ -38,3 +38,4 @@ Examples of automation use cases:
 
 Early-stage development. Core backend, frontend, and AI service foundations are being set up.
 
+![Dashboard Screenshot](docs/screen-2026-02-21.png)

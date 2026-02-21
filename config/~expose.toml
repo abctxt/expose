@@ -1,0 +1,5 @@
+[Cors]
+Origins = [
+  "http://localhost:4777",
+  "https://localhost:4777"
+]

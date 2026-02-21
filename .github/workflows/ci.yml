@@ -20,8 +20,8 @@ jobs:
       - name: Run dotnet build
         run: dotnet build -c Release -v minimal
 
-      #- name: Run 'dotnet test'
-      #  run: dotnet test -c Release -v minimal tests/Expose.Tests
+      - name: Run dotnet tests
+        run: dotnet test tests/Expose.Tests/Expose.Tests.csproj -c Release -v minimal
 
   frontend:
     runs-on: ubuntu-latest
@@ -32,6 +32,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: src/expose-frontend/package-lock.json
 
       - name: Prepare frontend config
         run: cp config/~frontend.toml config/frontend.toml
@@ -53,6 +55,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: src/expose-ai/package-lock.json
 
       - name: Install AI service dependencies
         working-directory: src/expose-ai
@@ -69,3 +73,27 @@ jobs:
       - name: Test AI service
         working-directory: src/expose-ai
         run: npm test
+
+  yfinance-service:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: src/expose-yfinance/pyproject.toml
+
+      - name: Install yfinance service dependencies
+        working-directory: src/expose-yfinance
+        run: python -m pip install -e ".[dev]"
+
+      - name: Lint yfinance service
+        working-directory: src/expose-yfinance
+        run: python -m ruff check src tests
+
+      - name: Test yfinance service
+        working-directory: src/expose-yfinance
+        run: python -m pytest

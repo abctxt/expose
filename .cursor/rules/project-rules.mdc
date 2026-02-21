@@ -7,6 +7,13 @@ alwaysApply: true
 
 - Always follow `.editorconfig` rules for indentation, whitespace, line endings, and final newline.
 
+# Feature: Yahoo! Finance Live Data
+
+Reference material:
+- https://github.com/ranaroussi/yfinance
+- https://ranaroussi.github.io/yfinance/
+- Look for files and folders with 'yfinance' in their name.
+
 # Feature: Workflow Automation
 
 When the task relates to the "Workflow Automation" feature, prioritize these locations first:
