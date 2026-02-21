@@ -1,0 +1,50 @@
+{
+    "name": "expose",
+    "description": "Expose frontend",
+    "license": "AGPL-3.0-or-later",
+    "author": "https://github.com/abctxt",
+    "private": true,
+    "version": "1",
+    "scripts": {
+        "start": "vite",
+        "eslint": "eslint src",
+        "preview": "vite preview",
+        "build": "npm run eslint && vite build",
+        "check-updates": "ncu",
+        "install-updates": "ncu -u"
+    },
+    "dependencies": {
+        "@microsoft/signalr": "10.0.0",
+        "@preact/signals": "2.8.1",
+        "@reduxjs/toolkit": "2.11.2",
+        "@ui5/webcomponents": "2.19.2",
+        "@ui5/webcomponents-fiori": "2.19.2",
+        "@ui5/webcomponents-icons": "2.19.2",
+        "@ui5/webcomponents-icons-tnt": "2.19.2",
+        "@ui5/webcomponents-react": "2.19.0",
+        "normalize-styl": "8.0.1",
+        "preact": "10.28.4",
+        "preact-iso": "2.11.1",
+        "preact-render-to-string": "6.6.6",
+        "react": "npm:@preact/compat",
+        "react-dom": "npm:@preact/compat",
+        "react-redux": "9.2.0"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "3.3.3",
+        "@eslint/js": "9.39.3",
+        "@preact/preset-vite": "2.10.3",
+        "@types/node": "25.3.0",
+        "@typescript-eslint/eslint-plugin": "8.56.0",
+        "@typescript-eslint/parser": "8.56.0",
+        "eslint": "9.39.3",
+        "eslint-config-preact": "2.0.0",
+        "eslint-plugin-compat": "6.2.0",
+        "js-toml": "1.0.2",
+        "npm-check-updates": "19.4.1",
+        "stylus": "0.64.0",
+        "typescript": "5.9.3",
+        "vite": "7.3.1",
+        "vite-plugin-compression": "0.5.1"
+    }
+}

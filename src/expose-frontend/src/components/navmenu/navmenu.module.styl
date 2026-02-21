@@ -1,0 +1,28 @@
+$button-space-around = 5px
+$button-height = 58px
+
+.navmenu
+  background $bg-nav-elements
+  height 100%
+  width $nav-width
+  flex(v no-wrap)
+  align-items stretch
+
+.navmenu .button:first-child
+  margin-top 2px
+
+.button
+  width auto
+  min-height $button-height
+  margin $button-space-around
+  margin-top 0
+  color $fg-nav-elements
+  border 1px $border-nav-elements solid
+  font-size 0.7rem
+
+.button::part(button)
+  ui5(button_base_icon_margin, 0)
+  ui5(button_base_icon_only_padding, 0)
+  flex-direction column
+  justify-content space-evenly
+  padding 0
