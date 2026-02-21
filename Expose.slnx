@@ -1,4 +1,5 @@
 <Solution>
-    <Project Path="src/Expose/Expose.csproj"/>
-    <Project Path="src/Expose.FSharp/Expose.FSharp.fsproj"/>
+  <Project Path="src/expose-backend/Expose/Expose.csproj"/>
+  <Project Path="src/expose-backend/Expose.FSharp/Expose.FSharp.fsproj"/>
+  <Project Path="src/expose-backend/Expose.Automation/Expose.Automation.csproj"/>
 </Solution>
