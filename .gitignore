@@ -19,3 +19,12 @@ obj/
 
 config/*.*
 !config/~*.*
+
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+.venv/
+.eggs/
+*.egg-info/
+_generated/

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package expose.marketdata.v1;
+
+option csharp_namespace = "Expose.MarketData.V1";
+
+message SubscribeQuotesRequest {
+  repeated string symbols = 1;
+  int32 poll_interval_ms = 2;
+  bool include_heartbeat = 3;
+}
+
+message GetLatestQuoteRequest {
+  string symbol = 1;
+}
+
+message QuoteSnapshot {
+  string symbol = 1;
+  double price = 2;
+  string currency = 3;
+  string exchange = 4;
+  int64 timestamp_unix_ms = 5;
+  string source = 6;
+  int64 sequence = 7;
+  bool is_market_open = 8;
+}
+
+service YFinanceMarketData {
+  rpc SubscribeQuotes(SubscribeQuotesRequest) returns (stream QuoteSnapshot);
+  rpc GetLatestQuote(GetLatestQuoteRequest) returns (QuoteSnapshot);
+}
