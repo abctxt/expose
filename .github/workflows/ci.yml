@@ -32,6 +32,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: src/expose-frontend/package-lock.json
 
       - name: Prepare frontend config
         run: cp config/~frontend.toml config/frontend.toml
@@ -53,6 +55,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: src/expose-ai/package-lock.json
 
       - name: Install AI service dependencies
         working-directory: src/expose-ai
