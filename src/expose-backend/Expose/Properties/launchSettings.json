@@ -9,6 +9,12 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "start:yfinance": {
+      "commandName": "Executable",
+      "executablePath": "$(SolutionDir)src/expose-yfinance/.venv/bin/python",
+      "workingDirectory": "$(SolutionDir)src/expose-yfinance",
+      "commandLineArgs": "-m expose_yfinance.main"
     }
   }
 }
