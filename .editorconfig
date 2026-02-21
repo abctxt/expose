@@ -9,7 +9,7 @@ charset = utf-8
 indent_style = space
 indent_size = 4
 
-[*.{json,yml,yaml,toml,xml,html,cshtml,svg,styl,csproj,fsproj}]
+[*.{json,yml,yaml,toml,xml,html,cshtml,svg,styl,slnx,csproj,fsproj}]
 indent_size = 2
 
 [package.json]

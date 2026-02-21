@@ -1,5 +1,6 @@
 node_modules/
 build/
+dist/
 bin/
 obj/
 
@@ -10,6 +11,11 @@ obj/
 *.DotSettings
 *.user
 *.log
+*.local
+
+*.code-workspace
+.cursor/docs/*.md
+.cursor/rules/local-rules.mdc
 
 config/*.*
 !config/~*.*

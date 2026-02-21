@@ -1,0 +1,37 @@
+$elem-box-width = 200px
+
+.header
+  background $bg-nav-elements
+  height $header-height
+  width 100%
+  flex(h between i-middle no-wrap)
+
+.logoBox
+  width clamp(120px, 20vw, $elem-box-width)
+  height $header-height
+  flex(h left i-middle)
+  //
+  .logo
+    no-interaction()
+    margin-top 4px
+
+.clock
+  no-interaction()
+  color $fg-nav-elements
+  font-size 1.1rem
+  height $header-height
+  flex(v middle)
+  flex(1)
+  min-width 0
+
+.nav
+  width clamp(120px, 20vw, $elem-box-width)
+  height $header-height
+  flex(h middle right)
+  //
+  .button
+    width 2.1rem
+    height 2.1rem
+    margin-right 6px
+    color $fg-nav-elements
+    border 1px $border-nav-elements solid

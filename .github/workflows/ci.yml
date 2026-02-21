@@ -1,0 +1,71 @@
+name: Continuous Integration (CI)
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run dotnet build
+        run: dotnet build -c Release -v minimal
+
+      #- name: Run 'dotnet test'
+      #  run: dotnet test -c Release -v minimal tests/Expose.Tests
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Prepare frontend config
+        run: cp config/~frontend.toml config/frontend.toml
+
+      - name: Install frontend dependencies
+        working-directory: src/expose-frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: src/expose-frontend
+        run: npm run build
+
+  ai-service:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install AI service dependencies
+        working-directory: src/expose-ai
+        run: npm ci
+
+      - name: Lint AI service
+        working-directory: src/expose-ai
+        run: npm run lint
+
+      - name: Build AI service
+        working-directory: src/expose-ai
+        run: npm run build
+
+      - name: Test AI service
+        working-directory: src/expose-ai
+        run: npm test

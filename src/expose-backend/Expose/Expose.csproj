@@ -5,11 +5,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <PublishAot>true</PublishAot>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Expose.FSharp\Expose.FSharp.fsproj"/>
+    <ProjectReference Include="..\Expose.Automation\Expose.Automation.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Temporalio" Version="1.11.1"/>
+    <PackageReference Include="Temporalio.Extensions.Hosting" Version="1.11.1"/>
   </ItemGroup>
 
 </Project>

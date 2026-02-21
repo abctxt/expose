@@ -1,0 +1,147 @@
+//
+// Flexbox framework
+//
+// Usage:
+// flex(h center middle) - Horizontal layout, centered both axes
+// flex(v between) - Vertical layout with space between
+// flex(inline wrap) - Inline flex with wrap
+// flex(grow-1) - Flex item with grow: 1
+// flex(gap-10) - 10px gap
+// flex(order-2) - Order: 2
+// flex(1) - flex: 1
+// flex(auto) - flex: auto
+// flex(none) - flex: none
+// flex(initial) - flex: initial
+//
+flex()
+  a = arguments
+
+  if 'inline' in a
+    display inline-flex
+  else
+    display flex
+
+  // Wrap behavior
+  if 'wrap' in a
+    flex-wrap wrap
+  else if 'no-wrap' in a
+    flex-wrap nowrap
+  else if 'rev-wrap' in a
+    flex-wrap wrap-reverse
+  else
+    flex-wrap wrap
+
+  // Gap support
+  for i in 0..20
+    if 'gap-' + i in a
+      gap i * 4px
+  if 'gap' in a
+    gap 1rem
+
+  // Order support
+  for i in 0..10
+    if 'order-' + i in a
+      order i
+
+  // Flex shorthand
+  if '1' in a
+    flex 1
+  if 'auto' in a
+    flex auto
+  if 'none' in a
+    flex none
+  if 'initial' in a
+    flex initial
+
+  // Flex item properties
+  for i in 1..5
+    if 'grow-' + i in a
+      flex-grow i
+  if 'grow' in a
+    flex-grow 1
+
+  for i in 0..5
+    if 'shrink-' + i in a
+      flex-shrink i
+  if 'shrink' in a
+    flex-shrink 1
+
+  for i in 0 25 50 75 100
+    if 'basis-' + i in a
+      flex-basis i + '%'
+  if 'basis-auto' in a
+    flex-basis auto
+  if 'basis-0' in a
+    flex-basis 0
+  if 'basis' in a
+    flex-basis 100%
+
+  // Horizontal / row mode
+  if 'h' in a
+    flex-direction row
+
+    // Alignment horizontal axis
+    if 'left' in a
+      justify-content flex-start
+    else if 'right' in a
+      justify-content flex-end
+    else if 'center' in a
+      justify-content center
+    else if 'around' in a
+      justify-content space-around
+    else if 'between' in a
+      justify-content space-between
+    else if 'evenly' in a
+      justify-content space-evenly
+
+    // Alignment vertical axis / bounding box & inner items
+    if 'top' in a
+      align-content flex-start
+    else if 'middle' in a
+      align-content center
+    else if 'bottom' in a
+      align-content flex-end
+
+    if 'i-top' in a
+      align-items flex-start
+    else if 'i-middle' in a
+      align-items center
+    else if 'i-bottom' in a
+      align-items flex-end
+
+  // Vertical / column mode
+  if 'v' in a
+    flex-direction column
+
+    // Alignment horizontal axis
+    if 'left' in a
+      align-items flex-start
+      unless 'loose' in a
+        align-content flex-start unless 'around' in a or 'between' in a
+
+    if 'right' in a
+      align-items flex-end
+      unless 'loose' in a
+        align-content flex-end unless 'around' in a or 'between' in a
+
+    if 'center' in a
+      align-items center
+      unless 'loose' in a
+        align-content center unless 'around' in a or 'between' in a
+
+    // Alignment vertical axis
+    if 'top' in a
+      justify-content flex-start
+    if 'bottom' in a
+      justify-content flex-end
+    if 'middle' in a
+      justify-content center
+
+    if 'around' in a
+      align-content space-around
+      justify-content space-around
+    if 'between' in a
+      align-content space-between
+      justify-content space-between
+    if 'stretch' in a
+      justify-content stretch

@@ -1,0 +1,25 @@
+---
+description: Shared project rules and feature context
+alwaysApply: true
+---
+
+# Coding Rules
+
+- Always follow `.editorconfig` rules for indentation, whitespace, line endings, and final newline.
+
+# Feature: Workflow Automation
+
+When the task relates to the "Workflow Automation" feature, prioritize these locations first:
+- `.cursor/docs/*.md`
+- `docs/*workflow*.md`
+- `docs/*automation*.md`
+- `docs/*workflow*.cs`
+- `docs/*automation*.cs`
+- `src/expose-backend/Expose.Automation/`
+
+- Look also inside linked workspace folders, which contain Temporal- or workflow-related material.
+
+Planned workflow engine: Temporal.
+Reference material:
+- https://github.com/temporalio/sdk-dotnet
+- https://github.com/temporalio/samples-dotnet

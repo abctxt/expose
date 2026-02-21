@@ -1,0 +1,12 @@
+//
+// Various Stylus mixins
+//
+no-interaction(disablePointer = true)
+  user-select none
+  -webkit-user-drag none
+  if disablePointer
+    pointer-events none
+
+
+ui5(suffix, value)
+  --_ui5_{suffix} value
