@@ -1,0 +1,48 @@
+{
+    "name": "expose-ai",
+    "description": "Expose AI microservice",
+    "license": "AGPL-3.0-or-later",
+    "author": "https://github.com/abctxt",
+    "version": "1",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "start": "nest start",
+        "build": "nest build",
+        "lint": "eslint src",
+        "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config ./jest.config.cjs",
+        "check-updates": "ncu",
+        "install-updates": "ncu -u"
+    },
+    "engines": {
+        "npm": ">=10.0.0",
+        "node": ">=20.0.0"
+    },
+    "dependencies": {
+        "@nestjs/common": "11.1.14",
+        "@nestjs/core": "11.1.14",
+        "@nestjs/platform-express": "11.1.14",
+        "reflect-metadata": "0.2.2",
+        "rxjs": "7.8.2",
+        "llamaindex": "0.12.1"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "3.3.3",
+        "@eslint/js": "9.39.3",
+        "@nestjs/cli": "11.0.16",
+        "@nestjs/schematics": "11.0.9",
+        "@nestjs/testing": "11.1.14",
+        "@types/express": "5.0.6",
+        "@types/jest": "30.0.0",
+        "@types/node": "25.3.0",
+        "@types/supertest": "6.0.3",
+        "typescript": "5.9.3",
+        "eslint": "9.39.3",
+        "supertest": "7.2.2",
+        "ts-jest": "29.4.6",
+        "ts-loader": "9.5.4",
+        "ts-node": "10.9.2",
+        "tsconfig-paths": "4.2.0",
+        "typescript-eslint": "8.56.0"
+    }
+}
