@@ -10,6 +10,7 @@ alwaysApply: true
 # Feature: Workflow Automation
 
 When the task relates to the "Workflow Automation" feature, prioritize these locations first:
+- `.cursor/docs/*.md`
 - `docs/*workflow*.md`
 - `docs/*automation*.md`
 - `docs/*workflow*.cs`
