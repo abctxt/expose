@@ -12,7 +12,11 @@ alwaysApply: true
 When the task relates to the "Workflow Automation" feature, prioritize these locations first:
 - `docs/*workflow*.md`
 - `docs/*automation*.md`
+- `docs/*workflow*.cs`
+- `docs/*automation*.cs`
 - `src/expose-backend/Expose.Automation/`
+
+- Look also inside linked workspace folders, which contain Temporal- or workflow-related material.
 
 Planned workflow engine: Temporal.
 Reference material:
