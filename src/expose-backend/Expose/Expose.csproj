@@ -7,6 +7,20 @@
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
+  <!-- Publishing -->
+  <PropertyGroup>
+    <AssemblyName>expose</AssemblyName>
+    <PublishAot>false</PublishAot>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Expose.FSharp\Expose.FSharp.fsproj"/>
     <ProjectReference Include="..\Expose.Automation\Expose.Automation.csproj"/>
@@ -15,9 +29,9 @@
   <ItemGroup>
     <PackageReference Include="Temporalio" Version="1.11.1"/>
     <PackageReference Include="Temporalio.Extensions.Hosting" Version="1.11.1"/>
-    <PackageReference Include="Google.Protobuf" Version="3.33.0"/>
-    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.71.0"/>
-    <PackageReference Include="Grpc.Tools" Version="2.76.0">
+    <PackageReference Include="Google.Protobuf" Version="3.33.5"/>
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.76.0"/>
+    <PackageReference Include="Grpc.Tools" Version="2.78.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
