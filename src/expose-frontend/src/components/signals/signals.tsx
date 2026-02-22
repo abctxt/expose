@@ -3,10 +3,11 @@ import {useEffect} from "preact/hooks"
 
 
 const SignalHandler = () => {
+    const backendUrl = `${window.location.protocol}//${window.location.hostname}:5777`
     //
     useEffect(() => {
         const connection = new HubConnectionBuilder()
-            .withUrl("http://localhost:5777/signals")
+            .withUrl(`${backendUrl}/signals`)
             .withAutomaticReconnect()
             .build();
 
