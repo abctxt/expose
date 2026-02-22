@@ -13,12 +13,14 @@ obj/
 *.log
 *.local
 
+config/*.*
+!config/~*.*
+
+compose.override.yml
+
 *.code-workspace
 .cursor/docs/*.md
 .cursor/rules/local-rules.mdc
-
-config/*.*
-!config/~*.*
 
 __pycache__/
 .pytest_cache/
