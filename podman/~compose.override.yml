@@ -1,0 +1,22 @@
+x-common-env: &env
+  TZ: "Europe/Zurich"
+
+services:
+
+  frontend:
+    environment:
+      <<: *env
+    #ports:
+    #  - "4777:443"
+
+  backend:
+    environment:
+      <<: *env
+
+  yfinance:
+    environment:
+      <<: *env
+
+  ai:
+    environment:
+      <<: *env

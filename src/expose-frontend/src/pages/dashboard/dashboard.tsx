@@ -13,7 +13,8 @@ interface Quote {
     isMarketOpen: boolean
 }
 
-const kQuotesUrl = "http://localhost:5777/market/quotes"
+const kBackendUrl = `${window.location.protocol}//${window.location.hostname}:5777`
+const kQuotesUrl = `${kBackendUrl}/market/quotes`
 const kRefreshIntervalMs = 2000
 const kMinPriceDigits = 0
 const kMaxPriceDigits = 6
