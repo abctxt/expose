@@ -1,6 +1,7 @@
 ---
 description: Shared project rules and feature context
 alwaysApply: true
+applyTo: "**"
 ---
 
 # Coding Rules
