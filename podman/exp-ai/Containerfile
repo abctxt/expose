@@ -1,0 +1,35 @@
+FROM node:20-alpine AS build
+
+WORKDIR /expose
+
+RUN apk add --no-cache python3 make g++
+
+COPY src/expose-ai/package.json src/expose-ai/package-lock.json src/expose-ai/
+RUN cd /expose/src/expose-ai && npm ci
+
+COPY src/expose-ai/ /expose/src/expose-ai/
+WORKDIR /expose/src/expose-ai
+RUN npm run build && npm prune --omit=dev
+
+FROM node:20-alpine
+
+ARG user=expose
+ARG home=/expose
+
+ENV NODE_ENV=production
+
+RUN addgroup -S ${user} && adduser -S -G ${user} -h ${home} ${user} && \
+    mkdir -p /expose/src/expose-ai
+
+COPY --from=build /expose/src/expose-ai/package.json /expose/src/expose-ai/package.json
+COPY --from=build /expose/src/expose-ai/node_modules /expose/src/expose-ai/node_modules
+COPY --from=build /expose/src/expose-ai/dist /expose/src/expose-ai/dist
+
+RUN chown -R ${user}:${user} /expose
+
+EXPOSE 3000/tcp
+
+USER ${user}
+WORKDIR /expose/src/expose-ai
+
+CMD ["node", "dist/main.js"]

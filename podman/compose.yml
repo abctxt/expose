@@ -1,0 +1,48 @@
+services:
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: podman/frontend/Containerfile
+    restart: unless-stopped
+    privileged: false
+    ports:
+      - "${EXPOSE_FRONTEND_PORT:-4777}:443"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ../
+      dockerfile: podman/backend/Containerfile
+    restart: unless-stopped
+    privileged: false
+    ports:
+      - "${EXPOSE_BACKEND_PORT:-5777}:5001"
+    environment:
+      ASPNETCORE_URLS: "http://+:5000;https://+:5001"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/config/kestrel-cert.pem"
+      ASPNETCORE_Kestrel__Certificates__Default__KeyPath: "/config/kestrel-key.pem"
+      Services__YFinance__GrpcUrl: "http://yfinance:50061"
+    volumes:
+      - backend-logs:/expose/logs
+    depends_on:
+      - yfinance
+      - ai
+
+  yfinance:
+    build:
+      context: ../
+      dockerfile: podman/exp-yfinance/Containerfile
+    restart: unless-stopped
+    privileged: false
+
+  ai:
+    build:
+      context: ../
+      dockerfile: podman/exp-ai/Containerfile
+    restart: unless-stopped
+    privileged: false
+
+volumes:
+  backend-logs: { }

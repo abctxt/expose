@@ -1,0 +1,8 @@
+FROM nginx:1.29.5-alpine
+
+COPY podman/frontend/build/.  /expose/
+COPY podman/frontend/expose.conf /etc/nginx/conf.d/default.conf
+COPY config/nginx-cert.pem /config/nginx-cert.pem
+COPY config/nginx-key.pem /config/nginx-key.pem
+
+EXPOSE 443/tcp
