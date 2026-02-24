@@ -50,7 +50,7 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: "build"
+        outDir: "../../podman/frontend/build"
     },
     esbuild: {
         supported: {
