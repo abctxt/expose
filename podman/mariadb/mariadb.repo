@@ -1,0 +1,5 @@
+[mariadb]
+name = MariaDB 12.2
+baseurl = https://mirror.23m.com/mariadb/yum/12.2/rhel/$releasever/$basearch
+gpgkey = https://mirror.23m.com/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck = 1
