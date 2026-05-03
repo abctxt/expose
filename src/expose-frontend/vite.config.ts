@@ -14,10 +14,14 @@ interface DevServer {
     PrivKey: string
 }
 
+interface FrontendToml {
+    DevServer: DevServer
+}
+
 // Dev config file must be created manually first
 const cfgPath = "../../config/frontend.toml"
-const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8"))
-const devServer: DevServer = tomlCfg["DevServer"]
+const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8")) as FrontendToml
+const devServer = tomlCfg.DevServer
 
 const https = devServer.Cert && devServer.PrivKey
     ? {
@@ -52,11 +56,6 @@ export default defineConfig({
     build: {
         outDir: "build"
     },
-    esbuild: {
-        supported: {
-            "top-level-await": true
-        },
-    },
     server: {
         strictPort: true,
         port: devServer.Port,
@@ -65,7 +64,9 @@ export default defineConfig({
         https
     },
     plugins: [
-        preact(),
+        preact({
+            devToolsEnabled: false,
+        }),
         /*compress({
             verbose: false,
             deleteOriginFile: true,

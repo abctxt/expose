@@ -43,4 +43,3 @@ public class YFinanceQuoteCacheTests
         Assert.Equal("MSFT", quotes[0].Symbol);
     }
 }
-

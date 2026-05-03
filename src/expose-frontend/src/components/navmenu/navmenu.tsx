@@ -5,8 +5,13 @@ import {useAppDispatch} from "@fwk/hooks"
 import {navigateTo, Route} from "@comp/router/router.redux"
 import {Button} from "@ui5/webcomponents-react"
 
+type NavButtonProps = {
+    icon: string
+    text: string
+    route: Route
+}
 
-const NavButton = ({icon, text, route}) => {
+const NavButton = ({icon, text, route}: NavButtonProps) => {
     const dispatch = useAppDispatch()
     return <Button
         design="Transparent"
