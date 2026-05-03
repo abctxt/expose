@@ -6,6 +6,7 @@
     "noEmit": true,
     "allowJs": true,
     "checkJs": true,
+    "rootDir": "./",
 
     /* Preact Config */
     "jsx": "react-jsx",
@@ -23,5 +24,6 @@
       "@res/*": ["./res/*"]
     }
   },
-  "include": ["node_modules/vite/client.d.ts", "**/*"]
+  "include": ["**/*"],
+  "exclude": ["node_modules", "build"]
 }

@@ -4,8 +4,12 @@ import {Button} from "@ui5/webcomponents-react"
 import {useAppDispatch, useAppSelector} from "@fwk/hooks"
 import {navigateTo, Route} from "@comp/router/router.redux"
 
+type TopButtonProps = {
+    icon: string
+    route: Route
+}
 
-const TopButton = ({icon, route}) => {
+const TopButton = ({icon, route}: TopButtonProps) => {
     const dispatch = useAppDispatch()
     return <Button
         design="Transparent"

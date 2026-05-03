@@ -2,7 +2,7 @@ import path from "node:path"
 import {fileURLToPath} from "node:url"
 import js from "@eslint/js"
 import {FlatCompat} from "@eslint/eslintrc"
-import preactConfig from "eslint-config-preact"
+import preact from "eslint-config-preact"
 import tsParser from "@typescript-eslint/parser"
 import tsPlugin from "@typescript-eslint/eslint-plugin"
 
@@ -19,7 +19,7 @@ export default [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ),
-    ...preactConfig,
+    ...preact,
     ...compat.env({
         browser: true,
         es2021: true

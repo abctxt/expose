@@ -36,6 +36,8 @@ class YFinanceProvider:
         currency = str(fast_info.get("currency") or "")
         exchange = str(fast_info.get("exchange") or "")
         market_state = str(fast_info.get("marketState") or "").lower()
+        if not market_state:
+            market_state = str((getattr(ticker, "info", {}) or {}).get("marketState") or "").lower()
         is_market_open = self._is_market_open(symbol, exchange, market_state)
 
         if price is None:
