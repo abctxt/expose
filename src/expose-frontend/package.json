@@ -22,6 +22,7 @@
         "@ui5/webcomponents-icons": "2.21.1",
         "@ui5/webcomponents-icons-tnt": "2.21.1",
         "@ui5/webcomponents-react": "2.21.3",
+        "@ui5/webcomponents-react-charts": "2.21.3",
         "browserux.css": "4.0.0",
         "preact": "10.29.1",
         "preact-iso": "2.12.0",

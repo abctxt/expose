@@ -5,6 +5,7 @@ import AppRouter from "@comp/router/router"
 
 import "./main.styl"
 import "@ui5/webcomponents-react/dist/Assets"
+import "@ui5/webcomponents-react-charts/styles.css"
 import "@ui5/webcomponents-icons/dist/AllIcons"
 import "@ui5/webcomponents-icons-tnt/dist/AllIcons"
 
