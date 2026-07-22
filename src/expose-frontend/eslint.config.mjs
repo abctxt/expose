@@ -1,44 +1,26 @@
-import path from "node:path"
-import {fileURLToPath} from "node:url"
-import js from "@eslint/js"
-import {FlatCompat} from "@eslint/eslintrc"
+import tseslint from "typescript-eslint"
 import preact from "eslint-config-preact"
-import tsParser from "@typescript-eslint/parser"
-import tsPlugin from "@typescript-eslint/eslint-plugin"
+import globals from "globals"
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended
-})
-
-export default [
-    ...compat.extends(
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
-    ),
+export default tseslint.config(
+    // eslint-config-preact already includes @eslint/js recommended + Preact/React rules
     ...preact,
-    ...compat.env({
-        browser: true,
-        es2021: true
-    }),
+    ...tseslint.configs.recommended,
     {
         files: ["**/*.{js,jsx,ts,tsx}"],
         languageOptions: {
-            parser: tsParser,
             ecmaVersion: "latest",
-            sourceType: "module"
-        },
-        plugins: {
-            "@typescript-eslint": tsPlugin
+            sourceType: "module",
+            globals: {
+                ...globals.browser,
+                ...globals.es2021,
+            },
         },
         rules: {
             quotes: ["error", "double"],
             semi: ["error", "never"],
-            "no-unused-vars": "warn",
-            "@typescript-eslint/no-unused-vars": "off",
+            "no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": "warn",
             "no-empty-function": "warn",
             "@typescript-eslint/no-empty-function": "off",
             "react/jsx-tag-spacing": [
@@ -62,4 +44,4 @@ export default [
             "react/jsx-indent": ["warn", 4]
         }
     }
-]
+)
