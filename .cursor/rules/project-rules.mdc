@@ -4,18 +4,18 @@ alwaysApply: true
 applyTo: "**"
 ---
 
-# Coding Rules
+## Coding Rules
 
 - Always follow `.editorconfig` rules for indentation, whitespace, line endings, and final newline.
 
-# Feature: Yahoo! Finance Live Data
+## Feature: Yahoo! Finance Live Data
 
 Reference material:
 - https://github.com/ranaroussi/yfinance
 - https://ranaroussi.github.io/yfinance/
 - Look for files and folders with 'yfinance' in their name.
 
-# Feature: Workflow Automation
+## Feature: Workflow Automation
 
 When the task relates to the "Workflow Automation" feature, prioritize these locations first:
 - `.cursor/docs/*.md`
@@ -27,7 +27,6 @@ When the task relates to the "Workflow Automation" feature, prioritize these loc
 
 - Look also inside linked workspace folders, which contain Temporal- or workflow-related material.
 
-Planned workflow engine: Temporal.
-Reference material:
+We use Temporal as workflow engine:
 - https://github.com/temporalio/sdk-dotnet
 - https://github.com/temporalio/samples-dotnet
