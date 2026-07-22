@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="src/expose-backend/Expose/Expose.csproj"/>
-  <Project Path="src/expose-backend/Expose.FSharp/Expose.FSharp.fsproj"/>
-  <Project Path="src/expose-backend/Expose.Automation/Expose.Automation.csproj"/>
-  <Project Path="tests/Expose.Tests/Expose.Tests.csproj"/>
+  <Project Path="src/expose-backend/Expose/Expose.csproj" />
+  <Project Path="src/expose-backend/Expose.FSharp/Expose.FSharp.fsproj" />
+  <Project Path="src/expose-backend/Expose.Automation/Expose.Automation.csproj" />
+  <Project Path="tests/Expose.Tests/Expose.Tests.fsproj" />
 </Solution>
