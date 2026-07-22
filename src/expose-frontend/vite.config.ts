@@ -1,8 +1,9 @@
 import {defineConfig} from "vite"
 import preact from "@preact/preset-vite"
-import compress from "vite-plugin-compression"
+import {ui5LimitAssets} from "./vite-plugin-ui5-assets"
+//import compress from "vite-plugin-compression"
 import {load} from "js-toml"
-import zlib from "zlib"
+//import zlib from "zlib"
 import path from "path"
 import fs from "fs"
 
@@ -67,6 +68,7 @@ export default defineConfig({
         https
     },
     plugins: [
+        ui5LimitAssets(),
         preact({
             devToolsEnabled: false,
         }),
