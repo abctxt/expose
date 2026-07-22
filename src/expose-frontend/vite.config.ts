@@ -55,10 +55,9 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: "build",
         // Vite 8 defaults to lightningcss, which rejects progressive CSS from browserux.css
         // (e.g. ::search-text:current). Keep esbuild until lightningcss catches up.
-        cssMinify: "esbuild",
+        cssMinify: "esbuild"
     },
     server: {
         strictPort: true,
