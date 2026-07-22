@@ -5,8 +5,10 @@ import AppRouter from "@comp/router/router"
 
 import "./main.styl"
 import "@ui5/webcomponents-react/dist/Assets"
-import "@ui5/webcomponents-icons/dist/AllIcons"
-import "@ui5/webcomponents-icons-tnt/dist/AllIcons"
+import "@ui5/webcomponents-icons/dist/action-settings.js"
+import "@ui5/webcomponents-icons/dist/sys-help.js"
+import "@ui5/webcomponents-icons-tnt/dist/technicalinstance.js"
+import "@ui5/webcomponents-icons-tnt/dist/aggregator.js"
 
 import {ThemeProvider} from "@ui5/webcomponents-react"
 import {setTheme} from "@ui5/webcomponents-base/dist/config/Theme.js"

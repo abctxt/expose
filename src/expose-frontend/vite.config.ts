@@ -20,7 +20,7 @@ interface FrontendToml {
 
 // Dev config file must be created manually first
 const cfgPath = "../../config/frontend.toml"
-const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8")) as FrontendToml
+const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8")) as unknown as FrontendToml
 const devServer = tomlCfg.DevServer
 
 const https = devServer.Cert && devServer.PrivKey
@@ -54,7 +54,10 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: "build"
+        outDir: "build",
+        // Vite 8 defaults to lightningcss, which rejects progressive CSS from browserux.css
+        // (e.g. ::search-text:current). Keep esbuild until lightningcss catches up.
+        cssMinify: "esbuild",
     },
     server: {
         strictPort: true,
