@@ -1,8 +1,8 @@
-import {kRouteAbout, kRouteDashboard, kRouteNetwork, kRouteSetup} from "@app/constants"
 import {LocationProvider, Route, Router, useLocation} from "preact-iso"
 import {useEffect} from "preact/hooks"
 import {useAppSelector} from "@fwk/hooks"
 import {AnyComponent} from "preact"
+import {Route as AppRoute} from "./router.redux"
 
 import SignalHandler from "@comp/signals/signals"
 import Dashboard from "@page/dashboard/dashboard"
@@ -13,10 +13,10 @@ import NotFound from "@page/_404"
 
 
 const routeMap: Record<string, AnyComponent> = {
-    [kRouteDashboard]: Dashboard,
-    [kRouteSetup]: Setup,
-    [kRouteNetwork]: Network,
-    [kRouteAbout]: About,
+    [AppRoute.Dashboard]: Dashboard,
+    [AppRoute.Setup]: Setup,
+    [AppRoute.Network]: Network,
+    [AppRoute.About]: About,
 }
 
 const LocationListener = () => {

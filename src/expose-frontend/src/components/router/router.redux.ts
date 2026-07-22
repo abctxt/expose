@@ -1,11 +1,10 @@
-import {kRouteAbout, kRouteDashboard, kRouteNetwork, kRouteSetup} from "@app/constants"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 export enum Route {
-    Dashboard = kRouteDashboard,
-    Setup = kRouteSetup,
-    Network = kRouteNetwork,
-    About = kRouteAbout
+    Dashboard = "/",
+    Setup = "/setup",
+    Network = "/network",
+    About = "/about",
 }
 
 interface State {
