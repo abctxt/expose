@@ -1,8 +1,9 @@
 import {defineConfig} from "vite"
 import preact from "@preact/preset-vite"
-import compress from "vite-plugin-compression"
+import {ui5LimitAssets} from "./vite-plugin-ui5-assets"
+//import compress from "vite-plugin-compression"
 import {load} from "js-toml"
-import zlib from "zlib"
+//import zlib from "zlib"
 import path from "path"
 import fs from "fs"
 
@@ -20,7 +21,7 @@ interface FrontendToml {
 
 // Dev config file must be created manually first
 const cfgPath = "../../config/frontend.toml"
-const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8")) as FrontendToml
+const tomlCfg = load(fs.readFileSync(cfgPath, "utf-8")) as unknown as FrontendToml
 const devServer = tomlCfg.DevServer
 
 const https = devServer.Cert && devServer.PrivKey
@@ -54,7 +55,9 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: "build"
+        // Vite 8 defaults to lightningcss, which rejects progressive CSS from browserux.css
+        // (e.g. ::search-text:current). Keep esbuild until lightningcss catches up.
+        cssMinify: "esbuild"
     },
     server: {
         strictPort: true,
@@ -64,6 +67,7 @@ export default defineConfig({
         https
     },
     plugins: [
+        ui5LimitAssets(),
         preact({
             devToolsEnabled: false,
         }),

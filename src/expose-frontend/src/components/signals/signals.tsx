@@ -14,16 +14,12 @@ const SignalHandler = () => {
             await connection.start()
         })()
 
-        /*connection.start().then(() => {
-            console.log("Connection started")
-
-            connection.on("ReceiveMessage", (user: string, message: string) => {
-                console.log(`${user} : ${message}`)
-            })
-        })*/
+        connection.start().then(() => {
+            /*connection.on("ReceiveMessage", (user: string, message: string) => {
+            })*/
+        })
 
         return async () => {
-            console.log("Connection stopped")
             await connection.stop()
         }
     })

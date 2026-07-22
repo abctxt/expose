@@ -1,27 +1,19 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {kLocaleCzech_CZ, kLocaleEnglish_GB, kLocaleEnglish_US, kLocaleGerman_CH, kLocaleGerman_DE} from "@app/constants"
-
-export enum Locale {
-    EnglishUS = kLocaleEnglish_US,
-    EnglishGB = kLocaleEnglish_GB,
-    GermanDE = kLocaleGerman_DE,
-    GermanCH = kLocaleGerman_CH,
-    CzechCZ = kLocaleCzech_CZ,
-}
+import {Locales} from "@app/locales"
 
 interface State {
-    locale: Locale
+    locale: Locales
 }
 
 const init: State = {
-    locale: Locale.EnglishUS
+    locale: Locales.EnglishUS
 }
 
 export const slice = createSlice({
     name: "Setup",
     initialState: init,
     reducers: {
-        setLocale: (state, action: PayloadAction<Locale>) => {
+        setLocale: (state, action: PayloadAction<Locales>) => {
             state.locale = action.payload
         }
     },

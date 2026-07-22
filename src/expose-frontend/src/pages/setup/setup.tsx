@@ -1,9 +1,9 @@
 import Layout from "@comp/layout/layout"
 import {useAppDispatch, useAppSelector} from "@fwk/hooks"
-import {kLocaleCzech_CZ, kLocaleEnglish_GB, kLocaleEnglish_US, kLocaleGerman_CH, kLocaleGerman_DE} from "@app/constants"
 import {Option, Select, SelectDomRef, Ui5CustomEvent} from "@ui5/webcomponents-react"
 import type {SelectChangeEventDetail} from "@ui5/webcomponents/Select.d.ts"
-import {Locale, setLocale} from "./setup.redux"
+import {Locales} from "@app/locales"
+import {setLocale} from "./setup.redux"
 import English_US from "../../_i18n/English_US"
 import English_GB from "../../_i18n/English_GB"
 import German_DE from "../../_i18n/German_DE"
@@ -11,11 +11,11 @@ import German_CH from "../../_i18n/German_CH"
 import Czech_CZ from "../../_i18n/Czech_CZ"
 
 const localeMap = {
-    [kLocaleEnglish_US]: English_US.displayName,
-    [kLocaleEnglish_GB]: English_GB.displayName,
-    [kLocaleGerman_DE]: German_DE.displayName,
-    [kLocaleGerman_CH]: German_CH.displayName,
-    [kLocaleCzech_CZ]: Czech_CZ.displayName,
+    [Locales.EnglishUS]: English_US.displayName,
+    [Locales.EnglishGB]: English_GB.displayName,
+    [Locales.GermanDE]: German_DE.displayName,
+    [Locales.GermanCH]: German_CH.displayName,
+    [Locales.CzechCZ]: Czech_CZ.displayName,
 }
 
 const Setup = () => {
@@ -23,7 +23,7 @@ const Setup = () => {
     const locale = useAppSelector(state => state.setup.locale)
 
     const onLocaleChange = (ev: Ui5CustomEvent<SelectDomRef, SelectChangeEventDetail>) => {
-        const selectedLocale = ev.detail.selectedOption.dataset.id as Locale
+        const selectedLocale = ev.detail.selectedOption.dataset.id as Locales
         dispatch(setLocale(selectedLocale))
     }
 

@@ -3,6 +3,8 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "strict": true,
     "noEmit": true,
     "allowJs": true,
     "checkJs": true,
@@ -12,6 +14,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "skipLibCheck": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
@@ -25,5 +28,5 @@
     }
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "dist"]
 }
