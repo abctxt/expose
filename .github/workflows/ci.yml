@@ -21,7 +21,7 @@ jobs:
         run: dotnet build -c Release -v minimal
 
       - name: Run dotnet tests
-        run: dotnet test tests/Expose.Tests/Expose.Tests.csproj -c Release -v minimal
+        run: dotnet test tests/Expose.Tests/Expose.Tests.fsproj -c Release -v minimal
 
   frontend:
     runs-on: ubuntu-latest
