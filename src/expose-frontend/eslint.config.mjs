@@ -1,11 +1,12 @@
-import tseslint from "typescript-eslint"
+// @ts-check
+import ts from "typescript-eslint"
 import preact from "eslint-config-preact"
 import globals from "globals"
 
-export default tseslint.config(
+export default ts.config(
     // eslint-config-preact already includes @eslint/js recommended + Preact/React rules
     ...preact,
-    ...tseslint.configs.recommended,
+    ...ts.configs.recommended,
     {
         files: ["**/*.{js,jsx,ts,tsx}"],
         languageOptions: {
