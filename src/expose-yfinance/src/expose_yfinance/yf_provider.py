@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
 import logging
-from typing import Any, Callable
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any
 
 import yfinance as yf
 
@@ -57,7 +58,7 @@ class YFinanceProvider:
             price=float(price),
             currency=currency,
             exchange=exchange,
-            timestamp_unix_ms=int(datetime.now(tz=timezone.utc).timestamp() * 1000),
+            timestamp_unix_ms=int(datetime.now(tz=UTC).timestamp() * 1000),
             source="yfinance",
             is_market_open=is_market_open,
         )

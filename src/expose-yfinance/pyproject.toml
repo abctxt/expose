@@ -9,17 +9,20 @@ description = "Expose YFinance live data microservice"
 license = "AGPL-3.0-or-later"
 requires-python = ">=3.11"
 dependencies = [
-  "grpcio==1.80.0",
-  "grpcio-tools==1.80.0",
-  "yfinance==1.3.0",
+  "grpcio==1.83.0",
+  "grpcio-tools==1.83.0",
+  "yfinance==1.5.2",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "pytest==9.0.3",
-  "pytest-asyncio==1.3.0",
-  "ruff==0.15.12",
+  "pytest==9.1.1",
+  "pytest-asyncio==1.4.0",
+  "ruff==0.16.0",
 ]
+
+[tool.uv]
+package = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -33,3 +36,7 @@ asyncio_mode = "auto"
 line-length = 180
 target-version = "py311"
 extend-exclude = ["src/expose_yfinance/_generated"]
+
+[tool.ruff.lint]
+# Broad catches are intentional for quote fetch/stream retry resilience.
+ignore = ["BLE001"]
