@@ -19,7 +19,7 @@ async def _serve_http_health(settings: Settings) -> None:
                 response = (
                     b"HTTP/1.1 200 OK\r\n"
                     b"Content-Type: application/json\r\n"
-                    + f"Content-Length: {len(body)}\r\n".encode("utf-8")
+                    + f"Content-Length: {len(body)}\r\n".encode()
                     + b"Connection: close\r\n\r\n"
                     + body
                 )

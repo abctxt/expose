@@ -30,3 +30,4 @@ When the task relates to the "Workflow Automation" feature, prioritize these loc
 We use Temporal as workflow engine:
 - https://github.com/temporalio/sdk-dotnet
 - https://github.com/temporalio/samples-dotnet
+- Self-hosted deployment: https://docs.temporal.io/self-hosted-guide/deployment

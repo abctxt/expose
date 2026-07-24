@@ -6,8 +6,8 @@ The backend consumes quotes via server-streaming gRPC and exposes cached snapsho
 Quick start:
 
 - `cd src/expose-yfinance`
-- `python -m pip install -e ".[dev]"`
-- `python -m expose_yfinance.main`
+- `uv sync --all-extras`
+- `uv run python -m expose_yfinance.main`
 
 Service environment variables:
 
