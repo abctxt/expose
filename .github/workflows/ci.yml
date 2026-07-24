@@ -64,7 +64,7 @@ jobs:
 
       - name: Lint AI service
         working-directory: src/expose-ai
-        run: npm run lint
+        run: npm run eslint
 
       - name: Build AI service
         working-directory: src/expose-ai
