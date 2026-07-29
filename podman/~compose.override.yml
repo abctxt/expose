@@ -46,3 +46,33 @@ services:
     # volumes:
     #   - /path/to/expose/temporal-db:/var/lib/mysql:delegated
 
+
+  temporal:
+    environment:
+      <<: *env
+      # MYSQL_USER: "temporal"
+      MYSQL_PWD: "change-me"
+    # ports:
+    #   - "7234:7233"
+
+  temporal-db-schema:
+    environment:
+      <<: *env
+      MYSQL_PWD: "change-me"
+
+  temporal-namespace:
+    environment:
+      <<: *env
+      # DEFAULT_NAMESPACE: "expose"
+      # DEFAULT_NAMESPACE_RETENTION: "72h"
+
+  temporal-admin:
+    environment:
+      <<: *env
+
+  temporal-ui:
+    environment:
+      <<: *env
+      # TEMPORAL_CORS_ORIGINS: "http://localhost:3000"
+    # ports:
+    #   - "8080:8080"
