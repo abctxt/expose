@@ -8,9 +8,6 @@ ARG cfg=/etc/my.cnf.d
 ARG lib=/usr/lib64/mysql
 
 
-# Add repo file for MariaDB 12.x
-COPY podman/mariadb/mariadb.repo  /etc/yum.repos.d/
-
 # Prepare OS
 RUN microdnf update -y && microdnf install -y tzdata shadow-utils
 
@@ -18,8 +15,10 @@ RUN microdnf update -y && microdnf install -y tzdata shadow-utils
 RUN useradd --system --no-create-home -U -u 777 -s /sbin/nologin $user && \
     mkdir -p $data $run && chown $user:$user $data $run && chmod 755 $data $run
 
-# Install MariaDB
-RUN microdnf install -y MariaDB-server MariaDB-client
+# Install MySQL (drop file caps so non-root entrypoint can exec mysqld)
+RUN microdnf install -y mysql8.4-server mysql8.4 libcap && \
+    setcap -r /usr/libexec/mysqld && \
+    rm -f /etc/my.cnf.d/mysql-server.cnf
 
 # Remove OS tools
 RUN microdnf remove -y shadow-utils && \
@@ -27,15 +26,15 @@ RUN microdnf remove -y shadow-utils && \
     rm -rf /var/cache/yum
 
 # Copy config files & scripts
-COPY podman/mariadb/my.cnf  /etc/
-COPY podman/mariadb/mariadb.sh  /opt/
+COPY podman/temporal-db/my.cnf  /etc/
+COPY podman/temporal-db/mysql.sh  /opt/
 
 # User permissions
 RUN chown $user:$user /etc/my.cnf $cfg $lib && \
     chmod 644 /etc/my.cnf && chmod 755 $cfg $lib && \
     find $cfg $lib -type f -exec chmod 644 {} \; && \
     find $cfg $lib -type d -exec chmod 755 {} \; && \
-    chown $user:$user /opt/mariadb.sh && chmod 544 /opt/mariadb.sh
+    chown $user:$user /opt/mysql.sh && chmod 544 /opt/mysql.sh
 
 
 VOLUME ["$data"]
@@ -44,4 +43,4 @@ EXPOSE 3306/tcp
 
 USER $user
 
-ENTRYPOINT ["/opt/mariadb.sh"]
+ENTRYPOINT ["/opt/mysql.sh"]

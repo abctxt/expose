@@ -44,5 +44,45 @@ services:
     restart: unless-stopped
     privileged: false
 
+  mariadb:
+    build:
+      context: ../
+      dockerfile: podman/mariadb/Containerfile
+    restart: unless-stopped
+    privileged: false
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+      - label=disable
+    environment:
+      MARIADB_DATABASE: "${EXPOSE_MARIADB_DATABASE:-expose}"
+      MARIADB_USER: "${EXPOSE_MARIADB_USER:-expose}"
+      MARIADB_PASSWORD: "${EXPOSE_MARIADB_PASSWORD}"
+      MARIADB_ROOT_PASSWORD: "${EXPOSE_MARIADB_ROOT_PASSWORD}"
+    volumes:
+      - expose-db:/var/lib/mysql:Z
+
+
+  temporal-db:
+    build:
+      context: ../
+      dockerfile: podman/temporal-db/Containerfile
+    restart: unless-stopped
+    privileged: false
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+      - label=disable
+    environment:
+      MYSQL_DATABASE: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
+      MYSQL_VISIBILITY_DATABASE: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
+      MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
+      MYSQL_PASSWORD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${EXPOSE_TEMPORAL_MYSQL_ROOT_PASSWORD}"
+    volumes:
+      - temporal-db:/var/lib/mysql:Z
+
 volumes:
   backend-logs: { }
+  expose-db: { }
+  temporal-db: { }
