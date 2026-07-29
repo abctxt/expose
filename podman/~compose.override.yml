@@ -20,3 +20,29 @@ services:
   ai:
     environment:
       <<: *env
+
+  mariadb:
+    environment:
+      <<: *env
+      # MARIADB_DATABASE: "expose"
+      # MARIADB_USER: "expose"
+      MARIADB_PASSWORD: "change-me"
+      MARIADB_ROOT_PASSWORD: "change-me"
+    # ports:
+    #   - "3307:3306"
+    # volumes:
+    #   - /path/to/expose/db:/var/lib/mysql:delegated
+
+  temporal-db:
+    environment:
+      <<: *env
+      # MYSQL_DATABASE: "temporal"
+      # MYSQL_VISIBILITY_DATABASE: "temporal_visibility"
+      # MYSQL_USER: "temporal"
+      MYSQL_PASSWORD: "change-me"
+      MYSQL_ROOT_PASSWORD: "change-me"
+    # ports:
+    #   - "3308:3306"
+    # volumes:
+    #   - /path/to/expose/temporal-db:/var/lib/mysql:delegated
+
