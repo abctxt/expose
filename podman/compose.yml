@@ -1,3 +1,19 @@
+# Host-side environment variables (compose interpolation).
+# Set via shell env or an env file; override defaults in compose.override.yml when needed.
+#
+# Temporal MySQL (temporal-db)
+#   EXPOSE_TEMPORAL_DB_NAME              Temporal persistence database (default: temporal)
+#   EXPOSE_TEMPORAL_VISIBILITY_DB_NAME   Temporal visibility database (default: temporal_visibility)
+#   EXPOSE_TEMPORAL_MYSQL_USER           Temporal DB user (default: temporal)
+#   EXPOSE_TEMPORAL_MYSQL_PASSWORD       Temporal DB user password (required on first boot; also used by Temporal server)
+#   EXPOSE_TEMPORAL_MYSQL_ROOT_PASSWORD  temporal-db root password (required on first boot)
+#
+# Temporal server / tooling
+#   EXPOSE_TEMPORAL_ADDRESS              Frontend gRPC address as seen by clients/UI/admin (default: temporal:7233)
+#   EXPOSE_TEMPORAL_NAMESPACE            Default namespace created at startup (default: expose)
+#   EXPOSE_TEMPORAL_NAMESPACE_RETENTION  Retention for that namespace (default: 72h)
+#   EXPOSE_TEMPORAL_UI_CORS_ORIGINS      Allowed CORS origins for temporal-ui (default: http://localhost:3000)
+
 services:
 
   frontend:
@@ -29,6 +45,7 @@ services:
     depends_on:
       - yfinance
       - ai
+      - temporal
 
   yfinance:
     build:
@@ -81,6 +98,113 @@ services:
       MYSQL_ROOT_PASSWORD: "${EXPOSE_TEMPORAL_MYSQL_ROOT_PASSWORD}"
     volumes:
       - temporal-db:/var/lib/mysql:Z
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+
+
+  temporal:
+    build:
+      context: ../
+      dockerfile: podman/temporal/Containerfile
+    restart: unless-stopped
+    privileged: false
+    depends_on:
+      temporal-db-schema:
+        condition: service_completed_successfully
+    environment:
+      DB: mysql8
+      DB_PORT: 3306
+      MYSQL_SEEDS: temporal-db
+      MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
+      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD:-temporal}"
+      DBNAME: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
+      VISIBILITY_DBNAME: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
+      ENABLE_ES: "false"
+      BIND_ON_IP: "0.0.0.0"
+      DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/development-sql.yml
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      TEMPORAL_CLI_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "7233" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+
+
+  temporal-db-schema:
+    build:
+      context: ../
+      dockerfile: podman/temporal-admin/Containerfile
+    restart: on-failure:5
+    privileged: false
+    depends_on:
+      temporal-db:
+        condition: service_healthy
+    environment:
+      DB: mysql8
+      DB_PORT: 3306
+      MYSQL_SEEDS: temporal-db
+      MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
+      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD:-temporal}"
+      DBNAME: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
+      VISIBILITY_DBNAME: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
+      SKIP_DB_CREATE: "true"
+    entrypoint: [ "/bin/sh" ]
+    command: [ "/opt/setup-mysql.sh" ]
+
+
+  temporal-namespace:
+    build:
+      context: ../
+      dockerfile: podman/temporal-admin/Containerfile
+    restart: on-failure:5
+    privileged: false
+    depends_on:
+      temporal:
+        condition: service_healthy
+    environment:
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      DEFAULT_NAMESPACE: "${EXPOSE_TEMPORAL_NAMESPACE:-expose}"
+      DEFAULT_NAMESPACE_RETENTION: "${EXPOSE_TEMPORAL_NAMESPACE_RETENTION:-72h}"
+    entrypoint: [ "/bin/sh" ]
+    command: [ "/opt/setup-namespace.sh" ]
+
+
+  temporal-admin:
+    profiles: [ "temporal-admin" ]
+    build:
+      context: ../
+      dockerfile: podman/temporal-admin/Containerfile
+    restart: unless-stopped
+    privileged: false
+    depends_on:
+      temporal:
+        condition: service_healthy
+    environment:
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      TEMPORAL_CLI_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+    stdin_open: true
+    tty: true
+
+
+  temporal-ui:
+    profiles: [ "temporal-ui" ]
+    build:
+      context: ../
+      dockerfile: podman/temporal-ui/Containerfile
+    restart: unless-stopped
+    privileged: false
+    depends_on:
+      temporal:
+        condition: service_healthy
+    environment:
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      TEMPORAL_CORS_ORIGINS: "${EXPOSE_TEMPORAL_UI_CORS_ORIGINS:-http://localhost:3000}"
 
 volumes:
   backend-logs: { }
