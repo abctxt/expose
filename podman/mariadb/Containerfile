@@ -7,8 +7,9 @@ ARG run=/var/run/mysql
 ARG cfg=/etc/my.cnf.d
 ARG lib=/usr/lib64/mysql
 
-# MariaDB 12.2 stable (GA) release
-COPY mariadb/mariadb.repo  /etc/yum.repos.d/
+
+# Add repo file for MariaDB 12.x
+COPY podman/mariadb/mariadb.repo  /etc/yum.repos.d/
 
 # Prepare OS
 RUN microdnf update -y && microdnf install -y tzdata shadow-utils
@@ -26,8 +27,8 @@ RUN microdnf remove -y shadow-utils && \
     rm -rf /var/cache/yum
 
 # Copy config files & scripts
-COPY mariadb/my.cnf  /etc/
-COPY mariadb/mariadb.sh  /opt/
+COPY podman/mariadb/my.cnf  /etc/
+COPY podman/mariadb/mariadb.sh  /opt/
 
 # User permissions
 RUN chown $user:$user /etc/my.cnf $cfg $lib && \
