@@ -1,0 +1,17 @@
+# Optional overlay for NVIDIA GPU (CDI). Use with profile ollama-nvidia:
+#   ./start.sh ollama nvidia
+#
+# Host prerequisites (Linux): NVIDIA drivers + NVIDIA Container Toolkit / CDI
+# (e.g. nvidia.com/gpu). Not applicable on macOS Podman machine for passthrough.
+# Switches from alpine/ollama (CPU) to the full ollama/ollama image.
+
+services:
+
+  ollama:
+    build:
+      context: ../
+      dockerfile: podman/ollama/nvidia/Containerfile
+    devices:
+      - nvidia.com/gpu=all
+    security_opt:
+      - label=disable

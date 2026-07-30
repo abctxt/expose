@@ -18,7 +18,7 @@ Commands:
   temporal-ui         Start Temporal UI (profile temporal-ui; pulls in Temporal core)
   temporal-admin      Start Temporal admin tools (profile temporal-admin)
   temporal-dev        Start Temporal core + UI + admin
-  ollama              Start Ollama (profile ollama-cpu)
+  ollama [variant]    Start Ollama (optional). Variant: cpu (default), nvidia, amd
   down                Stop and remove project containers
   ps                  Show project container status
   logs [service...]   Follow logs (all services if none given)
@@ -26,6 +26,9 @@ Commands:
 
 Examples:
   ./start.sh temporal-dev
+  ./start.sh ollama
+  ./start.sh ollama nvidia
+  ./start.sh ollama amd
   ./start.sh mariadb
   ./start.sh logs temporal
 EOF
@@ -92,11 +95,35 @@ cmd_temporal_dev() {
 }
 
 cmd_ollama() {
-    up_with_profiles ollama-cpu -- ollama
+    variant="${1:-cpu}"
+    case "${variant}" in
+        cpu)
+            up_with_profiles ollama-cpu -- ollama
+            ;;
+        nvidia)
+            COMPOSE="${COMPOSE} -f compose.ollama-nvidia.yml"
+            up_with_profiles ollama-nvidia -- ollama
+            ;;
+        amd)
+            COMPOSE="${COMPOSE} -f compose.ollama-amd.yml"
+            up_with_profiles ollama-amd -- ollama
+            ;;
+        *)
+            echo "Unknown Ollama variant: ${variant}" >&2
+            echo "Use: cpu | nvidia | amd" >&2
+            exit 1
+            ;;
+    esac
 }
 
 cmd_down() {
-    compose --profile temporal-ui --profile temporal-admin --profile ollama-cpu down
+    compose \
+        --profile temporal-ui \
+        --profile temporal-admin \
+        --profile ollama-cpu \
+        --profile ollama-nvidia \
+        --profile ollama-amd \
+        down
 }
 
 cmd_ps() {
