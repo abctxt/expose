@@ -1,0 +1,6 @@
+# Full official image. Required for NVIDIA GPU acceleration.
+FROM ollama/ollama:0.32.4
+
+ARG data=/root/.ollama
+
+VOLUME ["$data"]
