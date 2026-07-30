@@ -1,0 +1,17 @@
+# Optional overlay for AMD GPU (ROCm). Use with profile ollama-amd:
+#   ./start.sh ollama amd
+#
+# Host prerequisites (Linux): AMD GPU with ROCm-capable kernel devices
+# (/dev/kfd, /dev/dri). Switches from alpine/ollama (CPU) to ollama/ollama:*-rocm.
+
+services:
+
+  ollama:
+    build:
+      context: ../
+      dockerfile: podman/ollama/rocm/Containerfile
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    security_opt:
+      - label=disable

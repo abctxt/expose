@@ -13,6 +13,14 @@
 #   EXPOSE_TEMPORAL_NAMESPACE            Default namespace created at startup (default: expose)
 #   EXPOSE_TEMPORAL_NAMESPACE_RETENTION  Retention for that namespace (default: 72h)
 #   EXPOSE_TEMPORAL_UI_CORS_ORIGINS      Allowed CORS origins for temporal-ui (default: http://localhost:3000)
+#
+# Ollama (optional; not started unless a profile is enabled)
+#   Profiles: ollama-cpu | ollama-nvidia | ollama-amd
+#   Prefer: ./start.sh ollama [cpu|nvidia|amd]
+#   Default image: slim CPU build (vendored alpine-docker/ollama + llama-server fix)
+#   NVIDIA overlay: compose.ollama-nvidia.yml (full ollama/ollama + CDI gpu)
+#   AMD overlay:    compose.ollama-amd.yml (ollama/ollama:*-rocm + /dev/kfd,/dev/dri)
+#   In-network URL: http://ollama:11434
 
 services:
 
@@ -60,6 +68,20 @@ services:
       dockerfile: podman/exp-ai/Containerfile
     restart: unless-stopped
     privileged: false
+
+
+  ollama:
+    # Optional: enable exactly one of ollama-cpu | ollama-nvidia | ollama-amd.
+    # Default build is slim CPU (PR #13-style). NVIDIA/AMD overlays switch image + devices.
+    profiles: [ "ollama-cpu", "ollama-nvidia", "ollama-amd" ]
+    build:
+      context: ../
+      dockerfile: podman/ollama/Containerfile
+    restart: unless-stopped
+    privileged: false
+    volumes:
+      - ollama-data:/root/.ollama:Z
+
 
   mariadb:
     build:
@@ -206,7 +228,9 @@ services:
       TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
       TEMPORAL_CORS_ORIGINS: "${EXPOSE_TEMPORAL_UI_CORS_ORIGINS:-http://localhost:3000}"
 
+
 volumes:
   backend-logs: { }
   expose-db: { }
   temporal-db: { }
+  ollama-data: { }
