@@ -1,0 +1,6 @@
+# Full official ROCm image. Required for AMD GPU acceleration.
+FROM ollama/ollama:0.32.4-rocm
+
+ARG data=/root/.ollama
+
+VOLUME ["$data"]

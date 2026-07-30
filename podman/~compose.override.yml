@@ -21,6 +21,15 @@ services:
     environment:
       <<: *env
 
+  ollama:
+    environment:
+      <<: *env
+    # Optional host port (container listens on 11434).
+    # ports:
+    #   - "11434:11434"
+    # Start with: ./start.sh ollama [cpu|nvidia|amd]
+    # GPU overlays are compose.ollama-nvidia.yml / compose.ollama-amd.yml.
+
   mariadb:
     environment:
       <<: *env
@@ -45,7 +54,6 @@ services:
     #   - "3308:3306"
     # volumes:
     #   - /path/to/expose/temporal-db:/var/lib/mysql:delegated
-
 
   temporal:
     environment:
