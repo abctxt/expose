@@ -2,8 +2,7 @@
 #   ./start.sh ollama nvidia
 #
 # Host prerequisites (Linux): NVIDIA drivers + NVIDIA Container Toolkit / CDI
-# (e.g. nvidia.com/gpu). Not applicable on macOS Podman machine for passthrough.
-# Switches from alpine/ollama (CPU) to the full ollama/ollama image.
+# (e.g. nvidia.com/gpu). Switches from alpine/ollama (CPU) to the full ollama/ollama image.
 
 services:
 
