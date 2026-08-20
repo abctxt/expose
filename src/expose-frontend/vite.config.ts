@@ -73,6 +73,18 @@ export default defineConfig({
         preact({
             devToolsEnabled: false,
         }),
+        {
+            name: "no-cert-local-urls",
+            configureServer(server) {
+                const printUrls = server.printUrls.bind(server)
+                server.printUrls = () => {
+                    if (server.resolvedUrls) {
+                        server.resolvedUrls.local = []
+                    }
+                    printUrls()
+                }
+            },
+        },
         /*compress({
             verbose: false,
             deleteOriginFile: true,
