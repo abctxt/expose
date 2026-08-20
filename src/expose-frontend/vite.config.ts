@@ -1,6 +1,6 @@
 import {defineConfig} from "vite"
 import preact from "@preact/preset-vite"
-import {ui5LimitAssets} from "./vite-plugin-ui5-assets"
+import {ui5LimitAssets} from "./vite-plugin-ui5-assets.ts"
 //import compress from "vite-plugin-compression"
 import {load} from "js-toml"
 //import zlib from "zlib"
@@ -31,33 +31,35 @@ const https = devServer.Cert && devServer.PrivKey
     }
     : undefined
 
+const root = import.meta.dirname
 
 // https://vitejs.dev/config/
 export default defineConfig({
     resolve: {
         alias: [ // In sync with tsconfig.json
-            {find: "@app", replacement: path.resolve(__dirname, "src/app")},
-            {find: "@page", replacement: path.resolve(__dirname, "src/pages")},
-            {find: "@comp", replacement: path.resolve(__dirname, "src/components")},
-            {find: "@fwk", replacement: path.resolve(__dirname, "src/_framework")},
-            {find: "@res", replacement: path.resolve(__dirname, "res")},
+            {find: "@app", replacement: path.resolve(root, "src/app")},
+            {find: "@page", replacement: path.resolve(root, "src/pages")},
+            {find: "@comp", replacement: path.resolve(root, "src/components")},
+            {find: "@fwk", replacement: path.resolve(root, "src/_framework")},
+            {find: "@res", replacement: path.resolve(root, "res")},
         ],
     },
     css: {
         preprocessorOptions: {
             styl: {
                 additionalData:
-                    `@import "${path.resolve(__dirname, "src/app/colors")}"
-                     @import "${path.resolve(__dirname, "src/app/screen")}"
-                     @import "${path.resolve(__dirname, "src/_framework/flex")}"
-                     @import "${path.resolve(__dirname, "src/_framework/utils")}"`
+                    `@import "${path.resolve(root, "src/app/colors")}"
+                     @import "${path.resolve(root, "src/app/screen")}"
+                     @import "${path.resolve(root, "src/_framework/flex")}"
+                     @import "${path.resolve(root, "src/_framework/utils")}"`
             },
         },
     },
     build: {
         // Vite 8 defaults to lightningcss, which rejects progressive CSS from browserux.css
         // (e.g. ::search-text:current). Keep esbuild until lightningcss catches up.
-        cssMinify: "esbuild"
+        cssMinify: "esbuild",
+        emptyOutDir: true,
     },
     server: {
         strictPort: true,
