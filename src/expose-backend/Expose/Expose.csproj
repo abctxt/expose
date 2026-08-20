@@ -18,15 +18,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Temporalio" Version="1.17.0" />
-    <PackageReference Include="Temporalio.Extensions.Hosting" Version="1.17.0" />
+    <PackageReference Include="Temporalio" Version="1.18.0" />
+    <PackageReference Include="Temporalio.Extensions.Hosting" Version="1.18.0" />
     <PackageReference Include="Google.Protobuf" Version="3.35.1" />
-    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.80.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.83.0" />
     <PackageReference Include="Grpc.Tools" Version="2.83.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Tomlyn.Extensions.Configuration" Version="1.0.6" />
+    <PackageReference Include="Tomlyn.Extensions.Configuration" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
