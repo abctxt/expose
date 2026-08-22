@@ -8,15 +8,6 @@
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
-  <!-- Publishing -->
-  <PropertyGroup>
-    <AssemblyName>expose</AssemblyName>
-    <PublishAot>false</PublishAot>
-    <SelfContained>false</SelfContained>
-    <PublishTrimmed>false</PublishTrimmed>
-    <PublishSingleFile>false</PublishSingleFile>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Temporalio" Version="1.18.0" />
     <PackageReference Include="Temporalio.Extensions.Hosting" Version="1.18.0" />
