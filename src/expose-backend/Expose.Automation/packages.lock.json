@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "Google.Protobuf": {
+        "type": "Direct",
+        "requested": "[3.36.0, )",
+        "resolved": "3.36.0",
+        "contentHash": "wDPg8sKlmA8we1bqnC9DYKwLog4PNJ4GYTWV9FkzlGvfs3kNCSt2x0Qe31SBOeBPS2JGEZ/lNfil/Bkwx18Ufg=="
+      },
+      "Temporalio": {
+        "type": "Direct",
+        "requested": "[1.18.0, )",
+        "resolved": "1.18.0",
+        "contentHash": "GycxFuB7lvKh4tzJjrYHbiQ7eu8/MYc0UFy5ojTQuatoXXeJkSCIkpD3edCfccTyQ/feMeFEbemonk3BI+YTxQ==",
+        "dependencies": {
+          "Google.Protobuf": "3.26.1",
+          "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
+          "NexusRpc": "0.4.0"
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "type": "Transitive",
+        "resolved": "2.2.0",
+        "contentHash": "B2WqEox8o+4KUOpL7rZPyh6qYjik8tHi2tN8Z9jZkHzED8ElYgZa/h6K+xliB435SqUcWT290Fr2aa8BtZjn8A=="
+      },
+      "NexusRpc": {
+        "type": "Transitive",
+        "resolved": "0.4.0",
+        "contentHash": "2cdRtmwT/vskWqJvojODvR7CpRhLWAnCeVT5Z8sPdRDX8P/Ywpw48T2lqgqhxM8JROfoflHzhSiXo4h1ln3/MQ=="
+      }
+    }
+  }
+}
