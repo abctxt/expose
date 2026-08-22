@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Tomlyn.Extensions.Configuration;
 
 var builder = WebApplication.CreateSlimBuilder(args);
+builder.WebHost.UseKestrelHttpsConfiguration();
 
 var exposeTomlPath = Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, "..", "..", "..", "config", "expose.toml"));
 builder.Configuration.AddTomlFile(path: exposeTomlPath, optional: true, reloadOnChange: true);
