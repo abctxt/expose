@@ -23,12 +23,6 @@
         "resolved": "2.83.0",
         "contentHash": "vK2Go/83W0v2Nn7tTP9fGrX4IjmOa93s3M0SZeFimU1vIIr2wL9yNJlIyK21y85SGm3++JncB8IF751cjoLHuQ=="
       },
-      "Microsoft.NET.ILLink.Tasks": {
-        "type": "Direct",
-        "requested": "[10.0.11, )",
-        "resolved": "10.0.11",
-        "contentHash": "IBf7lbovvjGWVWXZX5cJ/cO0WXbId0Zq4BuSeT94mGZuOAP66oMeH9PTBZ9Jpp3Jb6jtK0qm/NyUbPRo1gC/wQ=="
-      },
       "Temporalio": {
         "type": "Direct",
         "requested": "[1.18.0, )",
@@ -104,18 +98,6 @@
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "[10.1.400, )"
-        }
-      }
-    },
-    "net10.0/osx-arm64": {
-      "Temporalio": {
-        "type": "Direct",
-        "requested": "[1.18.0, )",
-        "resolved": "1.18.0",
-        "contentHash": "GycxFuB7lvKh4tzJjrYHbiQ7eu8/MYc0UFy5ojTQuatoXXeJkSCIkpD3edCfccTyQ/feMeFEbemonk3BI+YTxQ==",
-        "dependencies": {
-          "Google.Protobuf": "3.26.1",
-          "NexusRpc": "0.4.0"
         }
       }
     }
