@@ -4,9 +4,9 @@
     "net10.0": {
       "FSharp.Core": {
         "type": "Direct",
-        "requested": "[10.1.400, )",
-        "resolved": "10.1.400",
-        "contentHash": "H9wlZ/tWgNp+Q4WQ5aUSi3XOBXrL6z+UkR0PNeyDFyoZR3c3PbtA21B9FqlthrhEwQ6f5AtQV0JLhBBDqjjscw=="
+        "requested": "[10.1.401, )",
+        "resolved": "10.1.401",
+        "contentHash": "/lvOK51KD8IangBYkfDVna3/HrE/r4VUnX3dI01KDspctoYXmind3POeoYkqWKeXHwiKlf6Hc9TxwSnoSCWcjw=="
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
@@ -35,8 +35,8 @@
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.36.0",
-        "contentHash": "wDPg8sKlmA8we1bqnC9DYKwLog4PNJ4GYTWV9FkzlGvfs3kNCSt2x0Qe31SBOeBPS2JGEZ/lNfil/Bkwx18Ufg=="
+        "resolved": "3.36.1",
+        "contentHash": "77AqPEoaY1ODE+syYBHti0jXiwQq0J/fUr/fRyYhNlc9oKtH5dZZEr/OLKtdKNVG83PRnCYB2r8B80ZrObzOGQ=="
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
@@ -544,7 +544,7 @@
         "dependencies": {
           "Expose.Automation": "[1.0.0, )",
           "Expose.FSharp": "[1.0.0, )",
-          "Google.Protobuf": "[3.36.0, )",
+          "Google.Protobuf": "[3.36.1, )",
           "Grpc.Net.ClientFactory": "[2.83.0, )",
           "Temporalio": "[1.18.0, )",
           "Temporalio.Extensions.Hosting": "[1.18.0, )",
@@ -554,14 +554,14 @@
       "expose.automation": {
         "type": "Project",
         "dependencies": {
-          "Google.Protobuf": "[3.36.0, )",
+          "Google.Protobuf": "[3.36.1, )",
           "Temporalio": "[1.18.0, )"
         }
       },
       "expose.fsharp": {
         "type": "Project",
         "dependencies": {
-          "FSharp.Core": "[10.1.400, )"
+          "FSharp.Core": "[10.1.401, )"
         }
       }
     }
