@@ -1,0 +1,47 @@
+FROM almalinux:10-minimal
+
+ARG user=expose
+
+ARG target=/expose/app
+ARG config=/config
+ARG data=/expose/data
+ARG logs=/expose/logs
+
+
+# Prepare OS
+RUN microdnf update -y && microdnf install -y tzdata shadow-utils aspnetcore-runtime-10.0
+
+# Add user + application paths
+RUN useradd --system --no-create-home -U -u 777 -s /sbin/nologin $user && \
+    mkdir -p $target $config $data $logs
+
+# Copy build artifacts
+COPY podman/backend/build/.  $target/
+COPY config/expose.toml /config/expose.toml
+COPY config/kestrel-cert.pem /config/kestrel-cert.pem
+COPY config/kestrel-key.pem /config/kestrel-key.pem
+
+# Set user permissions
+RUN chown -R $user:$user $target $config $data $logs && \
+    find $target -type f -exec chmod 444 {} \; && \
+    find $target -type d -exec chmod 555 {} \; && \
+    find $data $logs -type f -exec chmod 644 {} \; && \
+    find $data $logs -type d -exec chmod 755 {} \; && \
+    chmod +x $target/expose
+
+# Remove OS tools
+RUN microdnf remove -y shadow-utils && \
+    microdnf clean all && \
+    rm -rf /var/cache/yum
+
+
+VOLUME ["$data", "$logs"]
+
+EXPOSE 5000/tcp
+EXPOSE 5001/tcp
+
+USER $user
+
+WORKDIR $target
+
+CMD ["/expose/app/expose"]

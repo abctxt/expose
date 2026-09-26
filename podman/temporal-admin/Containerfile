@@ -1,0 +1,10 @@
+FROM temporalio/admin-tools:1.31.2
+
+USER root
+
+COPY podman/temporal-admin/setup-mysql.sh  /opt/setup-mysql.sh
+COPY podman/temporal-admin/setup-namespace.sh  /opt/setup-namespace.sh
+
+RUN chmod 755 /opt/setup-mysql.sh /opt/setup-namespace.sh
+
+USER temporal
