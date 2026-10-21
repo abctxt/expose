@@ -1,1 +1,1 @@
-FROM temporalio/ui:2.52.1
+FROM temporalio/ui:2.56.0
