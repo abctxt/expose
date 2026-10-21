@@ -1,8 +1,8 @@
 import {LocationProvider, Route, Router, useLocation} from "preact-iso"
 import {useEffect} from "preact/hooks"
-import {useAppSelector} from "@fwk/hooks"
+import {useAppDispatch, useAppSelector} from "@fwk/hooks"
 import {AnyComponent} from "preact"
-import {Route as AppRoute} from "./router.redux"
+import {isAppRoute, navigateTo, Route as AppRoute} from "./router.redux"
 
 import SignalHandler from "@comp/signals/signals"
 import Dashboard from "@page/dashboard/dashboard"
@@ -21,14 +21,14 @@ const routeMap: Record<string, AnyComponent> = {
 
 const LocationListener = () => {
     const currentRoute = useAppSelector((state) => state._router.currentRoute)
-    const {url, route} = useLocation()
+    const dispatch = useAppDispatch()
+    const {url} = useLocation()
 
     useEffect(() => {
-        // Synchronize the current route in Redux with the browser route
-        if (url !== currentRoute && Object.keys(routeMap).includes(url)) {
-            route(currentRoute)
+        if (url !== currentRoute && isAppRoute(url)) {
+            dispatch(navigateTo(url))
         }
-    }, [currentRoute, url, route])
+    }, [url, currentRoute, dispatch])
 
     return <></>
 }

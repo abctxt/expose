@@ -12,6 +12,7 @@ interface Translation_Header {
     readonly caption_setup: string
     readonly caption_network: string
     readonly caption_about: string
+    readonly caption_notfound: string
 }
 
 interface Translation_NavMenu {

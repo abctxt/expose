@@ -35,3 +35,9 @@ $elem-box-width = 200px
     margin-right 6px
     color $fg-nav-elements
     border 1px $border-nav-elements solid
+
+  .button.active
+    border-color $fg-nav-elements
+    ui5Button(Lite_BorderColor, $fg-nav-elements)
+    ui5Button(Lite_Hover_BorderColor, $fg-nav-elements)
+    ui5Button(Lite_Active_BorderColor, $fg-nav-elements)

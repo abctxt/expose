@@ -20,6 +20,12 @@ $button-height = 58px
   border 1px $border-nav-elements solid
   font-size 0.7rem
 
+.button.active
+  border-color $fg-nav-elements
+  ui5Button(Lite_BorderColor, $fg-nav-elements)
+  ui5Button(Lite_Hover_BorderColor, $fg-nav-elements)
+  ui5Button(Lite_Active_BorderColor, $fg-nav-elements)
+
 .button::part(button)
   ui5(button_base_icon_margin, 0)
   ui5(button_base_icon_only_padding, 0)

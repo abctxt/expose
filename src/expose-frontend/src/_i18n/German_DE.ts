@@ -11,6 +11,7 @@ const German_DE: Translation = {
         caption_setup: "Einstellungen",
         caption_network: "Netzwerk",
         caption_about: "Über diese Software",
+        caption_notfound: "Nicht gefunden",
     },
     navmenu: {
         menu_dashboard: "Übersicht",
