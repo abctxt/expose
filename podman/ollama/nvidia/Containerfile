@@ -1,5 +1,5 @@
 # Full official image. Required for NVIDIA GPU acceleration.
-FROM ollama/ollama:0.32.4
+FROM ollama/ollama:0.40.7
 
 ARG data=/root/.ollama
 

@@ -1,13 +1,13 @@
-# Vendored from alpine-docker/ollama with PR #13 applied (include llama-server).
+# Vendored from alpine-docker/ollama (CPU-only: drop GPU backends).
 #   https://github.com/alpine-docker/ollama/blob/master/Dockerfile
-#   https://github.com/alpine-docker/ollama/pull/13
 
-FROM ollama/ollama:0.32.4 AS ollama
+FROM ollama/ollama:0.40.7 AS ollama
 
 # Drop GPU backends (each lives in its own subdir) in a separate stage so the
 # deleted bytes never end up in the final image's layers.
 FROM ollama AS ollama-cpu-only
-RUN rm -rf /usr/lib/ollama/cuda_v* /usr/lib/ollama/rocm_v* /usr/lib/ollama/vulkan /usr/lib/ollama/cuda_jetpack*
+RUN rm -rf /usr/lib/ollama/cuda_v* /usr/lib/ollama/rocm_v* /usr/lib/ollama/vulkan /usr/lib/ollama/cuda_jetpack* \
+    /usr/lib/ollama/mlx_cuda_v13 /usr/lib/ollama/cuda_v13
 
 FROM cgr.dev/chainguard/wolfi-base
 

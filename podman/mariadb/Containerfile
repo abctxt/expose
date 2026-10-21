@@ -8,7 +8,7 @@ ARG cfg=/etc/my.cnf.d
 ARG lib=/usr/lib64/mysql
 
 
-# Add repo file for MariaDB 12.x
+# Add repo file for MariaDB 13.0
 COPY podman/mariadb/mariadb.repo  /etc/yum.repos.d/
 
 # Prepare OS
@@ -19,7 +19,7 @@ RUN useradd --system --no-create-home -U -u 777 -s /sbin/nologin $user && \
     mkdir -p $data $run && chown $user:$user $data $run && chmod 755 $data $run
 
 # Install MariaDB
-RUN microdnf install -y MariaDB-server MariaDB-client
+RUN microdnf install -y MariaDB-server-13.0.2 MariaDB-client-13.0.2
 
 # Remove OS tools
 RUN microdnf remove -y shadow-utils && \
