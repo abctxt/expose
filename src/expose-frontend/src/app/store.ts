@@ -5,7 +5,7 @@ import _signals from "@comp/signals/signals.redux"
 import about from "@page/about/about.redux"
 import dashboard from "@page/dashboard/dashboard.redux"
 import network from "@page/network/network.redux"
-import setup from "@page/setup/setup.redux"
+import setup, {saveAppearance} from "@page/setup/setup.redux"
 
 
 export const store = configureStore({
@@ -17,6 +17,16 @@ export const store = configureStore({
         network,
         setup,
     },
+})
+
+let storedAppearance = JSON.stringify(store.getState().setup)
+store.subscribe(() => {
+    const next = JSON.stringify(store.getState().setup)
+    if (next === storedAppearance) {
+        return
+    }
+    storedAppearance = next
+    saveAppearance(store.getState().setup)
 })
 
 export type AppDispatch = typeof store.dispatch

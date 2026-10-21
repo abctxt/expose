@@ -9,8 +9,8 @@ description = "Expose YFinance live data microservice"
 license = "AGPL-3.0-or-later"
 requires-python = ">=3.11"
 dependencies = [
-  "grpcio==1.83.0",
-  "grpcio-tools==1.83.0",
+  "grpcio==1.84.0",
+  "grpcio-tools==1.84.0",
   "yfinance==1.7.0",
 ]
 
@@ -18,7 +18,7 @@ dependencies = [
 dev = [
   "pytest==9.1.1",
   "pytest-asyncio==1.4.0",
-  "ruff==0.16.4",
+  "ruff==0.17.1",
 ]
 
 [tool.uv]

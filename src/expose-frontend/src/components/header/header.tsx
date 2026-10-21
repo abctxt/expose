@@ -1,26 +1,30 @@
+import {useLocation} from "preact-iso"
 import styl from "./header.module.styl"
 import {useTranslation} from "@fwk/i18n"
 import {Button} from "@ui5/webcomponents-react"
-import {useAppDispatch, useAppSelector} from "@fwk/hooks"
-import {navigateTo, Route} from "@comp/router/router.redux"
+import {isAppRoute, Route} from "@comp/router/router.redux"
 
 type TopButtonProps = {
     icon: string
+    label: string
     route: Route
 }
 
-const TopButton = ({icon, route}: TopButtonProps) => {
-    const dispatch = useAppDispatch()
+const TopButton = ({icon, label, route: path}: TopButtonProps) => {
+    const {route, url} = useLocation()
+    const className = url === path ? `${styl.button} ${styl.active}` : styl.button
     return <Button
         design="Transparent"
-        className={styl.button}
+        className={className}
         icon={icon}
-        onClick={() => dispatch(navigateTo(route))}/>
+        tooltip={label}
+        accessibleName={label}
+        onClick={() => route(path)}/>
 }
 
 
 const Header = () => {
-    const route = useAppSelector((state) => state._router.currentRoute)
+    const {url} = useLocation()
     const { t } = useTranslation()
 
     const captionMap = {
@@ -29,7 +33,7 @@ const Header = () => {
         [Route.Network]: t("header", "caption_network"),
         [Route.About]: t("header", "caption_about"),
     }
-    const caption = captionMap[route]
+    const caption = isAppRoute(url) ? captionMap[url] : t("header", "caption_notfound")
 
     return <header className={styl.header}>
         <aside className={styl.logoBox}>
@@ -39,8 +43,8 @@ const Header = () => {
             <span>{caption}</span>
         </aside>
         <nav className={styl.nav}>
-            <TopButton icon="tnt/aggregator" route={Route.Network}/>
-            <TopButton icon="sys-help" route={Route.About}/>
+            <TopButton icon="tnt/aggregator" label={captionMap[Route.Network]} route={Route.Network}/>
+            <TopButton icon="sys-help" label={captionMap[Route.About]} route={Route.About}/>
         </nav>
     </header>
 }

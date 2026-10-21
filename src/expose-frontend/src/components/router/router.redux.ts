@@ -7,12 +7,23 @@ export enum Route {
     About = "/about",
 }
 
+export const isAppRoute = (url: string): url is Route =>
+    (Object.values(Route) as string[]).includes(url)
+
+const routeFromLocation = (): Route => {
+    if (typeof window === "undefined") {
+        return Route.Dashboard
+    }
+    const path = window.location.pathname
+    return isAppRoute(path) ? path : Route.Dashboard
+}
+
 interface State {
     currentRoute: Route
 }
 
 const init: State = {
-    currentRoute: Route.Dashboard,
+    currentRoute: routeFromLocation(),
 }
 
 export const slice = createSlice({

@@ -11,6 +11,7 @@ const English_US: Translation = {
         caption_setup: "Setup",
         caption_network: "Network",
         caption_about: "About",
+        caption_notfound: "Not found",
     },
     navmenu: {
         menu_dashboard: "Dashboard",

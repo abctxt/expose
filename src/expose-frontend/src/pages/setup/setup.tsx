@@ -23,15 +23,17 @@ const Setup = () => {
     const locale = useAppSelector(state => state.setup.locale)
 
     const onLocaleChange = (ev: Ui5CustomEvent<SelectDomRef, SelectChangeEventDetail>) => {
-        const selectedLocale = ev.detail.selectedOption.dataset.id as Locales
-        dispatch(setLocale(selectedLocale))
+        const selectedLocale = ev.detail.selectedOption?.value as Locales | undefined
+        if (selectedLocale) {
+            dispatch(setLocale(selectedLocale))
+        }
     }
 
     return (
         <Layout>
-            <Select style={{margin: "20px"}} onChange={onLocaleChange}>
+            <Select style={{margin: "20px"}} value={locale} onChange={onLocaleChange}>
                 {Object.entries(localeMap).map(([key, label]) => (
-                    <Option key={key} data-id={key} selected={key === locale}>{label}</Option>
+                    <Option key={key} value={key}>{label}</Option>
                 ))}
             </Select>
         </Layout>

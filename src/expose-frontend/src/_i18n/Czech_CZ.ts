@@ -9,6 +9,7 @@ const Czech_CZ: Translation = {
         caption_setup: "Nastavení",
         caption_network: "Síť",
         caption_about: "O tomto softwaru",
+        caption_notfound: "Nenalezeno",
     },
     navmenu: {
         menu_dashboard: "Přehled",

@@ -1,8 +1,8 @@
+import {useLocation} from "preact-iso"
 import styl from "./navmenu.module.styl"
 import FlexSpacer from "@fwk/flex"
 import {useTranslation} from "@fwk/i18n"
-import {useAppDispatch} from "@fwk/hooks"
-import {navigateTo, Route} from "@comp/router/router.redux"
+import {Route} from "@comp/router/router.redux"
 import {Button} from "@ui5/webcomponents-react"
 
 type NavButtonProps = {
@@ -11,13 +11,14 @@ type NavButtonProps = {
     route: Route
 }
 
-const NavButton = ({icon, text, route}: NavButtonProps) => {
-    const dispatch = useAppDispatch()
+const NavButton = ({icon, text, route: path}: NavButtonProps) => {
+    const {route, url} = useLocation()
+    const className = url === path ? `${styl.button} ${styl.active}` : styl.button
     return <Button
         design="Transparent"
-        className={styl.button}
+        className={className}
         icon={icon}
-        onClick={() => dispatch(navigateTo(route))}>
+        onClick={() => route(path)}>
         <span>{text}</span>
     </Button>
 }
