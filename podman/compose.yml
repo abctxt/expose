@@ -1,0 +1,236 @@
+# Host-side environment variables (compose interpolation).
+# Set via shell env or an env file; override defaults in compose.override.yml when needed.
+#
+# Temporal MySQL (temporal-db)
+#   EXPOSE_TEMPORAL_DB_NAME              Temporal persistence database (default: temporal)
+#   EXPOSE_TEMPORAL_VISIBILITY_DB_NAME   Temporal visibility database (default: temporal_visibility)
+#   EXPOSE_TEMPORAL_MYSQL_USER           Temporal DB user (default: temporal)
+#   EXPOSE_TEMPORAL_MYSQL_PASSWORD       Temporal DB user password (required on first boot; also used by Temporal server)
+#   EXPOSE_TEMPORAL_MYSQL_ROOT_PASSWORD  temporal-db root password (required on first boot)
+#
+# Temporal server / tooling
+#   EXPOSE_TEMPORAL_ADDRESS              Frontend gRPC address as seen by clients/UI/admin (default: temporal:7233)
+#   EXPOSE_TEMPORAL_NAMESPACE            Default namespace created at startup (default: expose)
+#   EXPOSE_TEMPORAL_NAMESPACE_RETENTION  Retention for that namespace (default: 72h)
+#   EXPOSE_TEMPORAL_UI_CORS_ORIGINS      Allowed CORS origins for temporal-ui (default: http://localhost:3000)
+#
+# Ollama (optional; not started unless a profile is enabled)
+#   Profiles: ollama-cpu | ollama-nvidia | ollama-amd
+#   Prefer: ./start.sh ollama [cpu|nvidia|amd]
+#   Default image: slim CPU build (vendored alpine-docker/ollama + llama-server fix)
+#   NVIDIA overlay: compose.ollama-nvidia.yml (full ollama/ollama + CDI gpu)
+#   AMD overlay:    compose.ollama-amd.yml (ollama/ollama:*-rocm + /dev/kfd,/dev/dri)
+#   In-network URL: http://ollama:11434
+
+services:
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: podman/frontend/Containerfile
+    restart: unless-stopped
+    privileged: false
+    ports:
+      - "${EXPOSE_FRONTEND_PORT:-4777}:443"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ../
+      dockerfile: podman/backend/Containerfile
+    restart: unless-stopped
+    privileged: false
+    ports:
+      - "${EXPOSE_BACKEND_PORT:-5777}:5001"
+    environment:
+      ASPNETCORE_URLS: "http://+:5000;https://+:5001"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/config/kestrel-cert.pem"
+      ASPNETCORE_Kestrel__Certificates__Default__KeyPath: "/config/kestrel-key.pem"
+      Services__YFinance__GrpcUrl: "http://yfinance:50061"
+    volumes:
+      - backend-logs:/expose/logs
+    depends_on:
+      - yfinance
+      - ai
+      - temporal
+
+  yfinance:
+    build:
+      context: ../
+      dockerfile: podman/exp-yfinance/Containerfile
+    restart: unless-stopped
+    privileged: false
+
+  ai:
+    build:
+      context: ../
+      dockerfile: podman/exp-ai/Containerfile
+    restart: unless-stopped
+    privileged: false
+
+
+  ollama:
+    # Optional: enable exactly one of ollama-cpu | ollama-nvidia | ollama-amd.
+    # Default build is slim CPU (PR #13-style). NVIDIA/AMD overlays switch image + devices.
+    profiles: [ "ollama-cpu", "ollama-nvidia", "ollama-amd" ]
+    build:
+      context: ../
+      dockerfile: podman/ollama/Containerfile
+    restart: unless-stopped
+    privileged: false
+    volumes:
+      - ollama-data:/root/.ollama:Z
+
+
+  mariadb:
+    build:
+      context: ../
+      dockerfile: podman/mariadb/Containerfile
+    restart: unless-stopped
+    privileged: false
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+      - label=disable
+    environment:
+      MARIADB_DATABASE: "${EXPOSE_MARIADB_DATABASE:-expose}"
+      MARIADB_USER: "${EXPOSE_MARIADB_USER:-expose}"
+      MARIADB_PASSWORD: "${EXPOSE_MARIADB_PASSWORD}"
+      MARIADB_ROOT_PASSWORD: "${EXPOSE_MARIADB_ROOT_PASSWORD}"
+    volumes:
+      - expose-db:/var/lib/mysql:Z
+
+
+  temporal-db:
+    build:
+      context: ../
+      dockerfile: podman/temporal-db/Containerfile
+    restart: unless-stopped
+    privileged: false
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+      - label=disable
+    environment:
+      MYSQL_DATABASE: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
+      MYSQL_VISIBILITY_DATABASE: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
+      MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
+      MYSQL_PASSWORD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${EXPOSE_TEMPORAL_MYSQL_ROOT_PASSWORD}"
+    volumes:
+      - temporal-db:/var/lib/mysql:Z
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+
+
+  temporal:
+    build:
+      context: ../
+      dockerfile: podman/temporal/Containerfile
+    restart: unless-stopped
+    privileged: false
+    depends_on:
+      temporal-db-schema:
+        condition: service_completed_successfully
+    environment:
+      DB: mysql8
+      DB_PORT: 3306
+      MYSQL_SEEDS: temporal-db
+      MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
+      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD:-temporal}"
+      DBNAME: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
+      VISIBILITY_DBNAME: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
+      ENABLE_ES: "false"
+      BIND_ON_IP: "0.0.0.0"
+      DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/development-sql.yml
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      TEMPORAL_CLI_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "7233" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+
+
+  temporal-db-schema:
+    build:
+      context: ../
+      dockerfile: podman/temporal-admin/Containerfile
+    restart: on-failure:5
+    privileged: false
+    depends_on:
+      temporal-db:
+        condition: service_healthy
+    environment:
+      DB: mysql8
+      DB_PORT: 3306
+      MYSQL_SEEDS: temporal-db
+      MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
+      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD:-temporal}"
+      DBNAME: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
+      VISIBILITY_DBNAME: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
+      SKIP_DB_CREATE: "true"
+    entrypoint: [ "/bin/sh" ]
+    command: [ "/opt/setup-mysql.sh" ]
+
+
+  temporal-namespace:
+    build:
+      context: ../
+      dockerfile: podman/temporal-admin/Containerfile
+    restart: on-failure:5
+    privileged: false
+    depends_on:
+      temporal:
+        condition: service_healthy
+    environment:
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      DEFAULT_NAMESPACE: "${EXPOSE_TEMPORAL_NAMESPACE:-expose}"
+      DEFAULT_NAMESPACE_RETENTION: "${EXPOSE_TEMPORAL_NAMESPACE_RETENTION:-72h}"
+    entrypoint: [ "/bin/sh" ]
+    command: [ "/opt/setup-namespace.sh" ]
+
+
+  temporal-admin:
+    profiles: [ "temporal-admin" ]
+    build:
+      context: ../
+      dockerfile: podman/temporal-admin/Containerfile
+    restart: unless-stopped
+    privileged: false
+    depends_on:
+      temporal:
+        condition: service_healthy
+    environment:
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      TEMPORAL_CLI_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+    stdin_open: true
+    tty: true
+
+
+  temporal-ui:
+    profiles: [ "temporal-ui" ]
+    build:
+      context: ../
+      dockerfile: podman/temporal-ui/Containerfile
+    restart: unless-stopped
+    privileged: false
+    depends_on:
+      temporal:
+        condition: service_healthy
+    environment:
+      TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
+      TEMPORAL_CORS_ORIGINS: "${EXPOSE_TEMPORAL_UI_CORS_ORIGINS:-http://localhost:3000}"
+
+
+volumes:
+  backend-logs: { }
+  expose-db: { }
+  temporal-db: { }
+  ollama-data: { }
