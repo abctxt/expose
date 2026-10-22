@@ -14,6 +14,12 @@ const Czech_CZ: Translation = {
     navmenu: {
         menu_dashboard: "Přehled",
         menu_setup: "Nastavení",
+    },
+    shell: {
+        hide_header: "Skrýt horní lištu",
+        show_header: "Zobrazit horní lištu",
+        hide_nav: "Skrýt navigační lištu",
+        show_nav: "Zobrazit navigační lištu",
     }
 }
 

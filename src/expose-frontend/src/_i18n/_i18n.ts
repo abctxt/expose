@@ -5,6 +5,7 @@ interface Translation {
     readonly displayName: string;
     readonly header: Translation_Header
     readonly navmenu: Translation_NavMenu
+    readonly shell: Translation_Shell
 }
 
 interface Translation_Header {
@@ -18,6 +19,13 @@ interface Translation_Header {
 interface Translation_NavMenu {
     readonly menu_dashboard: string
     readonly menu_setup: string
+}
+
+interface Translation_Shell {
+    readonly hide_header: string
+    readonly show_header: string
+    readonly hide_nav: string
+    readonly show_nav: string
 }
 
 export default Translation

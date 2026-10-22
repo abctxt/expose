@@ -1,3 +1,4 @@
+import type {TargetedMouseEvent} from "preact"
 import {useLocation} from "preact-iso"
 import styl from "./navmenu.module.styl"
 import FlexSpacer from "@fwk/flex"
@@ -24,11 +25,11 @@ const NavButton = ({icon, text, route: path}: NavButtonProps) => {
 }
 
 
-const NavMenu = () => {
+const NavMenu = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTMLElement>) => void}) => {
     const { t } = useTranslation()
 
     return (
-        <nav className={styl.navmenu}>
+        <nav className={styl.navmenu} onContextMenuCapture={onContextMenu}>
             <NavButton icon="tnt/technicalinstance" text={t("navmenu", "menu_dashboard")} route={Route.Dashboard}/>
             <FlexSpacer/>
             <NavButton icon="action-settings" text={t("navmenu", "menu_setup")} route={Route.Setup}/>

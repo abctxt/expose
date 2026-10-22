@@ -16,6 +16,12 @@ const German_DE: Translation = {
     navmenu: {
         menu_dashboard: "Übersicht",
         menu_setup: "Setup",
+    },
+    shell: {
+        hide_header: "Obere Leiste ausblenden",
+        show_header: "Obere Leiste einblenden",
+        hide_nav: "Navigationsleiste ausblenden",
+        show_nav: "Navigationsleiste einblenden",
     }
 }
 

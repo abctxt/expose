@@ -16,6 +16,12 @@ const English_US: Translation = {
     navmenu: {
         menu_dashboard: "Dashboard",
         menu_setup: "Setup",
+    },
+    shell: {
+        hide_header: "Hide top bar",
+        show_header: "Show top bar",
+        hide_nav: "Hide navigation bar",
+        show_nav: "Show navigation bar",
     }
 }
 
