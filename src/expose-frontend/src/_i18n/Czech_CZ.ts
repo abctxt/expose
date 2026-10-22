@@ -20,6 +20,22 @@ const Czech_CZ: Translation = {
         show_header: "Zobrazit horní lištu",
         hide_nav: "Skrýt navigační lištu",
         show_nav: "Zobrazit navigační lištu",
+    },
+    setup: {
+        category_appearance: "Vzhled",
+        language: "Jazyk",
+        language_desc: "Jazyk rozhraní.",
+        dark_mode: "Tmavý režim",
+        dark_mode_desc: "Použít tmavé barevné schéma rozhraní.",
+        ui_size: "Velikost rozhraní",
+        ui_size_desc: "Hustota ovládacích prvků v rozhraní.",
+        size_compact: "Kompaktní",
+        size_cozy: "Pohodlný",
+        size_condensed: "Zhuštěný",
+        font_size: "Velikost písma",
+        font_size_desc: "Velikost textu v rozhraní.",
+        font_default: "Výchozí",
+        font_enlarged: "Zvětšená",
     }
 }
 
