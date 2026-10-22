@@ -17,12 +17,21 @@ $elem-box-width = 200px
 
 .clock
   no-interaction()
+  min-width 0
+  overflow hidden
   color $fg-nav-elements
   font-size 1.1rem
+  font-weight normal
+  font-family sap-light
   height $header-height
   flex(v middle)
   flex(1)
-  min-width 0
+
+  span
+    min-width 0
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
 
 .nav
   width clamp(120px, 20vw, $elem-box-width)
@@ -30,14 +39,29 @@ $elem-box-width = 200px
   flex(h middle right)
   //
   .button
-    width 2.1rem
-    height 2.1rem
+    width 2.2rem
+    height 2.2rem
     margin-right 6px
     color $fg-nav-elements
     border 1px $border-nav-elements solid
+    ui5Button(Lite_TextColor, $fg-nav-elements)
+    ui5Button(Lite_Hover_Background, $bg-nav-hover)
+    ui5Button(Lite_Hover_BorderColor, $border-nav-hover)
+    ui5Button(Lite_Hover_TextColor, $fg-nav-elements)
+    ui5Button(Lite_Active_Background, $bg-nav-hover)
+    ui5Button(Lite_Active_BorderColor, $border-nav-hover)
+    ui5Button(Active_TextColor, $fg-nav-elements)
+    ui5Content(FocusColor, $focus-ring)
+    ui5(button_focused_border, 0.125rem solid $focus-ring)
+    ui5(button_pressed_focused_border_color, $focus-ring)
+
+  .button::part(icon)
+    width $nav-icon-size
+    height $nav-icon-size
+    font-size $nav-icon-size
 
   .button.active
-    border-color $fg-nav-elements
-    ui5Button(Lite_BorderColor, $fg-nav-elements)
-    ui5Button(Lite_Hover_BorderColor, $fg-nav-elements)
-    ui5Button(Lite_Active_BorderColor, $fg-nav-elements)
+    border-color $brand-red
+    ui5Button(Lite_BorderColor, $brand-red)
+    ui5Button(Lite_Hover_BorderColor, $brand-red)
+    ui5Button(Lite_Active_BorderColor, $brand-red)

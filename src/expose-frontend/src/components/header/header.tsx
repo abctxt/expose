@@ -43,8 +43,8 @@ const Header = () => {
             <span>{caption}</span>
         </aside>
         <nav className={styl.nav}>
-            <TopButton icon="tnt/aggregator" label={captionMap[Route.Network]} route={Route.Network}/>
-            <TopButton icon="sys-help" label={captionMap[Route.About]} route={Route.About}/>
+            <TopButton icon="tnt/values" label={captionMap[Route.Network]} route={Route.Network}/>
+            <TopButton icon="hint" label={captionMap[Route.About]} route={Route.About}/>
         </nav>
     </header>
 }
