@@ -26,7 +26,7 @@ const defaults: State = {
     fontSize: FontSize.Default
 }
 
-const locales = [Locales.EnglishUS, Locales.EnglishGB, Locales.GermanDE, Locales.GermanCH, Locales.CzechCZ] as const
+const locales = [Locales.EnglishUS, Locales.EnglishGB, Locales.GermanDE, Locales.GermanCH, Locales.FrenchFR, Locales.CzechCZ] as const
 const colorSchemes = [ColorScheme.Light, ColorScheme.Dark] as const
 const uiSizes = [UiSize.Compact, UiSize.Cozy, UiSize.Condensed] as const
 const fontSizes = [FontSize.Default, FontSize.Enlarged] as const

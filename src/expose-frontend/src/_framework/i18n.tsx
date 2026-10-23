@@ -2,6 +2,7 @@ import English_US from "../_i18n/English_US"
 import English_GB from "../_i18n/English_GB"
 import German_DE from "../_i18n/German_DE"
 import German_CH from "../_i18n/German_CH"
+import French_FR from "../_i18n/French_FR"
 import Czech_CZ from "../_i18n/Czech_CZ"
 import Translation from "../_i18n/_i18n"
 import {useAppSelector} from "./hooks"
@@ -12,6 +13,7 @@ const map = {
     [Locales.EnglishGB]: English_GB,
     [Locales.GermanDE]: German_DE,
     [Locales.GermanCH]: German_CH,
+    [Locales.FrenchFR]: French_FR,
     [Locales.CzechCZ]: Czech_CZ
 } as const
 
