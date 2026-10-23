@@ -51,9 +51,9 @@ $elem-box-width = 200px
     ui5Button(Lite_Active_Background, $bg-nav-hover)
     ui5Button(Lite_Active_BorderColor, $border-nav-hover)
     ui5Button(Active_TextColor, $fg-nav-elements)
-    ui5Content(FocusColor, $focus-ring)
-    ui5(button_focused_border, 0.125rem solid $focus-ring)
-    ui5(button_pressed_focused_border_color, $focus-ring)
+    ui5Content(FocusColor, var(--accent-focus))
+    ui5(button_focused_border, 0.125rem solid var(--accent-focus))
+    ui5(button_pressed_focused_border_color, var(--accent-focus))
 
   .button::part(icon)
     width $nav-icon-size
@@ -61,7 +61,7 @@ $elem-box-width = 200px
     font-size $nav-icon-size
 
   .button.active
-    border-color $brand-red
-    ui5Button(Lite_BorderColor, $brand-red)
-    ui5Button(Lite_Hover_BorderColor, $brand-red)
-    ui5Button(Lite_Active_BorderColor, $brand-red)
+    border-color var(--accent)
+    ui5Button(Lite_BorderColor, var(--accent))
+    ui5Button(Lite_Hover_BorderColor, var(--accent))
+    ui5Button(Lite_Active_BorderColor, var(--accent))

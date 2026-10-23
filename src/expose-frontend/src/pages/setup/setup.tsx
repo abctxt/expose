@@ -2,7 +2,7 @@ import Layout from "@comp/layout/layout"
 import {useAppDispatch, useAppSelector} from "@fwk/hooks"
 import {useTranslation} from "@fwk/i18n"
 import {Locales} from "@app/locales"
-import {ColorScheme, FontSize, setColorScheme, setFontSize, setLocale, setUiSize, UiSize} from "./setup.redux"
+import {Accent, ColorScheme, FontSize, setAccent, setColorScheme, setFontSize, setLocale, setUiSize, UiSize} from "./setup.redux"
 import English_US from "../../_i18n/English_US"
 import English_GB from "../../_i18n/English_GB"
 import German_DE from "../../_i18n/German_DE"
@@ -27,6 +27,7 @@ const Setup = () => {
     const colorScheme = useAppSelector(state => state.setup.colorScheme)
     const uiSize = useAppSelector(state => state.setup.uiSize)
     const fontSize = useAppSelector(state => state.setup.fontSize)
+    const accent = useAppSelector(state => state.setup.accent)
 
     return (
         <Layout>
@@ -56,6 +57,20 @@ const Setup = () => {
                                 <span className={styl.desc}>{t("setup", "dark_mode_desc")}</span>
                             </span>
                         </label>
+                    </div>
+                    <div className={styl.item}>
+                        <span className={styl.caption}>{t("setup", "accent")}</span>
+                        <span className={styl.desc}>{t("setup", "accent_desc")}</span>
+                        <select
+                            className={styl.control}
+                            value={accent}
+                            onChange={ev => dispatch(setAccent(ev.currentTarget.value as Accent))}>
+                            <option value={Accent.Red}>{t("setup", "accent_red")}</option>
+                            <option value={Accent.Blue}>{t("setup", "accent_blue")}</option>
+                            <option value={Accent.Teal}>{t("setup", "accent_teal")}</option>
+                            <option value={Accent.Amber}>{t("setup", "accent_amber")}</option>
+                            <option value={Accent.Violet}>{t("setup", "accent_violet")}</option>
+                        </select>
                     </div>
                     <div className={styl.item}>
                         <span className={styl.caption}>{t("setup", "ui_size")}</span>

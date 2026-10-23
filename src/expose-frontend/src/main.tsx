@@ -2,6 +2,7 @@ import {render} from "preact"
 import {useEffect} from "preact/hooks"
 import {Provider} from "react-redux"
 import {store} from "@app/store"
+import {accentPalette} from "@page/setup/setup.redux"
 import {useAppSelector} from "@fwk/hooks"
 import AppRouter from "@comp/router/router"
 
@@ -24,6 +25,8 @@ await setLanguage(initialAppearance.locale)
 await setTheme(initialAppearance.colorScheme === "dark" ? "sap_horizon_dark" : "sap_horizon")
 document.documentElement.lang = initialAppearance.locale
 document.documentElement.classList.toggle("font-size-enlarged", initialAppearance.fontSize === "enlarged")
+document.documentElement.style.setProperty("--accent", accentPalette[initialAppearance.accent].color)
+document.documentElement.style.setProperty("--accent-focus", accentPalette[initialAppearance.accent].focus)
 
 // Remove styles with downloaded fonts
 createOrUpdateStyle("", "data-ui5-font-face")
@@ -40,6 +43,7 @@ const SyncUi5Language = () => {
     const colorScheme = useAppSelector(state => state.setup.colorScheme)
     const uiSize = useAppSelector(state => state.setup.uiSize)
     const fontSize = useAppSelector(state => state.setup.fontSize)
+    const accent = useAppSelector(state => state.setup.accent)
     useEffect(() => {
         document.documentElement.lang = locale
         void setLanguage(locale)
@@ -54,6 +58,10 @@ const SyncUi5Language = () => {
     useEffect(() => {
         document.documentElement.classList.toggle("font-size-enlarged", fontSize === "enlarged")
     }, [fontSize])
+    useEffect(() => {
+        document.documentElement.style.setProperty("--accent", accentPalette[accent].color)
+        document.documentElement.style.setProperty("--accent-focus", accentPalette[accent].focus)
+    }, [accent])
     return null
 }
 

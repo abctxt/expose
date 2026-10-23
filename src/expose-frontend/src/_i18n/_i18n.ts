@@ -35,6 +35,13 @@ interface Translation_Setup {
     readonly language_desc: string
     readonly dark_mode: string
     readonly dark_mode_desc: string
+    readonly accent: string
+    readonly accent_desc: string
+    readonly accent_red: string
+    readonly accent_blue: string
+    readonly accent_teal: string
+    readonly accent_amber: string
+    readonly accent_violet: string
     readonly ui_size: string
     readonly ui_size_desc: string
     readonly size_compact: string

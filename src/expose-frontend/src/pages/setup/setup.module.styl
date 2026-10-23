@@ -71,6 +71,11 @@
   font inherit
   font-size 0.875rem
 
+  &:focus
+    outline 2px solid var(--accent-focus)
+    outline-offset 1px
+    border-color var(--accent)
+
 .check
   display flex
   align-items flex-start
@@ -79,6 +84,7 @@
 
   input
     margin-top 3px
+    accent-color var(--accent)
 
   .desc
     margin-top 2px
