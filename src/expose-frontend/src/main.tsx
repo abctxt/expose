@@ -14,15 +14,24 @@ import "@ui5/webcomponents-icons-tnt/dist/technicalinstance.js"
 import "@ui5/webcomponents-icons-tnt/dist/values.js"
 
 import {ThemeProvider} from "@ui5/webcomponents-react"
+import {boot} from "@ui5/webcomponents-base/dist/Boot.js"
 import {setTheme} from "@ui5/webcomponents-base/dist/config/Theme.js"
 import {setLanguage} from "@ui5/webcomponents-base/dist/config/Language.js"
 import {setAnimationMode} from "@ui5/webcomponents-base/dist/config/AnimationMode.js"
 import {createOrUpdateStyle} from "@ui5/webcomponents-base/dist/ManagedStyles.js"
 
+const themeForScheme = (scheme: string) => scheme === "dark" ? "sap_horizon_dark" : "sap_horizon"
+
+// setTheme before boot only stores the name. Wait until the stylesheet can be applied.
+const applyColorScheme = async (scheme: string) => {
+    await boot()
+    await setTheme(themeForScheme(scheme))
+}
+
 const initialAppearance = store.getState().setup
 setAnimationMode("minimal")
 await setLanguage(initialAppearance.locale)
-await setTheme(initialAppearance.colorScheme === "dark" ? "sap_horizon_dark" : "sap_horizon")
+await applyColorScheme(initialAppearance.colorScheme)
 document.documentElement.lang = initialAppearance.locale
 document.documentElement.classList.toggle("font-size-enlarged", initialAppearance.fontSize === "enlarged")
 document.documentElement.style.setProperty("--accent", accentPalette[initialAppearance.accent].color)
@@ -49,7 +58,7 @@ const SyncUi5Language = () => {
         void setLanguage(locale)
     }, [locale])
     useEffect(() => {
-        void setTheme(colorScheme === "dark" ? "sap_horizon_dark" : "sap_horizon")
+        void applyColorScheme(colorScheme)
     }, [colorScheme])
     useEffect(() => {
         document.body.classList.remove(...densityClasses)
