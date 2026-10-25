@@ -27,6 +27,7 @@ interface State {
     uiSize: UiSize
     fontSize: FontSize
     accent: Accent
+    scrollMenus: boolean
 }
 
 const storageKey = "Expose.appearance"
@@ -36,7 +37,8 @@ const defaults: State = {
     colorScheme: ColorScheme.Dark,
     uiSize: UiSize.Cozy,
     fontSize: FontSize.Default,
-    accent: Accent.Teal
+    accent: Accent.Teal,
+    scrollMenus: true
 }
 
 const locales = [Locales.EnglishUS, Locales.EnglishGB, Locales.GermanDE, Locales.GermanCH, Locales.FrenchFR, Locales.CzechCZ] as const
@@ -60,7 +62,8 @@ export const loadAppearance = (): State => {
             colorScheme: isOneOf(data.colorScheme, colorSchemes) ? data.colorScheme : defaults.colorScheme,
             uiSize: isOneOf(data.uiSize, uiSizes) ? data.uiSize : defaults.uiSize,
             fontSize: isOneOf(data.fontSize, fontSizes) ? data.fontSize : defaults.fontSize,
-            accent: isOneOf(data.accent, accents) ? data.accent : defaults.accent
+            accent: isOneOf(data.accent, accents) ? data.accent : defaults.accent,
+            scrollMenus: typeof data.scrollMenus === "boolean" ? data.scrollMenus : defaults.scrollMenus
         }
     } catch {
         return defaults
@@ -95,10 +98,13 @@ export const slice = createSlice({
         },
         setAccent: (state, action: PayloadAction<Accent>) => {
             state.accent = action.payload
+        },
+        setScrollMenus: (state, action: PayloadAction<boolean>) => {
+            state.scrollMenus = action.payload
         }
     },
 })
 
-export const {setLocale, setColorScheme, setUiSize, setFontSize, setAccent} = slice.actions
+export const {setLocale, setColorScheme, setUiSize, setFontSize, setAccent, setScrollMenus} = slice.actions
 
 export default slice.reducer

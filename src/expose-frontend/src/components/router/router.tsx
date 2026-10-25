@@ -3,8 +3,8 @@ import {useEffect} from "preact/hooks"
 import {useAppDispatch, useAppSelector} from "@fwk/hooks"
 import {AnyComponent} from "preact"
 import {isAppRoute, navigateTo, Route as AppRoute} from "./router.redux"
-
 import SignalHandler from "@comp/signals/signals"
+import {NavWheelGesture} from "@comp/navmenu/navmenu"
 import Dashboard from "@page/dashboard/dashboard"
 import Network from "@page/network/network"
 import Setup from "@page/setup/setup"
@@ -43,6 +43,7 @@ const AppRouter = () => (
         </Router>
         <SignalHandler/>
         <LocationListener/>
+        <NavWheelGesture/>
     </LocationProvider>
 )
 

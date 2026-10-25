@@ -53,6 +53,9 @@ const German_DE: Translation = {
         font_size_desc: "Textgröße der Oberfläche.",
         font_default: "Standard",
         font_enlarged: "Vergrößert",
+        category_behavior: "Verhalten",
+        scroll_menus: "Menüs scrollen",
+        scroll_menus_desc: "Scrollen im aktiven Menü wechselt dessen Seiten. Linkes Menü und obere Leiste bleiben getrennt, und am Ende bleibt die Seite stehen.",
     }
 }
 

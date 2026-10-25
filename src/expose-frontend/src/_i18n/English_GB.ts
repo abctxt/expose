@@ -6,6 +6,10 @@ const English_GB: Translation = {
     //
     displayName: "English (GB)",
     //
+    setup: {
+        ...English_US.setup,
+        category_behavior: "Behaviour",
+    },
 }
 
 export default English_GB

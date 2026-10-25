@@ -51,6 +51,9 @@ const Czech_CZ: Translation = {
         font_size_desc: "Velikost textu v rozhraní.",
         font_default: "Výchozí",
         font_enlarged: "Zvětšená",
+        category_behavior: "Chování",
+        scroll_menus: "Posouvání nabídek",
+        scroll_menus_desc: "Posouvání aktivní nabídky přepíná její stránky. Levá nabídka a horní lišta zůstávají oddělené a posouvání se zastaví na koncích.",
     }
 }
 

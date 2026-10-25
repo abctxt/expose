@@ -36,7 +36,7 @@ const Header = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTML
     }
     const caption = isAppRoute(url) ? captionMap[url] : t("header", "caption_notfound")
 
-    return <header className={styl.header} onContextMenuCapture={onContextMenu}>
+    return <header className={styl.header} data-topbar onContextMenuCapture={onContextMenu}>
         <aside className={styl.logoBox}>
             {/*<img src={logo} className={styl.logo} alt="Logo" draggable={false}/>*/}
         </aside>

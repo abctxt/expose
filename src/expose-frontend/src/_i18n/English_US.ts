@@ -53,6 +53,9 @@ const English_US: Translation = {
         font_size_desc: "Text size of the interface.",
         font_default: "Default",
         font_enlarged: "Enlarged",
+        category_behavior: "Behavior",
+        scroll_menus: "Scroll menus",
+        scroll_menus_desc: "Scrolling the active menu switches its pages. The left menu and the top bar stay separate, and scrolling stops at either end.",
     }
 }
 

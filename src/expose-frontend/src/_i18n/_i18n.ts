@@ -61,6 +61,9 @@ interface Translation_Setup {
     readonly font_size_desc: string
     readonly font_default: string
     readonly font_enlarged: string
+    readonly category_behavior: string
+    readonly scroll_menus: string
+    readonly scroll_menus_desc: string
 }
 
 export default Translation

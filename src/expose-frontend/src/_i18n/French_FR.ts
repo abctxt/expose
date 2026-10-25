@@ -51,6 +51,9 @@ const French_FR: Translation = {
         font_size_desc: "Taille du texte de l'interface.",
         font_default: "Par défaut",
         font_enlarged: "Agrandie",
+        category_behavior: "Comportement",
+        scroll_menus: "Défilement des menus",
+        scroll_menus_desc: "Faire défiler le menu actif change ses pages. Le menu de gauche et la barre supérieure restent séparés, et le défilement s'arrête aux extrémités.",
     }
 }
 

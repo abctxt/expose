@@ -2,7 +2,7 @@ import Layout from "@comp/layout/layout"
 import {useAppDispatch, useAppSelector} from "@fwk/hooks"
 import {useTranslation} from "@fwk/i18n"
 import {Locales} from "@app/locales"
-import {Accent, ColorScheme, FontSize, setAccent, setColorScheme, setFontSize, setLocale, setUiSize, UiSize} from "./setup.redux"
+import {Accent, ColorScheme, FontSize, setAccent, setColorScheme, setFontSize, setLocale, setScrollMenus, setUiSize, UiSize} from "./setup.redux"
 import English_US from "../../_i18n/English_US"
 import English_GB from "../../_i18n/English_GB"
 import German_DE from "../../_i18n/German_DE"
@@ -28,6 +28,7 @@ const Setup = () => {
     const uiSize = useAppSelector(state => state.setup.uiSize)
     const fontSize = useAppSelector(state => state.setup.fontSize)
     const accent = useAppSelector(state => state.setup.accent)
+    const scrollMenus = useAppSelector(state => state.setup.scrollMenus)
 
     return (
         <Layout>
@@ -94,6 +95,21 @@ const Setup = () => {
                             <option value={FontSize.Default}>{t("setup", "font_default")}</option>
                             <option value={FontSize.Enlarged}>{t("setup", "font_enlarged")}</option>
                         </select>
+                    </div>
+                </section>
+                <section className={`${styl.column} ${styl.panel}`}>
+                    <h2 className={styl.heading}>{t("setup", "category_behavior")}</h2>
+                    <div className={styl.item}>
+                        <label className={styl.check}>
+                            <input
+                                type="checkbox"
+                                checked={scrollMenus}
+                                onChange={ev => dispatch(setScrollMenus(ev.currentTarget.checked))}/>
+                            <span>
+                                <span className={styl.caption}>{t("setup", "scroll_menus")}</span>
+                                <span className={styl.desc}>{t("setup", "scroll_menus_desc")}</span>
+                            </span>
+                        </label>
                     </div>
                 </section>
             </div>
