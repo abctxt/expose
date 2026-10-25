@@ -67,7 +67,7 @@ const Dashboard = () => {
         if (!root) {
             return
         }
-        for (const bar of root.querySelectorAll<HTMLElement>('[role="separator"]')) {
+        for (const bar of root.querySelectorAll<HTMLElement>("[role=\"separator\"]")) {
             if (gridLocked) {
                 bar.setAttribute("inert", "")
             } else {
