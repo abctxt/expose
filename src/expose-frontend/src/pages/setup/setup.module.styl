@@ -13,6 +13,7 @@
   align-items stretch
   gap 16px
   color #1f2328
+  color-scheme light
 
 .column
   background white
@@ -90,6 +91,10 @@
   input
     margin-top 3px
     accent-color var(--accent)
+
+    &:focus-visible
+      outline 2px solid var(--accent-focus)
+      outline-offset 2px
 
   .desc
     margin-top 2px
