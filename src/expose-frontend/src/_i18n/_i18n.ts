@@ -6,6 +6,7 @@ interface Translation {
     readonly header: Translation_Header
     readonly navmenu: Translation_NavMenu
     readonly shell: Translation_Shell
+    readonly dashboard: Translation_Dashboard
     readonly setup: Translation_Setup
 }
 
@@ -27,6 +28,15 @@ interface Translation_Shell {
     readonly show_header: string
     readonly hide_nav: string
     readonly show_nav: string
+}
+
+interface Translation_Dashboard {
+    readonly viewport_expand: string
+    readonly viewport_collapse: string
+    readonly view_map: string
+    readonly view_satellite: string
+    readonly grid_lock: string
+    readonly grid_unlock: string
 }
 
 interface Translation_Setup {

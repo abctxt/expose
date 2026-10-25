@@ -21,6 +21,14 @@ const Czech_CZ: Translation = {
         hide_nav: "Skrýt navigační lištu",
         show_nav: "Zobrazit navigační lištu",
     },
+    dashboard: {
+        viewport_expand: "Rozbalit zobrazení",
+        viewport_collapse: "Sbalit zobrazení",
+        view_map: "Mapa",
+        view_satellite: "Satelit",
+        grid_lock: "Zamknout mřížku",
+        grid_unlock: "Odemknout mřížku",
+    },
     setup: {
         category_appearance: "Vzhled",
         language: "Jazyk",

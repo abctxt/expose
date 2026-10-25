@@ -21,6 +21,14 @@ const French_FR: Translation = {
         hide_nav: "Masquer la barre de navigation",
         show_nav: "Afficher la barre de navigation",
     },
+    dashboard: {
+        viewport_expand: "Agrandir la vue",
+        viewport_collapse: "Réduire la vue",
+        view_map: "Carte",
+        view_satellite: "Satellite",
+        grid_lock: "Verrouiller la grille",
+        grid_unlock: "Déverrouiller la grille",
+    },
     setup: {
         category_appearance: "Apparence",
         language: "Langue",

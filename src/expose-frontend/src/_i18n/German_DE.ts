@@ -23,6 +23,14 @@ const German_DE: Translation = {
         hide_nav: "Navigationsleiste ausblenden",
         show_nav: "Navigationsleiste einblenden",
     },
+    dashboard: {
+        viewport_expand: "Ansicht erweitern",
+        viewport_collapse: "Ansicht einklappen",
+        view_map: "Karte",
+        view_satellite: "Satellit",
+        grid_lock: "Raster sperren",
+        grid_unlock: "Raster entsperren",
+    },
     setup: {
         category_appearance: "Darstellung",
         language: "Sprache",

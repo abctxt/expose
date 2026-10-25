@@ -23,6 +23,14 @@ const English_US: Translation = {
         hide_nav: "Hide navigation bar",
         show_nav: "Show navigation bar",
     },
+    dashboard: {
+        viewport_expand: "Expand viewport",
+        viewport_collapse: "Collapse viewport",
+        view_map: "Map",
+        view_satellite: "Satellite",
+        grid_lock: "Lock grid",
+        grid_unlock: "Unlock grid",
+    },
     setup: {
         category_appearance: "Appearance",
         language: "Language",
