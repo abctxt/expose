@@ -1,9 +1,11 @@
-namespace Expose.Core
+module Expose.Core.EtfHoldings
 
+open System
 open Expose.Core.Common.Types
 
-// Todo
-type EtfHoldings = {
+
+type EtfHolding = {
+    Guid: Guid
     Name: string
-    Url: Url
+    WebUrl: Url option
 }

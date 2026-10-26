@@ -19,6 +19,9 @@
 
   <ItemGroup>
     <Compile Include="Common\Attributes.fs" />
+    <Compile Include="Common\ErrorCodes.fs" />
+    <Compile Include="Common\ServiceInterfaces.fs" />
+    <Compile Include="EtfHoldings.fs" />
   </ItemGroup>
 
 </Project>

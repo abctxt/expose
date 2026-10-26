@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="EtfHoldingsTests.fs" />
     <Compile Include="Tests.fs" />
   </ItemGroup>
 
