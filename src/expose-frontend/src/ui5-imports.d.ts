@@ -1,6 +1,7 @@
 /** UI5 entry points are JS-only; silence TS for side-effect imports. */
 declare module "@ui5/webcomponents-react/dist/Assets" {}
 declare module "@ui5/webcomponents-icons/dist/action-settings.js" {}
+declare module "@ui5/webcomponents-icons/dist/document-text.js" {}
 declare module "@ui5/webcomponents-icons/dist/globe.js" {}
 declare module "@ui5/webcomponents-icons/dist/grid.js" {}
 declare module "@ui5/webcomponents-icons/dist/hint.js" {}

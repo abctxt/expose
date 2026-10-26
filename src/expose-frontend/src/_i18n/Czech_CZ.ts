@@ -6,6 +6,7 @@ const Czech_CZ: Translation = {
     //
     header: {
         caption_dashboard: "Přehled",
+        caption_etf_holdings: "Pozice ETF",
         caption_setup: "Nastavení",
         caption_network: "Síť",
         caption_about: "O tomto softwaru",
@@ -13,6 +14,7 @@ const Czech_CZ: Translation = {
     },
     navmenu: {
         menu_dashboard: "Přehled",
+        menu_etf_holdings: "Pozice ETF",
         menu_setup: "Nastavení",
     },
     shell: {

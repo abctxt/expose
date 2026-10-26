@@ -30,6 +30,7 @@ const Header = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTML
 
     const captionMap = {
         [Route.Dashboard]: t("header", "caption_dashboard"),
+        [Route.EtfHoldings]: t("header", "caption_etf_holdings"),
         [Route.Setup]: t("header", "caption_setup"),
         [Route.Network]: t("header", "caption_network"),
         [Route.About]: t("header", "caption_about"),
