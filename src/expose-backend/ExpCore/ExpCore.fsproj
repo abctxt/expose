@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Expose.Core</AssemblyName>
+    <RootNamespace>Expose.Core</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Expose.FSharp\Expose.FSharp.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FsToolkit.ErrorHandling" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Common\Types.fs" />
+    <Compile Include="EtfHoldings.fs" />
+  </ItemGroup>
+
+</Project>

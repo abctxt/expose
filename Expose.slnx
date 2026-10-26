@@ -1,6 +1,19 @@
 <Solution>
-  <Project Path="src/expose-backend/Expose/Expose.csproj" />
+  <!-- Common language module -->
   <Project Path="src/expose-backend/Expose.FSharp/Expose.FSharp.fsproj" />
+
+  <!-- High-level modules -->
+  <Project Path="src/expose-backend/ExpCore/ExpCore.fsproj" />
+  <Project Path="src/expose-backend/ExpData/ExpData.csproj" />
+  <Project Path="src/expose-backend/ExpFunctions/ExpFunctions.fsproj" />
+
+  <!-- Low-level modules -->
+  <Project Path="src/expose-backend/Expose/Expose.csproj" />
+  <Project Path="src/expose-backend/Expose.Schema/Expose.Schema.csproj" />
   <Project Path="src/expose-backend/Expose.Workflows/Expose.Workflows.csproj" />
-  <Project Path="tests/Expose.Tests/Expose.Tests.fsproj" />
+  <Project Path="src/expose-backend/Expose.Generator/Expose.Generator.csproj" />
+
+  <!-- Test modules -->
+  <Project Path="tests/ExpTests.Core/ExpTests.Core.fsproj" />
+  <Project Path="tests/ExpTests.Functions/ExpTests.Functions.csproj" />
 </Solution>
