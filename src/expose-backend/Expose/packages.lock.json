@@ -108,8 +108,8 @@
       },
       "FSharp.Core": {
         "type": "Transitive",
-        "resolved": "10.1.402",
-        "contentHash": "kfttzFL9uArPkhlhvoH99RZOOFpJnxOAZkGLqgfG+Wnc4FO2L+HnwradMgX1ubMjzhajuNzPTTcW1Yk8D1rGEg=="
+        "resolved": "10.1.403",
+        "contentHash": "SpKxPt90eSC3pfSKGLnSyucXXKVWokv1KVMTy2uQG36seOgJg14qUxjlcaWjZNWgxJtG5MeH9WpI6PQg4OR4tA=="
       },
       "FsToolkit.ErrorHandling": {
         "type": "Transitive",
@@ -163,7 +163,7 @@
       "expose.fsharp": {
         "type": "Project",
         "dependencies": {
-          "FSharp.Core": "[10.1.402, )",
+          "FSharp.Core": "[10.1.403, )",
           "FsToolkit.ErrorHandling": "[5.2.0, )"
         }
       }

@@ -4,9 +4,9 @@
     "net10.0": {
       "FSharp.Core": {
         "type": "Direct",
-        "requested": "[10.1.402, )",
-        "resolved": "10.1.402",
-        "contentHash": "kfttzFL9uArPkhlhvoH99RZOOFpJnxOAZkGLqgfG+Wnc4FO2L+HnwradMgX1ubMjzhajuNzPTTcW1Yk8D1rGEg=="
+        "requested": "[10.1.403, )",
+        "resolved": "10.1.403",
+        "contentHash": "SpKxPt90eSC3pfSKGLnSyucXXKVWokv1KVMTy2uQG36seOgJg14qUxjlcaWjZNWgxJtG5MeH9WpI6PQg4OR4tA=="
       },
       "xunit.v3": {
         "type": "Direct",
@@ -622,7 +622,7 @@
       "expose.fsharp": {
         "type": "Project",
         "dependencies": {
-          "FSharp.Core": "[10.1.402, )",
+          "FSharp.Core": "[10.1.403, )",
           "FsToolkit.ErrorHandling": "[5.2.0, )"
         }
       }
