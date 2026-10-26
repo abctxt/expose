@@ -1,4 +1,5 @@
 node_modules/
+TestResults/
 build/
 dist/
 bin/
@@ -28,3 +29,6 @@ __pycache__/
 .eggs/
 *.egg-info/
 _generated/
+
+# Local reference sample, not part of the product
+/tools/sample/
