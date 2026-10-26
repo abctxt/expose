@@ -2,12 +2,6 @@
   "version": 1,
   "dependencies": {
     "net10.0": {
-      "Google.Protobuf": {
-        "type": "Direct",
-        "requested": "[3.36.2, )",
-        "resolved": "3.36.2",
-        "contentHash": "Ci1q1iJg74qAE5riTA2FbMS0wPbpruPQI/JQ9DrAsRo2VsSxgt1e/pmxGxgrci+pXJEgrSYg2vPl8rrStZkclQ=="
-      },
       "Temporalio": {
         "type": "Direct",
         "requested": "[1.21.0, )",
@@ -18,6 +12,11 @@
           "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
           "NexusRpc": "0.4.0"
         }
+      },
+      "Google.Protobuf": {
+        "type": "Transitive",
+        "resolved": "3.26.1",
+        "contentHash": "CHZX8zXqhF/fdUtd+AYzew8T2HFkAoe5c7lbGxZY/qryAlQXckDvM5BfOJjXlMS7kyICqQTMszj4w1bX5uBJ/w=="
       },
       "Microsoft.Extensions.Logging.Abstractions": {
         "type": "Transitive",
