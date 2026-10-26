@@ -1,61 +1,217 @@
-.dashboard
-  padding 16px
+.board
+  position relative
+  width 100%
+  height 100%
+  min-width 0
+  min-height 0
+  background $bg-surface
+
+.viewport
+  --view-button 36px
+  --view-icon 1.15rem
+  --view-pad 2px
+  --view-radius 2px
+  position absolute
+  right 8px
+  bottom 8px
+  z-index 2
+  height calc(var(--view-button) + (var(--view-pad) * 2) + 2px)
+  box-sizing border-box
+  padding var(--view-pad)
+  flex(h no-wrap i-middle)
+  gap 2px
+  background $bg-nav-elements
+  border 1px solid $border-nav-elements
+  border-radius var(--view-radius)
+
+.viewport.cozy
+  --view-button 36px
+  --view-icon 1.15rem
+  --view-radius var(--sapButton_BorderCornerRadius, .5rem)
+
+.viewport.compact
+  --view-button 24px
+  --view-icon 0.85rem
+
+.viewport.condensed
+  --view-button 22px
+  --view-icon 0.75rem
+
+.viewport .viewButton
+  width var(--view-button)
+  height var(--view-button)
+  min-width var(--view-button)
+  margin 0
+  padding 0
+  color $fg-nav-elements
+  fill $fg-nav-elements
+  border 1px solid transparent
+  border-radius var(--view-radius)
+  --_ui5_button_border_radius var(--view-radius)
+  --_ui5_button_focused_border_radius var(--view-radius)
+  ui5Button(Lite_TextColor, $fg-nav-elements)
+  ui5Button(Lite_Hover_Background, $bg-nav-hover)
+  ui5Button(Lite_Hover_BorderColor, $border-nav-hover)
+  ui5Button(Lite_Hover_TextColor, $fg-nav-elements)
+  ui5Button(Lite_Active_Background, $bg-nav-hover)
+  ui5Button(Lite_Active_BorderColor, $border-nav-hover)
+  ui5Button(Active_TextColor, $fg-nav-elements)
+  ui5(button_focused_border, none)
+  ui5(button_pressed_focused_border_color, transparent)
+
+.viewport .viewButton::part(icon)
+  width var(--view-icon)
+  height var(--view-icon)
+  font-size var(--view-icon)
+  color $fg-nav-elements
+  fill $fg-nav-elements
+
+.viewport .viewButton::part(button)
+  ui5(button_base_icon_only_padding, 0)
+  padding 0
+
+.viewport .viewButton.active
+  border-color var(--accent)
+  ui5Button(Lite_BorderColor, var(--accent))
+  ui5Button(Lite_Hover_BorderColor, var(--accent))
+  ui5Button(Lite_Active_BorderColor, var(--accent))
+
+.viewport .collapse
+  box-sizing border-box
+  flex 0 0 0
+  width 0
+  min-width 0
+  max-width 0
+  margin-right -2px
+  border-width 0
+  opacity 0
+  overflow hidden
+  pointer-events none
+  color $fg-nav-elements
+  transition opacity 180ms ease, flex-basis 180ms ease, width 180ms ease, min-width 180ms ease, max-width 180ms ease, margin-right 180ms ease, border-width 180ms ease
+
+.viewport:hover .collapse,
+.viewport .collapse:hover
+  flex-basis var(--view-button)
+  width var(--view-button)
+  min-width var(--view-button)
+  max-width var(--view-button)
+  margin-right 0
+  border-width 1px
+  opacity 1
+  pointer-events auto
+
+.split
+  width 100%
+  height 100%
+  --_ui5wcr-SplitterSize 5px
+
+  [role="separator"]
+    box-sizing border-box
+    overflow visible
+    background $bg-surface
+    outline none
+
+    > *
+      display none
+
+    &::after
+      content ""
+      position absolute
+      left 50%
+      top 50%
+      width 3px
+      height 3px
+      border-radius 50%
+      background $sash
+      transform translate(-50%, -50%)
+      pointer-events none
+
+    &[data-splitter-vertical="horizontal"]
+      border-inline 1px solid $sash
+      border-block none
+      &::after
+        box-shadow 0 -6px 0 $sash, 0 6px 0 $sash
+
+    &[data-splitter-vertical="vertical"]
+      border-block 1px solid $sash
+      border-inline none
+      &::after
+        box-shadow -6px 0 0 $sash, 6px 0 0 $sash
+
+    &[data-splitter-vertical="horizontal"],
+    &[data-splitter-vertical="vertical"]
+      &:hover,
+      &:focus,
+      &:focus-visible,
+      &:active
+        background $sash-hover
+        border-color $sash-hover
+        outline none
+        &::after
+          opacity 0
+
+.split.locked
+  --_ui5wcr-SplitterSize 1px
+
+  [role="separator"]
+    pointer-events none
+    cursor default
+    background $sash
+    border none
+
+    &::after
+      display none
+
+    &[data-splitter-vertical="horizontal"],
+    &[data-splitter-vertical="vertical"]
+      &:hover,
+      &:focus,
+      &:focus-visible,
+      &:active
+        background $sash
+        border none
+        &::after
+          display none
+
+.panel
+  width 100%
   height 100%
   box-sizing border-box
+  overflow auto
+  padding 12px 16px
+  background $bg-surface
+  color $fg-nav-elements
   flex(v no-wrap)
+
+.chartPanel
+  background var(--sapGroup_ContentBackground)
+  color var(--sapTextColor)
+
+.heading
+  margin 0 0 12px
+  font-size 1.125rem
+  font-weight 600
+  color inherit
+
+.chartShell
+  flex(1)
+  min-height 0
+  width 100%
+
+.chart
+  width 100%
+  height 100%
+
+.lines
+  flex(v)
+  gap 8px
+
+.row
+  flex(h between i-middle)
   gap 12px
-
-.header
-  flex(h between i-middle no-wrap)
-  h2
-    margin 0
-
-.meta
-  opacity 0.75
   font-size 0.9rem
 
-.message
-  margin 0
-  padding 8px 0
-
-.error
-  margin 0
-  padding 8px 0
-  color #b50f2f
-
-.tableWrap
-  max-height 60dvh
-  overflow auto
-  border 1px #d0d0d0 solid
-  background #ffffff
-
-.table
-  width 100%
-  border-collapse collapse
-  th, td
-    padding 10px 12px
-    border-bottom 1px #e8e8e8 solid
-    text-align left
-  th
-    position sticky
-    top 0
-    background #f5f5f5
-    z-index 1
-
-.sortHeader
-  cursor pointer
-  user-select none
-
-.controlsRow
-  flex(h between i-middle no-wrap)
-
-.priceSettings
-  flex(h left i-middle no-wrap)
-  gap 8px
-  label
-    font-size 0.92rem
-  select
-    min-width 64px
-
-.currentDate
-  color #666666
+.placeholder
+  margin-top 10px
+  opacity 0.7

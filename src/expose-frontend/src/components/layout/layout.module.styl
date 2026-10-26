@@ -5,10 +5,28 @@
   flex(v no-wrap)
 
 .body
+  position relative
   flex(h no-wrap)
   flex(1)
   min-height 0
   min-width 0
+
+.navSlot
+  height 100%
+  flex none
+
+.autohide
+  position absolute
+  left 0
+  top 0
+  z-index 3
+  opacity 0
+  pointer-events none
+  transition opacity 220ms ease
+
+.autohide.shown
+  opacity 1
+  pointer-events auto
 
 .content
   background $bg-content
@@ -16,3 +34,9 @@
   min-width 0
   min-height 0
   overflow auto
+
+.opener
+  position fixed
+  width 1px
+  height 1px
+  pointer-events none

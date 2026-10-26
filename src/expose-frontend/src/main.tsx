@@ -2,42 +2,80 @@ import {render} from "preact"
 import {useEffect} from "preact/hooks"
 import {Provider} from "react-redux"
 import {store} from "@app/store"
+import {accentPalette} from "@page/setup/setup.redux"
 import {useAppSelector} from "@fwk/hooks"
 import AppRouter from "@comp/router/router"
 
 import "./main.styl"
 import "@ui5/webcomponents-react/dist/Assets"
 import "@ui5/webcomponents-icons/dist/action-settings.js"
-import "@ui5/webcomponents-icons/dist/sys-help.js"
+import "@ui5/webcomponents-icons/dist/globe.js"
+import "@ui5/webcomponents-icons/dist/grid.js"
+import "@ui5/webcomponents-icons/dist/hint.js"
+import "@ui5/webcomponents-icons/dist/map.js"
+import "@ui5/webcomponents-icons/dist/slim-arrow-left.js"
+import "@ui5/webcomponents-icons/dist/slim-arrow-right.js"
 import "@ui5/webcomponents-icons-tnt/dist/technicalinstance.js"
-import "@ui5/webcomponents-icons-tnt/dist/aggregator.js"
+import "@ui5/webcomponents-icons-tnt/dist/values.js"
 
 import {ThemeProvider} from "@ui5/webcomponents-react"
+import {boot} from "@ui5/webcomponents-base/dist/Boot.js"
 import {setTheme} from "@ui5/webcomponents-base/dist/config/Theme.js"
 import {setLanguage} from "@ui5/webcomponents-base/dist/config/Language.js"
 import {setAnimationMode} from "@ui5/webcomponents-base/dist/config/AnimationMode.js"
 import {createOrUpdateStyle} from "@ui5/webcomponents-base/dist/ManagedStyles.js"
 
-const initialLocale = store.getState().setup.locale
+const themeForScheme = (scheme: string) => scheme === "dark" ? "sap_horizon_dark" : "sap_horizon"
+
+// setTheme before boot only stores the name. Wait until the stylesheet can be applied.
+const applyColorScheme = async (scheme: string) => {
+    await boot()
+    await setTheme(themeForScheme(scheme))
+}
+
+const initialAppearance = store.getState().setup
 setAnimationMode("minimal")
-await setLanguage(initialLocale)
-await setTheme("sap_horizon_dark")
-document.documentElement.lang = initialLocale
+await setLanguage(initialAppearance.locale)
+await applyColorScheme(initialAppearance.colorScheme)
+document.documentElement.lang = initialAppearance.locale
+document.documentElement.classList.toggle("font-size-enlarged", initialAppearance.fontSize === "enlarged")
+document.documentElement.style.setProperty("--accent", accentPalette[initialAppearance.accent].color)
+document.documentElement.style.setProperty("--accent-focus", accentPalette[initialAppearance.accent].focus)
 
 // Remove styles with downloaded fonts
 createOrUpdateStyle("", "data-ui5-font-face")
 //createOrUpdateStyle("", "data-ui5-font-face-override")
 
 // compact / cozy / condensed
-document.body.classList.add("ui5-content-density-cozy")
+document.body.classList.add(`ui5-content-density-${initialAppearance.uiSize}`)
 
+
+const densityClasses = ["ui5-content-density-compact", "ui5-content-density-cozy", "ui5-content-density-condensed"]
 
 const SyncUi5Language = () => {
     const locale = useAppSelector(state => state.setup.locale)
+    const colorScheme = useAppSelector(state => state.setup.colorScheme)
+    const uiSize = useAppSelector(state => state.setup.uiSize)
+    const fontSize = useAppSelector(state => state.setup.fontSize)
+    const accent = useAppSelector(state => state.setup.accent)
     useEffect(() => {
         document.documentElement.lang = locale
         void setLanguage(locale)
     }, [locale])
+    useEffect(() => {
+        void applyColorScheme(colorScheme)
+    }, [colorScheme])
+    useEffect(() => {
+        document.body.classList.remove(...densityClasses)
+        document.body.classList.add(`ui5-content-density-${uiSize}`)
+    }, [uiSize])
+    useEffect(() => {
+        document.documentElement.classList.toggle("font-size-enlarged", fontSize === "enlarged")
+    }, [fontSize])
+    useEffect(() => {
+        document.documentElement.style.setProperty("--accent", accentPalette[accent].color)
+        document.documentElement.style.setProperty("--accent-focus", accentPalette[accent].focus)
+    }, [accent])
     return null
 }
 

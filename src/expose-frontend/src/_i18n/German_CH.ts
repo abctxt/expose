@@ -6,6 +6,13 @@ const German_CH: Translation = {
     //
     displayName: "Deutsch (CH)",
     //
+    setup: {
+        ...German_DE.setup,
+        ui_size: "Oberflächengrösse",
+        font_size: "Schriftgrösse",
+        font_size_desc: "Textgrösse der Oberfläche.",
+        font_enlarged: "Vergrössert",
+    },
 }
 
 export default German_CH

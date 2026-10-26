@@ -2,6 +2,7 @@ import {configureStore, Action, ThunkAction} from "@reduxjs/toolkit"
 
 import _router from "@comp/router/router.redux"
 import _signals from "@comp/signals/signals.redux"
+import layout from "@comp/layout/layout.redux"
 import about from "@page/about/about.redux"
 import dashboard from "@page/dashboard/dashboard.redux"
 import network from "@page/network/network.redux"
@@ -12,6 +13,7 @@ export const store = configureStore({
     reducer: {
         _router,
         _signals,
+        layout,
         about,
         dashboard,
         network,

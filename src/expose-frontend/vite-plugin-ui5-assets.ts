@@ -6,9 +6,9 @@ import type {Plugin} from "vite"
  * not emit them into dist.
  *
  * Keep lists follow UI5 asset IDs (underscore locales), not BCP-47 app locales:
- *   en-US → en, en-GB → en_GB, de-DE → de, de-CH → de_CH, cz-CZ → cs
+ *   en-US → en, en-GB → en_GB, de-DE → de, de-CH → de_CH, fr-FR → fr, cz-CZ → cs
  */
-const keepLocales = new Set(["en", "en_GB", "de", "de_CH", "cs"])
+const keepLocales = new Set(["en", "en_GB", "de", "de_CH", "fr", "cs"])
 
 /** Light + dark Horizon; drop Fiori 3 / HCB / auto variants. */
 const keepThemes = new Set(["sap_horizon", "sap_horizon_dark"])

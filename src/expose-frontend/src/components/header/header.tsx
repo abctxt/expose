@@ -1,3 +1,4 @@
+import type {TargetedMouseEvent} from "preact"
 import {useLocation} from "preact-iso"
 import styl from "./header.module.styl"
 import {useTranslation} from "@fwk/i18n"
@@ -23,7 +24,7 @@ const TopButton = ({icon, label, route: path}: TopButtonProps) => {
 }
 
 
-const Header = () => {
+const Header = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTMLElement>) => void}) => {
     const {url} = useLocation()
     const { t } = useTranslation()
 
@@ -35,7 +36,7 @@ const Header = () => {
     }
     const caption = isAppRoute(url) ? captionMap[url] : t("header", "caption_notfound")
 
-    return <header className={styl.header}>
+    return <header className={styl.header} data-topbar onContextMenuCapture={onContextMenu}>
         <aside className={styl.logoBox}>
             {/*<img src={logo} className={styl.logo} alt="Logo" draggable={false}/>*/}
         </aside>
@@ -43,8 +44,8 @@ const Header = () => {
             <span>{caption}</span>
         </aside>
         <nav className={styl.nav}>
-            <TopButton icon="tnt/aggregator" label={captionMap[Route.Network]} route={Route.Network}/>
-            <TopButton icon="sys-help" label={captionMap[Route.About]} route={Route.About}/>
+            <TopButton icon="tnt/values" label={captionMap[Route.Network]} route={Route.Network}/>
+            <TopButton icon="hint" label={captionMap[Route.About]} route={Route.About}/>
         </nav>
     </header>
 }

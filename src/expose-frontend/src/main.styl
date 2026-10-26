@@ -2,14 +2,37 @@
 @import "./app/fonts.styl"
 
 
+:root
+  --accent $accent
+  --accent-focus $accent-focus
+
 html, body
   width 100%
   height 100%
-  font-size: 1rem
+  font-size 1rem
+
+html.font-size-enlarged
+  font-size 1.125rem
 
 body
   font-family sap-regular
   background lightgrey
+
+html
+  --menu-highlight #e3e7ec
+
+html[data-sap-theme="sap_horizon_dark"]
+  --menu-highlight #3a4654
+
+ui5-menu-item
+  --sapContent_FocusWidth 0
+  --sapContent_FocusColor transparent
+
+  &:hover
+    background-color var(--menu-highlight)
+
+ui5-menu:not(:hover) ui5-menu-item:focus-within
+  background-color var(--menu-highlight)
 
 #root
   width 100%

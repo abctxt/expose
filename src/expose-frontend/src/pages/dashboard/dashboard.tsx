@@ -1,232 +1,145 @@
 import Layout from "@comp/layout/layout"
-import {useEffect, useMemo, useState} from "preact/hooks"
+import {useAppDispatch, useAppSelector} from "@fwk/hooks"
+import {useTranslation} from "@fwk/i18n"
+import {Button, SplitterElement, SplitterLayout} from "@ui5/webcomponents-react"
+import {PieChart} from "@ui5/webcomponents-react-charts"
+import type {ComponentChildren} from "preact"
+import {useLayoutEffect, useRef} from "preact/hooks"
 import styl from "./dashboard.module.styl"
+import {setViewport, setViewportOpen, toggleGridLock, Viewport} from "./dashboard.redux"
 
-interface Quote {
-    symbol: string
-    price: number
-    currency: string
-    exchange: string
-    timestampUnixMs: number
-    source: string
-    sequence: number
-    isMarketOpen: boolean
+/** Visible slice fills; default UI5 chart tokens are not always defined on the page. */
+const kSliceColors = ["#5899da", "#19a979", "#ff8fe4", "#c387ba"]
+
+/** Starter dataset; replace with live data as the dashboard grows. */
+const kPlaceholderAllocation = [
+    {segment: "Equities", share: 42},
+    {segment: "Fixed income", share: 28},
+    {segment: "Cash", share: 18},
+    {segment: "Alternatives", share: 12},
+]
+
+const Panel = ({title, children, className}: {title?: string, children?: ComponentChildren, className?: string}) => (
+    <div className={[styl.panel, className ?? ""].filter(Boolean).join(" ")}>
+        {title ? <h2 className={styl.heading}>{title}</h2> : null}
+        {children}
+    </div>
+)
+
+type ViewButtonProps = {
+    icon: string
+    label: string
+    pressed?: boolean
+    className?: string
+    onClick: () => void
 }
 
-const kQuotesUrl = "http://localhost:5777/market/quotes"
-const kRefreshIntervalMs = 2000
-const kMinPriceDigits = 0
-const kMaxPriceDigits = 6
-type SortKey = "symbol" | "price" | "type" | "currency" | "exchange" | "isMarketOpen" | "timestampUnixMs"
-type SortDirection = "asc" | "desc"
-interface SortRule {
-    key: SortKey
-    direction: SortDirection
-}
+const ViewButton = ({icon, label, pressed, className, onClick}: ViewButtonProps) => (
+    <Button
+        design="Transparent"
+        className={[styl.viewButton, pressed ? styl.active : "", className ?? ""].filter(Boolean).join(" ")}
+        icon={icon}
+        tooltip={label}
+        accessibleName={label}
+        onClick={onClick}/>
+)
+
+const views = [
+    {id: Viewport.Map, icon: "map", labelKey: "view_map"},
+    {id: Viewport.Satellite, icon: "globe", labelKey: "view_satellite"},
+] as const
 
 const Dashboard = () => {
-    const [quotes, setQuotes] = useState<Quote[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-    const [sortPrimary, setSortPrimary] = useState<SortRule>({key: "symbol", direction: "asc"})
-    const [sortSecondary, setSortSecondary] = useState<SortRule | null>(null)
-    const [priceDigits, setPriceDigits] = useState(2)
+    const dispatch = useAppDispatch()
+    const {t} = useTranslation()
+    const boardRef = useRef<HTMLDivElement>(null)
+    const open = useAppSelector(state => state.dashboard.viewportOpen)
+    const viewport = useAppSelector(state => state.dashboard.viewport)
+    const gridLocked = useAppSelector(state => state.dashboard.gridLocked)
+    const uiSize = useAppSelector(state => state.setup.uiSize)
+    const viewLabel = views.find(view => view.id === viewport)
+    const toggleLabel = open ? t("dashboard", "viewport_collapse") : t("dashboard", "viewport_expand")
+    const gridLabel = gridLocked ? t("dashboard", "grid_unlock") : t("dashboard", "grid_lock")
+    const splitClass = gridLocked ? `${styl.split} ${styl.locked}` : styl.split
 
-    const fetchQuotes = async () => {
-        try {
-            const response = await fetch(kQuotesUrl)
-            if (!response.ok) {
-                throw new Error(`Failed to fetch quotes (${response.status})`)
-            }
-            const data = await response.json() as Quote[]
-            setQuotes(data)
-            setError(null)
-        } catch (err) {
-            const message = err instanceof Error ? err.message : "Unknown dashboard error"
-            setError(message)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        void fetchQuotes()
-        const interval = window.setInterval(() => {
-            void fetchQuotes()
-        }, kRefreshIntervalMs)
-        return () => window.clearInterval(interval)
-    }, [])
-
-    const toggleDirection = (direction: SortDirection): SortDirection =>
-        direction === "asc" ? "desc" : "asc"
-
-    const formatPrice = (price: number): string => {
-        const digits = Math.min(kMaxPriceDigits, Math.max(kMinPriceDigits, priceDigits))
-        const factor = 10 ** digits
-        const truncated = Math.trunc(price * factor) / factor
-        return truncated.toFixed(digits)
-    }
-
-    const getQuoteType = (quote: Quote): "Crypto" | "Index" | "Stock" => {
-        const normalizedSymbol = quote.symbol.toUpperCase()
-        if (normalizedSymbol === "^NDX" || normalizedSymbol.startsWith("^")) {
-            return "Index"
-        }
-        if (quote.exchange.toUpperCase() === "CCC" || quote.symbol.endsWith("-USD")) {
-            return "Crypto"
-        }
-        return "Stock"
-    }
-
-    const onSort = (key: SortKey, secondary = false) => {
-        if (secondary) {
-            if (sortPrimary.key === key) {
-                return
-            }
-            if (sortSecondary?.key === key) {
-                setSortSecondary({...sortSecondary, direction: toggleDirection(sortSecondary.direction)})
-                return
-            }
-            setSortSecondary({key, direction: "asc"})
+    useLayoutEffect(() => {
+        const root = boardRef.current
+        if (!root) {
             return
         }
-
-        if (sortPrimary.key === key) {
-            setSortPrimary({...sortPrimary, direction: toggleDirection(sortPrimary.direction)})
-            return
-        }
-        setSortPrimary({key, direction: "asc"})
-        // keep deterministic ordering by clearing conflicting secondary
-        if (sortSecondary?.key === key) {
-            setSortSecondary(null)
-        }
-    }
-
-    const sortIndicator = (key: SortKey, secondary = false) => {
-        if (secondary) {
-            if (sortSecondary?.key !== key) {
-                return ""
-            }
-            return sortSecondary.direction === "asc" ? " ▵" : " ▿"
-        }
-        if (sortPrimary.key !== key) {
-            return ""
-        }
-        return sortPrimary.direction === "asc" ? " ▲" : " ▼"
-    }
-
-    const sortedQuotes = useMemo(() => {
-        const directionFactor = sortPrimary.direction === "asc" ? 1 : -1
-        const secondaryFactor = sortSecondary?.direction === "asc" ? 1 : -1
-        const list = [...quotes]
-
-        const compareBy = (a: Quote, b: Quote, sortKey: SortKey): number => {
-            switch (sortKey) {
-                case "price":
-                    return a.price - b.price
-                case "currency":
-                    return a.currency.localeCompare(b.currency)
-                case "exchange":
-                    return a.exchange.localeCompare(b.exchange)
-                case "type":
-                    return getQuoteType(a).localeCompare(getQuoteType(b))
-                case "isMarketOpen":
-                    return Number(a.isMarketOpen) - Number(b.isMarketOpen)
-                case "timestampUnixMs":
-                    return a.timestampUnixMs - b.timestampUnixMs
-                case "symbol":
-                default:
-                    return a.symbol.localeCompare(b.symbol)
+        for (const bar of root.querySelectorAll<HTMLElement>("[role=\"separator\"]")) {
+            if (gridLocked) {
+                bar.setAttribute("inert", "")
+            } else {
+                bar.removeAttribute("inert")
             }
         }
-
-        list.sort((a, b) => {
-            const primaryResult = compareBy(a, b, sortPrimary.key) * directionFactor
-            if (primaryResult !== 0) {
-                return primaryResult
-            }
-            if (sortSecondary) {
-                const secondaryResult = compareBy(a, b, sortSecondary.key) * secondaryFactor
-                if (secondaryResult !== 0) {
-                    return secondaryResult
-                }
-            }
-            return a.symbol.localeCompare(b.symbol)
-        })
-        return list
-    }, [quotes, sortPrimary, sortSecondary])
-
-    const formattedCurrentDate = useMemo(() => {
-        const now = new Date()
-        const weekday = new Intl.DateTimeFormat("en-US", {weekday: "short"}).format(now)
-        const month = new Intl.DateTimeFormat("en-US", {month: "short"}).format(now)
-        const day = new Intl.DateTimeFormat("en-US", {day: "numeric"}).format(now)
-        const year = new Intl.DateTimeFormat("en-US", {year: "numeric"}).format(now)
-        return `${weekday} ${month} ${day}, ${year}`
-    }, [])
+    }, [gridLocked])
 
     return (
         <Layout>
-            <section className={styl.dashboard}>
-                <header className={styl.header}>
-                    <h2>Market Quotes</h2>
-                    <span className={styl.meta}>
-                        Refresh: {kRefreshIntervalMs / 1000}s | Shift+Click header for secondary sort
-                    </span>
-                </header>
-
-                {loading && <p className={styl.message}>Loading quotes...</p>}
-                {error && <p className={styl.error}>Error: {error}</p>}
-
-                {!loading && !error && (
-                    <div className={styl.tableWrap}>
-                        <table className={styl.table}>
-                            <thead>
-                                <tr>
-                                    <th className={styl.sortHeader} onClick={e => onSort("symbol", e.shiftKey)}>Symbol{sortIndicator("symbol")}{sortIndicator("symbol", true)}</th>
-                                    <th className={styl.sortHeader} onClick={e => onSort("price", e.shiftKey)}>Price{sortIndicator("price")}{sortIndicator("price", true)}</th>
-                                    <th className={styl.sortHeader} onClick={e => onSort("type", e.shiftKey)}>Type{sortIndicator("type")}{sortIndicator("type", true)}</th>
-                                    <th className={styl.sortHeader} onClick={e => onSort("currency", e.shiftKey)}>Currency{sortIndicator("currency")}{sortIndicator("currency", true)}</th>
-                                    <th className={styl.sortHeader} onClick={e => onSort("exchange", e.shiftKey)}>Exchange{sortIndicator("exchange")}{sortIndicator("exchange", true)}</th>
-                                    <th className={styl.sortHeader} onClick={e => onSort("isMarketOpen", e.shiftKey)}>Status{sortIndicator("isMarketOpen")}{sortIndicator("isMarketOpen", true)}</th>
-                                    <th className={styl.sortHeader} onClick={e => onSort("timestampUnixMs", e.shiftKey)}>Updated{sortIndicator("timestampUnixMs")}{sortIndicator("timestampUnixMs", true)}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {sortedQuotes.map(quote => (
-                                    <tr key={quote.symbol}>
-                                        <td>{quote.symbol}</td>
-                                        <td>{formatPrice(quote.price)}</td>
-                                        <td>{getQuoteType(quote)}</td>
-                                        <td>{quote.currency || "-"}</td>
-                                        <td>{quote.exchange || "-"}</td>
-                                        <td>{quote.isMarketOpen ? "Open" : "Closed"}</td>
-                                        <td>{new Date(quote.timestampUnixMs).toLocaleTimeString()}</td>
-                                    </tr>
+            <div className={styl.board} ref={boardRef} data-page="dashboard">
+                <SplitterLayout className={splitClass} style={{width: "100%", height: "100%"}}>
+                    <SplitterElement size="32%" minSize={180}>
+                        <Panel>
+                            <div className={styl.lines}>
+                                {kPlaceholderAllocation.map(item => (
+                                    <div className={styl.row} key={item.segment}>
+                                        <span>{item.segment}</span>
+                                        <span>{item.share}</span>
+                                    </div>
                                 ))}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-
-                {!loading && !error && (
-                    <div className={styl.controlsRow}>
-                        <div className={styl.priceSettings}>
-                            <label htmlFor="price-digits">Price digits after dot:</label>
-                            <select
-                                id="price-digits"
-                                value={priceDigits}
-                                onChange={e => setPriceDigits(Math.min(kMaxPriceDigits, Math.max(kMinPriceDigits, Number(e.currentTarget.value) || 0)))}
-                            >
-                                {Array.from({length: kMaxPriceDigits + 1}, (_, value) => (
-                                    <option key={value} value={value}>{value}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <span className={styl.currentDate}>{formattedCurrentDate}</span>
-                    </div>
-                )}
-            </section>
+                            </div>
+                        </Panel>
+                    </SplitterElement>
+                    <SplitterElement size="68%" minSize={240}>
+                        <SplitterLayout vertical className={splitClass} style={{width: "100%", height: "100%"}}>
+                            <SplitterElement size="66%" minSize={120}>
+                                <Panel title="Sample allocation" className={styl.chartPanel}>
+                                    <div className={styl.chartShell}>
+                                        <PieChart
+                                            className={styl.chart}
+                                            style={{height: "100%", width: "100%"}}
+                                            dataset={kPlaceholderAllocation}
+                                            dimension={{accessor: "segment"}}
+                                            measure={{accessor: "share", colors: kSliceColors}}
+                                            noAnimation
+                                            chartConfig={{
+                                                margin: {top: 12, right: 12, bottom: 12, left: 12},
+                                            }}
+                                        />
+                                    </div>
+                                </Panel>
+                            </SplitterElement>
+                            <SplitterElement size="34%" minSize={100}>
+                                <Panel title={viewLabel ? t("dashboard", viewLabel.labelKey) : ""}/>
+                            </SplitterElement>
+                        </SplitterLayout>
+                    </SplitterElement>
+                </SplitterLayout>
+                <div className={`${styl.viewport} ${styl[uiSize]}`}>
+                    <ViewButton
+                        icon={open ? "slim-arrow-right" : "slim-arrow-left"}
+                        label={toggleLabel}
+                        className={open ? styl.collapse : undefined}
+                        onClick={() => dispatch(setViewportOpen(!open))}/>
+                    {open && views.map(view => (
+                        <ViewButton
+                            key={view.id}
+                            icon={view.icon}
+                            label={t("dashboard", view.labelKey)}
+                            pressed={viewport === view.id}
+                            onClick={() => dispatch(setViewport(view.id))}/>
+                    ))}
+                    {open && (
+                        <ViewButton
+                            icon="grid"
+                            label={gridLabel}
+                            pressed={gridLocked}
+                            onClick={() => dispatch(toggleGridLock())}/>
+                    )}
+                </div>
+            </div>
         </Layout>
     )
 }

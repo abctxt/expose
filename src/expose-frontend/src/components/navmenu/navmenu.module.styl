@@ -18,13 +18,28 @@ $button-height = 58px
   margin-top 0
   color $fg-nav-elements
   border 1px $border-nav-elements solid
-  font-size 0.7rem
+  font-size 0.75rem
+  ui5Button(Lite_TextColor, $fg-nav-elements)
+  ui5Button(Lite_Hover_Background, $bg-nav-hover)
+  ui5Button(Lite_Hover_BorderColor, $border-nav-hover)
+  ui5Button(Lite_Hover_TextColor, $fg-nav-elements)
+  ui5Button(Lite_Active_Background, $bg-nav-hover)
+  ui5Button(Lite_Active_BorderColor, $border-nav-hover)
+  ui5Button(Active_TextColor, $fg-nav-elements)
+  ui5Content(FocusColor, var(--accent-focus))
+  ui5(button_focused_border, 0.125rem solid var(--accent-focus))
+  ui5(button_pressed_focused_border_color, var(--accent-focus))
 
 .button.active
-  border-color $fg-nav-elements
-  ui5Button(Lite_BorderColor, $fg-nav-elements)
-  ui5Button(Lite_Hover_BorderColor, $fg-nav-elements)
-  ui5Button(Lite_Active_BorderColor, $fg-nav-elements)
+  border-color var(--accent)
+  ui5Button(Lite_BorderColor, var(--accent))
+  ui5Button(Lite_Hover_BorderColor, var(--accent))
+  ui5Button(Lite_Active_BorderColor, var(--accent))
+
+.button::part(icon)
+  width $nav-icon-size
+  height $nav-icon-size
+  font-size $nav-icon-size
 
 .button::part(button)
   ui5(button_base_icon_margin, 0)

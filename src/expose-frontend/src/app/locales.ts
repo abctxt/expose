@@ -3,5 +3,6 @@ export enum Locales {
     EnglishGB = "en-GB",
     GermanDE = "de-DE",
     GermanCH = "de-CH",
+    FrenchFR = "fr-FR",
     CzechCZ = "cz-CZ",
 }
