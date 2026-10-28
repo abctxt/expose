@@ -8,6 +8,7 @@ const English_US: Translation = {
     //
     header: {
         caption_dashboard: "Dashboard",
+        caption_etf_holdings: "ETF Holdings",
         caption_setup: "Setup",
         caption_network: "Network",
         caption_about: "About",
@@ -15,6 +16,7 @@ const English_US: Translation = {
     },
     navmenu: {
         menu_dashboard: "Dashboard",
+        menu_etf_holdings: "ETF Holdings",
         menu_setup: "Setup",
     },
     shell: {
