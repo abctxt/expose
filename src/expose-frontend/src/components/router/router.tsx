@@ -6,6 +6,7 @@ import {isAppRoute, navigateTo, Route as AppRoute} from "./router.redux"
 import SignalHandler from "@comp/signals/signals"
 import {NavWheelGesture} from "@comp/navmenu/navmenu"
 import Dashboard from "@page/dashboard/dashboard"
+import EtfHoldings from "@page/etf-holdings/etf-holdings"
 import Network from "@page/network/network"
 import Setup from "@page/setup/setup"
 import About from "@page/about/about"
@@ -14,6 +15,7 @@ import NotFound from "@page/_404"
 
 const routeMap: Record<string, AnyComponent> = {
     [AppRoute.Dashboard]: Dashboard,
+    [AppRoute.EtfHoldings]: EtfHoldings,
     [AppRoute.Setup]: Setup,
     [AppRoute.Network]: Network,
     [AppRoute.About]: About,

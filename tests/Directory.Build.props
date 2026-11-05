@@ -1,1 +1,3 @@
-../src/expose-backend/Directory.Build.props
+<Project>
+  <Import Project="../src/expose-backend/Directory.Build.props" />
+</Project>

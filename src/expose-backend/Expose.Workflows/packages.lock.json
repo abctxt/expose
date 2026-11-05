@@ -2,22 +2,21 @@
   "version": 1,
   "dependencies": {
     "net10.0": {
-      "Google.Protobuf": {
-        "type": "Direct",
-        "requested": "[3.36.2, )",
-        "resolved": "3.36.2",
-        "contentHash": "Ci1q1iJg74qAE5riTA2FbMS0wPbpruPQI/JQ9DrAsRo2VsSxgt1e/pmxGxgrci+pXJEgrSYg2vPl8rrStZkclQ=="
-      },
       "Temporalio": {
         "type": "Direct",
-        "requested": "[1.21.0, )",
-        "resolved": "1.21.0",
-        "contentHash": "DT206v8y1oRC6USLOw9b/UfVuqTmD2/G7JkUGSML+6rxwnlWJ1kuDl+yQqZNb5kBOjAOAH8Jz43FdWH4QuKT1g==",
+        "requested": "[1.21.1, )",
+        "resolved": "1.21.1",
+        "contentHash": "rPR9EtblHAS/FQcH8Wmr4uTJqUm9xLqXATdTu0Yy9hT44tWr62++9t32feuKb9JCdigMmpqGKMvA8VqpTUhGJQ==",
         "dependencies": {
           "Google.Protobuf": "3.26.1",
           "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
           "NexusRpc": "0.4.0"
         }
+      },
+      "Google.Protobuf": {
+        "type": "Transitive",
+        "resolved": "3.26.1",
+        "contentHash": "CHZX8zXqhF/fdUtd+AYzew8T2HFkAoe5c7lbGxZY/qryAlQXckDvM5BfOJjXlMS7kyICqQTMszj4w1bX5uBJ/w=="
       },
       "Microsoft.Extensions.Logging.Abstractions": {
         "type": "Transitive",

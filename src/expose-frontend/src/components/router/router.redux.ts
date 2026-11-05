@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 export enum Route {
     Dashboard = "/",
+    EtfHoldings = "/etf-holdings",
     Setup = "/setup",
     Network = "/network",
     About = "/about",

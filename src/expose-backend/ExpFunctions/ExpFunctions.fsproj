@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Expose.Functions</AssemblyName>
+    <RootNamespace>Expose.Functions</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExpData\ExpData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FsToolkit.ErrorHandling" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Common\Attributes.fs" />
+    <Compile Include="Common\ErrorCodes.fs" />
+    <Compile Include="Common\ServiceInterfaces.fs" />
+    <Compile Include="EtfHoldings.fs" />
+  </ItemGroup>
+
+</Project>

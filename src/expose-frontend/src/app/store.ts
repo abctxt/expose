@@ -5,6 +5,7 @@ import _signals from "@comp/signals/signals.redux"
 import layout from "@comp/layout/layout.redux"
 import about from "@page/about/about.redux"
 import dashboard from "@page/dashboard/dashboard.redux"
+import etfHoldings from "@page/etf-holdings/etf-holdings.redux"
 import network from "@page/network/network.redux"
 import setup, {saveAppearance} from "@page/setup/setup.redux"
 
@@ -16,6 +17,7 @@ export const store = configureStore({
         layout,
         about,
         dashboard,
+        etfHoldings,
         network,
         setup,
     },

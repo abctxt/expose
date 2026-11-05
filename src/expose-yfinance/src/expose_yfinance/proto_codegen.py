@@ -13,7 +13,7 @@ def _project_root() -> Path:
 
 
 def _proto_file() -> Path:
-    return _project_root().parents[1] / "src" / "expose-backend" / "Expose" / "Protos" / "yfinance.proto"
+    return _project_root() / "protos" / "yfinance.proto"
 
 
 def _output_dir() -> Path:

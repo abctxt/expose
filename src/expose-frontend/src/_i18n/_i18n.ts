@@ -12,6 +12,7 @@ interface Translation {
 
 interface Translation_Header {
     readonly caption_dashboard: string
+    readonly caption_etf_holdings: string
     readonly caption_setup: string
     readonly caption_network: string
     readonly caption_about: string
@@ -20,6 +21,7 @@ interface Translation_Header {
 
 interface Translation_NavMenu {
     readonly menu_dashboard: string
+    readonly menu_etf_holdings: string
     readonly menu_setup: string
 }
 

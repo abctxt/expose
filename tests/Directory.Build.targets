@@ -1,1 +1,3 @@
-../src/expose-backend/Directory.Build.targets
+<Project>
+  <Import Project="../src/expose-backend/Directory.Build.targets" />
+</Project>
