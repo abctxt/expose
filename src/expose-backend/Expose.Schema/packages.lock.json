@@ -24,11 +24,11 @@
       },
       "Microting.EntityFrameworkCore.MySql": {
         "type": "Direct",
-        "requested": "[10.0.13, )",
-        "resolved": "10.0.13",
-        "contentHash": "0+6lEvFdT/AphBChbq0INh3dd0jonXCtIWGMEY/eLDXbwxr6WjkIUtzyNS+pqZi+1GIc9y5IdpWgrRJQ0BNthA==",
+        "requested": "[10.0.14, )",
+        "resolved": "10.0.14",
+        "contentHash": "o1TXuewTu3cJNaJAzPtTZctJDgyrx1QnV8oHiGfWeYcGDyV0zx/AOEujQ8226Him6qcYsy2X3fFy13IgaFPI0Q==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "[10.0.13, 10.0.999]",
+          "Microsoft.EntityFrameworkCore.Relational": "[10.0.14, 10.0.999]",
           "MySqlConnector": "2.6.2"
         }
       },

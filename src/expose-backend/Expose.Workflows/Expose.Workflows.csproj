@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Temporalio" Version="1.21.0" />
+    <PackageReference Include="Temporalio" Version="1.21.1" />
   </ItemGroup>
 
 </Project>
