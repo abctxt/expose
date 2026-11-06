@@ -6,6 +6,12 @@ const Czech_CZ: Translation = {
     //
     header: {
         caption_dashboard: "Přehled",
+        caption_ai_chat: "AI chat",
+        caption_search: "Hledání",
+        caption_notifications: "Oznámení",
+        caption_portfolio: "Portfolio",
+        caption_watchlist: "Sledované",
+        caption_news: "Zprávy",
         caption_etf_holdings: "Pozice ETF",
         caption_setup: "Nastavení",
         caption_network: "Síť",
@@ -14,6 +20,10 @@ const Czech_CZ: Translation = {
     },
     navmenu: {
         menu_dashboard: "Přehled",
+        menu_notifications: "Oznámení",
+        menu_portfolio: "Portfolio",
+        menu_watchlist: "Sledované",
+        menu_news: "Zprávy",
         menu_etf_holdings: "Pozice ETF",
         menu_setup: "Nastavení",
     },
@@ -54,6 +64,8 @@ const Czech_CZ: Translation = {
         font_default: "Výchozí",
         font_enlarged: "Zvětšená",
         category_behavior: "Chování",
+        category_shortcuts: "Zkratky",
+        category_integrations: "Integrace",
         scroll_menus: "Posouvání nabídek",
         scroll_menus_desc: "Posouvání aktivní nabídky přepíná její stránky. Levá nabídka a horní lišta zůstávají oddělené a posouvání se zastaví na koncích.",
     }

@@ -6,7 +6,13 @@ import {isAppRoute, navigateTo, Route as AppRoute} from "./router.redux"
 import SignalHandler from "@comp/signals/signals"
 import {NavWheelGesture} from "@comp/navmenu/navmenu"
 import Dashboard from "@page/dashboard/dashboard"
+import Portfolio from "@page/portfolio/portfolio"
+import Watchlist from "@page/watchlist/watchlist"
+import Notifications from "@page/notifications/notifications"
 import EtfHoldings from "@page/etf-holdings/etf-holdings"
+import News from "@page/news/news"
+import AiChat from "@page/ai-chat/ai-chat"
+import Search from "@page/search/search"
 import Network from "@page/network/network"
 import Setup from "@page/setup/setup"
 import About from "@page/about/about"
@@ -15,8 +21,18 @@ import NotFound from "@page/_404"
 
 const routeMap: Record<string, AnyComponent> = {
     [AppRoute.Dashboard]: Dashboard,
+    [AppRoute.Portfolio]: Portfolio,
+    [AppRoute.Watchlist]: Watchlist,
+    [AppRoute.Notifications]: Notifications,
     [AppRoute.EtfHoldings]: EtfHoldings,
+    [AppRoute.News]: News,
+    [AppRoute.AiChat]: AiChat,
+    [AppRoute.Search]: Search,
     [AppRoute.Setup]: Setup,
+    [AppRoute.SetupAppearance]: Setup,
+    [AppRoute.SetupBehavior]: Setup,
+    [AppRoute.SetupShortcuts]: Setup,
+    [AppRoute.SetupIntegrations]: Setup,
     [AppRoute.Network]: Network,
     [AppRoute.About]: About,
 }

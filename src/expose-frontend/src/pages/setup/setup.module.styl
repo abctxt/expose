@@ -1,32 +1,93 @@
 .page
-  align-self flex-start
-  flex-grow 1
-  flex-shrink 1
-  flex-basis 0
-  width max-content
-  min-width 50%
-  max-width 100%
+  height 100%
+  width 100%
+  min-width 0
   min-height 0
   box-sizing border-box
   padding 16px
   flex(h no-wrap)
   align-items stretch
-  gap 16px
   color #1f2328
   color-scheme light
 
-.column
+.shell
+  flex-grow 1
+  flex-shrink 1
+  flex-basis 0
+  min-width 0
+  min-height 0
+  flex(h no-wrap)
   background white
   border 1px solid #d0d7de
-  border-radius 6px
-  min-height 0
+  border-radius 10px
+  overflow hidden
+
+.menu
+  width 220px
+  flex-grow 0
+  flex-shrink 0
+  box-sizing border-box
+  padding 10px 8px
+  border-right 1px solid #d1d9e0
+  background #f6f8fa
   overflow auto
+
+.menuItem
+  display flex
+  align-items center
+  gap 10px
+  width 100%
+  min-height 36px
+  box-sizing border-box
+  margin 0
+  padding 6px 10px
+  border 0
+  border-radius 8px
+  background transparent
+  color inherit
+  font inherit
+  font-size 0.875rem
+  line-height 1.3
+  text-align left
+  cursor pointer
+
+  & + &
+    margin-top 2px
+
+  &:hover
+    background #eef1f4
+
+  &:focus-visible
+    outline 2px solid var(--accent-focus)
+    outline-offset 1px
+
+  &.active
+    background unquote("color-mix(in srgb, var(--accent) 16%, white)")
+    font-weight 600
+
+    &:hover
+      background unquote("color-mix(in srgb, var(--accent) 22%, white)")
+
+.menuRule
+  height 0
+  margin 10px 8px
+  border 0
+  border-top 1px solid #d1d9e0
+
+.menuIcon
+  width 1rem
+  height 1rem
+  flex-grow 0
+  flex-shrink 0
+  color inherit
 
 .panel
   flex-grow 1
   flex-shrink 1
-  flex-basis auto
+  flex-basis 0
   min-width 0
+  min-height 0
+  overflow auto
   padding 8px 32px 24px
 
 .heading
@@ -101,6 +162,14 @@
 
 @media (max-width 720px)
   .page
-    width 100%
-    min-width 0
+    height auto
+    min-height 100%
     flex-direction column
+
+  .shell
+    flex-direction column
+
+  .menu
+    width 100%
+    border-right 0
+    border-bottom 1px solid #d1d9e0

@@ -8,6 +8,12 @@ const English_US: Translation = {
     //
     header: {
         caption_dashboard: "Dashboard",
+        caption_ai_chat: "AI Chat",
+        caption_search: "Search",
+        caption_notifications: "Notifications",
+        caption_portfolio: "Portfolio",
+        caption_watchlist: "Watchlist",
+        caption_news: "News",
         caption_etf_holdings: "ETF Holdings",
         caption_setup: "Setup",
         caption_network: "Network",
@@ -16,6 +22,10 @@ const English_US: Translation = {
     },
     navmenu: {
         menu_dashboard: "Dashboard",
+        menu_notifications: "Notifications",
+        menu_portfolio: "Portfolio",
+        menu_watchlist: "Watchlist",
+        menu_news: "News",
         menu_etf_holdings: "ETF Holdings",
         menu_setup: "Setup",
     },
@@ -56,6 +66,8 @@ const English_US: Translation = {
         font_default: "Default",
         font_enlarged: "Enlarged",
         category_behavior: "Behavior",
+        category_shortcuts: "Shortcuts",
+        category_integrations: "Integrations",
         scroll_menus: "Scroll menus",
         scroll_menus_desc: "Scrolling the active menu switches its pages. The left menu and the top bar stay separate, and scrolling stops at either end.",
     }
