@@ -8,6 +8,12 @@ const German_DE: Translation = {
     //
     header: {
         caption_dashboard: "Übersicht",
+        caption_ai_chat: "KI-Chat",
+        caption_search: "Suche",
+        caption_notifications: "Benachrichtigungen",
+        caption_portfolio: "Portfolio",
+        caption_watchlist: "Watchlist",
+        caption_news: "Nachrichten",
         caption_etf_holdings: "ETF-Positionen",
         caption_setup: "Einstellungen",
         caption_network: "Netzwerk",
@@ -16,6 +22,10 @@ const German_DE: Translation = {
     },
     navmenu: {
         menu_dashboard: "Übersicht",
+        menu_notifications: "Benachrichtigungen",
+        menu_portfolio: "Portfolio",
+        menu_watchlist: "Watchlist",
+        menu_news: "Nachrichten",
         menu_etf_holdings: "ETF-Positionen",
         menu_setup: "Setup",
     },
@@ -56,6 +66,8 @@ const German_DE: Translation = {
         font_default: "Standard",
         font_enlarged: "Vergrößert",
         category_behavior: "Verhalten",
+        category_shortcuts: "Tastenkürzel",
+        category_integrations: "Integrationen",
         scroll_menus: "Menüs scrollen",
         scroll_menus_desc: "Scrollen im aktiven Menü wechselt dessen Seiten. Linkes Menü und obere Leiste bleiben getrennt, und am Ende bleibt die Seite stehen.",
     }

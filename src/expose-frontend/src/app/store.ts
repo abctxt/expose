@@ -5,6 +5,12 @@ import _signals from "@comp/signals/signals.redux"
 import layout from "@comp/layout/layout.redux"
 import about from "@page/about/about.redux"
 import dashboard from "@page/dashboard/dashboard.redux"
+import aiChat from "@page/ai-chat/ai-chat.redux"
+import search from "@page/search/search.redux"
+import notifications from "@page/notifications/notifications.redux"
+import portfolio from "@page/portfolio/portfolio.redux"
+import watchlist from "@page/watchlist/watchlist.redux"
+import news from "@page/news/news.redux"
 import etfHoldings from "@page/etf-holdings/etf-holdings.redux"
 import network from "@page/network/network.redux"
 import setup, {saveAppearance} from "@page/setup/setup.redux"
@@ -17,6 +23,12 @@ export const store = configureStore({
         layout,
         about,
         dashboard,
+        aiChat,
+        search,
+        notifications,
+        portfolio,
+        watchlist,
+        news,
         etfHoldings,
         network,
         setup,

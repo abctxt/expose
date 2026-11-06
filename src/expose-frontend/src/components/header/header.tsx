@@ -3,17 +3,18 @@ import {useLocation} from "preact-iso"
 import styl from "./header.module.styl"
 import {useTranslation} from "@fwk/i18n"
 import {Button} from "@ui5/webcomponents-react"
-import {isAppRoute, Route} from "@comp/router/router.redux"
+import {isSetupPath, Route} from "@comp/router/router.redux"
 
 type TopButtonProps = {
     icon: string
     label: string
     route: Route
+    className?: string
 }
 
-const TopButton = ({icon, label, route: path}: TopButtonProps) => {
+const TopButton = ({icon, label, route: path, className: extra}: TopButtonProps) => {
     const {route, url} = useLocation()
-    const className = url === path ? `${styl.button} ${styl.active}` : styl.button
+    const className = [styl.button, url === path ? styl.active : "", extra ?? ""].filter(Boolean).join(" ")
     return <Button
         design="Transparent"
         className={className}
@@ -30,12 +31,21 @@ const Header = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTML
 
     const captionMap = {
         [Route.Dashboard]: t("header", "caption_dashboard"),
+        [Route.Portfolio]: t("header", "caption_portfolio"),
+        [Route.Watchlist]: t("header", "caption_watchlist"),
+        [Route.Notifications]: t("header", "caption_notifications"),
         [Route.EtfHoldings]: t("header", "caption_etf_holdings"),
+        [Route.News]: t("header", "caption_news"),
         [Route.Setup]: t("header", "caption_setup"),
+        [Route.AiChat]: t("header", "caption_ai_chat"),
+        [Route.Search]: t("header", "caption_search"),
         [Route.Network]: t("header", "caption_network"),
         [Route.About]: t("header", "caption_about"),
     }
-    const caption = isAppRoute(url) ? captionMap[url] : t("header", "caption_notfound")
+    const isCaptionRoute = (value: string): value is keyof typeof captionMap => value in captionMap
+    const caption = isCaptionRoute(url)
+        ? captionMap[url]
+        : isSetupPath(url) ? captionMap[Route.Setup] : t("header", "caption_notfound")
 
     return <header className={styl.header} data-topbar onContextMenuCapture={onContextMenu}>
         <aside className={styl.logoBox}>
@@ -45,6 +55,8 @@ const Header = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTML
             <span>{caption}</span>
         </aside>
         <nav className={styl.nav}>
+            <TopButton icon="search" label={captionMap[Route.Search]} route={Route.Search}/>
+            <TopButton className={styl.groupEnd} icon="ai" label={captionMap[Route.AiChat]} route={Route.AiChat}/>
             <TopButton icon="tnt/values" label={captionMap[Route.Network]} route={Route.Network}/>
             <TopButton icon="hint" label={captionMap[Route.About]} route={Route.About}/>
         </nav>
