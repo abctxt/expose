@@ -16,7 +16,7 @@
         "clean-packages": "rimraf node_modules package-lock.json"
     },
     "dependencies": {
-        "@microsoft/signalr": "10.0.11",
+        "@microsoft/signalr": "11.0.0",
         "@preact/signals": "2.11.4",
         "@reduxjs/toolkit": "2.14.0",
         "@ui5/webcomponents": "2.28.1",
@@ -26,7 +26,7 @@
         "@ui5/webcomponents-react": "2.28.2",
         "@ui5/webcomponents-react-charts": "2.28.2",
         "browserux.css": "5.0.1",
-        "preact": "11.1.1",
+        "preact": "11.2.0",
         "preact-iso": "2.12.2",
         "react": "npm:@preact/compat",
         "react-dom": "npm:@preact/compat",
@@ -44,8 +44,8 @@
         "rimraf": "6.1.4",
         "stylus": "0.64.0",
         "typescript": "6.0.3",
-        "typescript-eslint": "8.72.1",
-        "vite": "8.3.6",
+        "typescript-eslint": "8.72.2",
+        "vite": "8.3.8",
         "vite-plugin-compression": "0.5.1"
     }
 }
