@@ -5,14 +5,14 @@ import styl from "./navmenu.module.styl"
 import FlexSpacer from "@fwk/flex"
 import {useTranslation} from "@fwk/i18n"
 import {useAppSelector} from "@fwk/hooks"
-import {Route} from "@comp/router/router.redux"
+import {Route, isSetupPath} from "@comp/router/router.redux"
 import {Button} from "@ui5/webcomponents-react"
 
-const leftPages = [Route.Dashboard, Route.EtfHoldings, Route.Setup] as const
-const topPages = [Route.Network, Route.About] as const
+const leftPages = [Route.Dashboard, Route.Portfolio, Route.Watchlist, Route.Notifications, Route.News, Route.EtfHoldings, Route.SetupAppearance] as const
+const topPages = [Route.Search, Route.AiChat, Route.Network, Route.About] as const
 
-const wheelThreshold = 40
-const wheelCooldownMs = 380
+const wheelThreshold = 10
+const wheelCooldownMs = 36
 
 const wheelPixels = (event: WheelEvent) => {
     const dominant = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX
@@ -33,7 +33,8 @@ type NavButtonProps = {
 
 const NavButton = ({icon, text, route: path}: NavButtonProps) => {
     const {route, url} = useLocation()
-    const className = url === path ? `${styl.button} ${styl.active}` : styl.button
+    const selected = path === Route.SetupAppearance ? isSetupPath(url) : url === path
+    const className = selected ? `${styl.button} ${styl.active}` : styl.button
     return <Button
         design="Transparent"
         className={className}
@@ -44,7 +45,7 @@ const NavButton = ({icon, text, route: path}: NavButtonProps) => {
 }
 
 
-const barOf = (event: WheelEvent) => {
+const barOf = (event: WheelEvent): readonly Route[] | null => {
     for (const node of event.composedPath()) {
         if (!(node instanceof HTMLElement)) {
             continue
@@ -81,22 +82,25 @@ const NavWheelGesture = () => {
                 return
             }
             event.preventDefault()
-            const now = performance.now()
-            if (now < lockedUntil) {
+            const delta = wheelPixels(event)
+            if (accumulated !== 0 && Math.sign(delta) !== Math.sign(accumulated)) {
                 accumulated = 0
-                return
             }
-            accumulated += wheelPixels(event)
-            if (Math.abs(accumulated) < wheelThreshold) {
+            accumulated += delta
+            const now = performance.now()
+            if (now < lockedUntil || Math.abs(accumulated) < wheelThreshold) {
                 return
             }
             const direction = accumulated > 0 ? 1 : -1
-            accumulated = 0
-            const index = pages.indexOf(pathRef.current as typeof pages[number])
+            const current = isSetupPath(pathRef.current) ? Route.SetupAppearance : pathRef.current
+            const index = pages.findIndex(page => page === current)
             const next = index + direction
             if (index < 0 || next < 0 || next >= pages.length) {
+                accumulated = 0
                 return
             }
+            accumulated -= direction * wheelThreshold
+            accumulated = Math.max(-wheelThreshold, Math.min(wheelThreshold, accumulated))
             lockedUntil = now + wheelCooldownMs
             routeRef.current(pages[next])
         }
@@ -113,9 +117,13 @@ const NavMenu = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTM
     return (
         <nav className={styl.navmenu} data-navmenu onContextMenuCapture={onContextMenu}>
             <NavButton icon="tnt/technicalinstance" text={t("navmenu", "menu_dashboard")} route={Route.Dashboard}/>
+            <NavButton icon="wallet" text={t("navmenu", "menu_portfolio")} route={Route.Portfolio}/>
+            <NavButton icon="show" text={t("navmenu", "menu_watchlist")} route={Route.Watchlist}/>
+            <NavButton icon="bell" text={t("navmenu", "menu_notifications")} route={Route.Notifications}/>
+            <NavButton icon="newspaper" text={t("navmenu", "menu_news")} route={Route.News}/>
             <NavButton icon="document-text" text={t("navmenu", "menu_etf_holdings")} route={Route.EtfHoldings}/>
             <FlexSpacer/>
-            <NavButton icon="action-settings" text={t("navmenu", "menu_setup")} route={Route.Setup}/>
+            <NavButton icon="action-settings" text={t("navmenu", "menu_setup")} route={Route.SetupAppearance}/>
         </nav>
     )
 }

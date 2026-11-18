@@ -12,6 +12,12 @@ interface Translation {
 
 interface Translation_Header {
     readonly caption_dashboard: string
+    readonly caption_ai_chat: string
+    readonly caption_search: string
+    readonly caption_notifications: string
+    readonly caption_portfolio: string
+    readonly caption_watchlist: string
+    readonly caption_news: string
     readonly caption_etf_holdings: string
     readonly caption_setup: string
     readonly caption_network: string
@@ -21,6 +27,10 @@ interface Translation_Header {
 
 interface Translation_NavMenu {
     readonly menu_dashboard: string
+    readonly menu_notifications: string
+    readonly menu_portfolio: string
+    readonly menu_watchlist: string
+    readonly menu_news: string
     readonly menu_etf_holdings: string
     readonly menu_setup: string
 }
@@ -64,6 +74,8 @@ interface Translation_Setup {
     readonly font_default: string
     readonly font_enlarged: string
     readonly category_behavior: string
+    readonly category_shortcuts: string
+    readonly category_integrations: string
     readonly scroll_menus: string
     readonly scroll_menus_desc: string
 }

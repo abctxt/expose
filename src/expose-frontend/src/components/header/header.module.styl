@@ -34,7 +34,8 @@ $elem-box-width = 200px
     white-space nowrap
 
 .nav
-  width clamp(120px, 20vw, $elem-box-width)
+  width auto
+  flex-shrink 0
   height $header-height
   flex(h middle right)
   //
@@ -54,6 +55,9 @@ $elem-box-width = 200px
     ui5Content(FocusColor, var(--accent-focus))
     ui5(button_focused_border, 0.125rem solid var(--accent-focus))
     ui5(button_pressed_focused_border_color, var(--accent-focus))
+
+  .groupEnd
+    margin-right 28px
 
   .button::part(icon)
     width $nav-icon-size

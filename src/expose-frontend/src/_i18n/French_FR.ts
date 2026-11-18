@@ -6,6 +6,12 @@ const French_FR: Translation = {
     //
     header: {
         caption_dashboard: "Tableau de bord",
+        caption_ai_chat: "Chat IA",
+        caption_search: "Recherche",
+        caption_notifications: "Notifications",
+        caption_portfolio: "Portefeuille",
+        caption_watchlist: "Liste de suivi",
+        caption_news: "Actualités",
         caption_etf_holdings: "Positions ETF",
         caption_setup: "Configuration",
         caption_network: "Réseau",
@@ -14,6 +20,10 @@ const French_FR: Translation = {
     },
     navmenu: {
         menu_dashboard: "Tableau de bord",
+        menu_notifications: "Notifications",
+        menu_portfolio: "Portefeuille",
+        menu_watchlist: "Liste de suivi",
+        menu_news: "Actualités",
         menu_etf_holdings: "Positions ETF",
         menu_setup: "Configuration",
     },
@@ -54,6 +64,8 @@ const French_FR: Translation = {
         font_default: "Par défaut",
         font_enlarged: "Agrandie",
         category_behavior: "Comportement",
+        category_shortcuts: "Raccourcis",
+        category_integrations: "Intégrations",
         scroll_menus: "Défilement des menus",
         scroll_menus_desc: "Faire défiler le menu actif change ses pages. Le menu de gauche et la barre supérieure restent séparés, et le défilement s'arrête aux extrémités.",
     }

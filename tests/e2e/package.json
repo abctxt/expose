@@ -1,0 +1,16 @@
+{
+    "name": "expose-e2e",
+    "author": "https://github.com/abctxt",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "e2e": "playwright test",
+        "e2e:headed": "playwright test --headed"
+    },
+    "devDependencies": {
+        "@playwright/test": "1.65.1",
+        "@types/node": "26.6.6",
+        "js-toml": "2.0.1"
+    }
+}
