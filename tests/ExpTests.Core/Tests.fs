@@ -1,4 +1,4 @@
-﻿module Tests
+module Expose.Tests
 
 open Xunit
 

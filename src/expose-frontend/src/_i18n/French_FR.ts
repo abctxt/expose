@@ -6,6 +6,7 @@ const French_FR: Translation = {
     //
     header: {
         caption_dashboard: "Tableau de bord",
+        caption_etf_holdings: "Positions ETF",
         caption_setup: "Configuration",
         caption_network: "Réseau",
         caption_about: "À propos",
@@ -13,6 +14,7 @@ const French_FR: Translation = {
     },
     navmenu: {
         menu_dashboard: "Tableau de bord",
+        menu_etf_holdings: "Positions ETF",
         menu_setup: "Configuration",
     },
     shell: {

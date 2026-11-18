@@ -8,7 +8,7 @@ import {useAppSelector} from "@fwk/hooks"
 import {Route} from "@comp/router/router.redux"
 import {Button} from "@ui5/webcomponents-react"
 
-const leftPages = [Route.Dashboard, Route.Setup] as const
+const leftPages = [Route.Dashboard, Route.EtfHoldings, Route.Setup] as const
 const topPages = [Route.Network, Route.About] as const
 
 const wheelThreshold = 40
@@ -113,6 +113,7 @@ const NavMenu = ({onContextMenu}: {onContextMenu: (event: TargetedMouseEvent<HTM
     return (
         <nav className={styl.navmenu} data-navmenu onContextMenuCapture={onContextMenu}>
             <NavButton icon="tnt/technicalinstance" text={t("navmenu", "menu_dashboard")} route={Route.Dashboard}/>
+            <NavButton icon="document-text" text={t("navmenu", "menu_etf_holdings")} route={Route.EtfHoldings}/>
             <FlexSpacer/>
             <NavButton icon="action-settings" text={t("navmenu", "menu_setup")} route={Route.Setup}/>
         </nav>

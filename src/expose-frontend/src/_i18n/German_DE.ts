@@ -8,6 +8,7 @@ const German_DE: Translation = {
     //
     header: {
         caption_dashboard: "Übersicht",
+        caption_etf_holdings: "ETF-Positionen",
         caption_setup: "Einstellungen",
         caption_network: "Netzwerk",
         caption_about: "Über diese Software",
@@ -15,6 +16,7 @@ const German_DE: Translation = {
     },
     navmenu: {
         menu_dashboard: "Übersicht",
+        menu_etf_holdings: "ETF-Positionen",
         menu_setup: "Setup",
     },
     shell: {

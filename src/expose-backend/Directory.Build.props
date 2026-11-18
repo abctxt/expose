@@ -2,7 +2,14 @@
   <PropertyGroup>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode Condition="'$(CI)' == 'true'">true</RestoreLockedMode>
-    <!-- SDK FSharp.Core nupkg hash differs from nuget.org; locked CI restore then fails NU1403. -->
+    <!--
+      SDK library-packs and nuget.org publish different bytes for the same FSharp.Core version.
+      DisableImplicitLibraryPacksFolder is the SDK switch that drops library-packs as a restore source.
+      A copy already installed in the global NuGet cache from library-packs is still reused, and
+      force-evaluate then writes that hash, which CI rejects (NU1403). Local restore uses a
+      repo-private folder so it cannot see that cache. CI keeps the runner's empty global cache.
+    -->
     <DisableImplicitLibraryPacksFolder>true</DisableImplicitLibraryPacksFolder>
+    <RestorePackagesPath Condition="'$(CI)' != 'true'">$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', '..', '..', '.nuget', 'packages'))</RestorePackagesPath>
   </PropertyGroup>
 </Project>

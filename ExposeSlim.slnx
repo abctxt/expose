@@ -1,0 +1,13 @@
+<Solution>
+  <!-- Common language module -->
+  <Project Path="src/expose-backend/Expose.FSharp/Expose.FSharp.fsproj" />
+
+  <!-- High-level modules only -->
+  <Project Path="src/expose-backend/ExpCore/ExpCore.fsproj" />
+  <Project Path="src/expose-backend/ExpData/ExpData.csproj" />
+  <Project Path="src/expose-backend/ExpFunctions/ExpFunctions.fsproj" />
+
+  <!-- Test modules -->
+  <Project Path="tests/ExpTests.Core/ExpTests.Core.fsproj" />
+  <Project Path="tests/ExpTests.Functions/ExpTests.Functions.csproj" />
+</Solution>
