@@ -1,5 +1,8 @@
 node_modules/
 TestResults/
+test-results/
+playwright-report/
+blob-report/
 .nuget/
 build/
 dist/
