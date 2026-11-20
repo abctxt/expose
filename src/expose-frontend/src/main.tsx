@@ -2,7 +2,7 @@ import {render} from "preact"
 import {useEffect} from "preact/hooks"
 import {Provider} from "react-redux"
 import {store} from "@app/store"
-import {accentPalette} from "@page/setup/setup.redux"
+import {accentPalette} from "@comp/appearance/appearance.redux"
 import {useAppSelector} from "@fwk/hooks"
 import AppRouter from "@comp/router/router"
 
@@ -44,7 +44,7 @@ const applyColorScheme = async (scheme: string) => {
     await setTheme(themeForScheme(scheme))
 }
 
-const initialAppearance = store.getState().setup
+const initialAppearance = store.getState()._appearance
 setAnimationMode("minimal")
 await setLanguage(initialAppearance.locale)
 await applyColorScheme(initialAppearance.colorScheme)
@@ -64,11 +64,11 @@ document.body.classList.add(`ui5-content-density-${initialAppearance.uiSize}`)
 const densityClasses = ["ui5-content-density-compact", "ui5-content-density-cozy", "ui5-content-density-condensed"]
 
 const SyncUi5Language = () => {
-    const locale = useAppSelector(state => state.setup.locale)
-    const colorScheme = useAppSelector(state => state.setup.colorScheme)
-    const uiSize = useAppSelector(state => state.setup.uiSize)
-    const fontSize = useAppSelector(state => state.setup.fontSize)
-    const accent = useAppSelector(state => state.setup.accent)
+    const locale = useAppSelector(state => state._appearance.locale)
+    const colorScheme = useAppSelector(state => state._appearance.colorScheme)
+    const uiSize = useAppSelector(state => state._appearance.uiSize)
+    const fontSize = useAppSelector(state => state._appearance.fontSize)
+    const accent = useAppSelector(state => state._appearance.accent)
     useEffect(() => {
         document.documentElement.lang = locale
         void setLanguage(locale)

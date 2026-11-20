@@ -3,7 +3,23 @@ import {useAppDispatch, useAppSelector} from "@fwk/hooks"
 import {useTranslation} from "@fwk/i18n"
 import {Locales} from "@app/locales"
 import {Route} from "@comp/router/router.redux"
-import {Accent, ColorScheme, FontSize, setAccent, setColorScheme, setFontSize, setLocale, setScrollMenus, setUiSize, UiSize} from "./setup.redux"
+import {
+    Accent,
+    accents,
+    ColorScheme,
+    FontSize,
+    fontSizes,
+    isOneOf,
+    locales,
+    setAccent,
+    setColorScheme,
+    setFontSize,
+    setLocale,
+    setUiSize,
+    UiSize,
+    uiSizes
+} from "@comp/appearance/appearance.redux"
+import {setScrollMenus} from "./setup.redux"
 import English_US from "../../_i18n/English_US"
 import English_GB from "../../_i18n/English_GB"
 import German_DE from "../../_i18n/German_DE"
@@ -35,11 +51,18 @@ const sections = [
 const Appearance = () => {
     const dispatch = useAppDispatch()
     const {t} = useTranslation()
-    const locale = useAppSelector(state => state.setup.locale)
-    const colorScheme = useAppSelector(state => state.setup.colorScheme)
-    const uiSize = useAppSelector(state => state.setup.uiSize)
-    const fontSize = useAppSelector(state => state.setup.fontSize)
-    const accent = useAppSelector(state => state.setup.accent)
+    const locale = useAppSelector(state => state._appearance.locale)
+    const colorScheme = useAppSelector(state => state._appearance.colorScheme)
+    const uiSize = useAppSelector(state => state._appearance.uiSize)
+    const fontSize = useAppSelector(state => state._appearance.fontSize)
+    const accent = useAppSelector(state => state._appearance.accent)
+    const onChoice = <T extends string>(allowed: readonly T[], apply: (value: T) => void) =>
+        (ev: {currentTarget: {value: string}}) => {
+            const value = ev.currentTarget.value
+            if (isOneOf(value, allowed)) {
+                apply(value)
+            }
+        }
 
     return (
         <>
@@ -50,7 +73,7 @@ const Appearance = () => {
                 <select
                     className={styl.control}
                     value={locale}
-                    onChange={ev => dispatch(setLocale(ev.currentTarget.value as Locales))}>
+                    onChange={onChoice(locales, value => dispatch(setLocale(value)))}>
                     {Object.entries(localeMap).map(([key, label]) => (
                         <option key={key} value={key}>{label}</option>
                     ))}
@@ -74,7 +97,7 @@ const Appearance = () => {
                 <select
                     className={styl.control}
                     value={accent}
-                    onChange={ev => dispatch(setAccent(ev.currentTarget.value as Accent))}>
+                    onChange={onChoice(accents, value => dispatch(setAccent(value)))}>
                     <option value={Accent.Red}>{t("setup", "accent_red")}</option>
                     <option value={Accent.Blue}>{t("setup", "accent_blue")}</option>
                     <option value={Accent.Teal}>{t("setup", "accent_teal")}</option>
@@ -88,7 +111,7 @@ const Appearance = () => {
                 <select
                     className={styl.control}
                     value={uiSize}
-                    onChange={ev => dispatch(setUiSize(ev.currentTarget.value as UiSize))}>
+                    onChange={onChoice(uiSizes, value => dispatch(setUiSize(value)))}>
                     <option value={UiSize.Cozy}>{t("setup", "size_cozy")}</option>
                     <option value={UiSize.Compact}>{t("setup", "size_compact")}</option>
                     <option value={UiSize.Condensed}>{t("setup", "size_condensed")}</option>
@@ -100,7 +123,7 @@ const Appearance = () => {
                 <select
                     className={styl.control}
                     value={fontSize}
-                    onChange={ev => dispatch(setFontSize(ev.currentTarget.value as FontSize))}>
+                    onChange={onChoice(fontSizes, value => dispatch(setFontSize(value)))}>
                     <option value={FontSize.Default}>{t("setup", "font_default")}</option>
                     <option value={FontSize.Enlarged}>{t("setup", "font_enlarged")}</option>
                 </select>
