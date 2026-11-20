@@ -1,7 +1,13 @@
 using Tomlyn.Extensions.Configuration;
 using Path = System.IO.Path;
 
+if (args.Contains("--verify")) {
+    // Early return indicating healthy executable
+    return 0;
+}
+
 var builder = WebApplication.CreateSlimBuilder(args);
+builder.WebHost.UseKestrelHttpsConfiguration();
 
 var exposeTomlPath = Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, "..", "..", "..", "config", "expose.toml"));
 builder.Configuration.AddTomlFile(path: exposeTomlPath, optional: true, reloadOnChange: true);
@@ -30,3 +36,4 @@ app.UseCors("FrontendCors");
 if (app.Environment.IsDevelopment()) { }
 
 await app.RunAsync();
+return 0;
