@@ -48,8 +48,8 @@ init_db() {
 
     mariadb -uroot <<SQL
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${root_password}';
-CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '${root_password}';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+DROP USER IF EXISTS ''@'%', ''@'localhost', ''@'${HOSTNAME}';
+DROP USER IF EXISTS 'root'@'127.0.0.1', 'root'@'::1', 'root'@'${HOSTNAME}';
 CREATE DATABASE IF NOT EXISTS \`${db_name}\`;
 CREATE USER IF NOT EXISTS '${db_user}'@'%' IDENTIFIED BY '${db_password}';
 GRANT ALL PRIVILEGES ON \`${db_name}\`.* TO '${db_user}'@'%';

@@ -1,10 +1,8 @@
-.git
-.nuget
+**/.*
+!src/expose-ai/.npmrc
+**/*.pdb
 **/node_modules
 **/bin
 **/obj
-**/.venv
 **/__pycache__
-**/.pytest_cache
-**/.ruff_cache
 src/expose-frontend/dist

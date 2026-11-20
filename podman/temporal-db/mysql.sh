@@ -47,8 +47,6 @@ init_db() {
 
     mysql -uroot <<SQL
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${root_password}';
-CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '${root_password}';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 CREATE DATABASE IF NOT EXISTS \`${db_name}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 CREATE DATABASE IF NOT EXISTS \`${visibility_db_name}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 CREATE USER IF NOT EXISTS '${db_user}'@'%' IDENTIFIED BY '${db_password}';

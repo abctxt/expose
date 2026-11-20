@@ -10,7 +10,7 @@ Start it (with Temporal core):
 ./start.sh temporal-dev   # core + UI + admin
 ```
 
-UI (easier for day-to-day browsing): http://localhost:8080
+UI (easier for day-to-day browsing): http://localhost:8234 (`EXPOSE_TEMPORAL_UI_PORT`)
 
 ## Attach / exec
 

@@ -15,11 +15,8 @@ RUN microdnf update -y && microdnf install -y tzdata shadow-utils aspnetcore-run
 RUN useradd --system --no-create-home -U -u 777 -s /sbin/nologin $user && \
     mkdir -p $target $config $data $logs
 
-# Copy build artifacts
+# Copy build artifacts (config and TLS files are mounted at runtime)
 COPY podman/expose-backend/build/.  $target/
-COPY config/expose.toml /config/expose.toml
-COPY config/kestrel-cert.pem /config/kestrel-cert.pem
-COPY config/kestrel-key.pem /config/kestrel-key.pem
 
 # Set user permissions
 RUN chown -R $user:$user $target $config $data $logs && \
@@ -27,7 +24,7 @@ RUN chown -R $user:$user $target $config $data $logs && \
     find $target -type d -exec chmod 555 {} \; && \
     find $data $logs -type f -exec chmod 644 {} \; && \
     find $data $logs -type d -exec chmod 755 {} \; && \
-    chmod +x $target/expose
+    chmod +x $target/Expose
 
 # Remove OS tools
 RUN microdnf remove -y shadow-utils && \
@@ -44,4 +41,4 @@ USER $user
 
 WORKDIR $target
 
-CMD ["/expose/app/expose"]
+CMD ["/expose/app/Expose"]

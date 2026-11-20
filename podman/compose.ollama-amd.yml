@@ -2,7 +2,7 @@
 #   ./start.sh ollama amd
 #
 # Host prerequisites (Linux): AMD GPU with ROCm-capable kernel devices
-# (/dev/kfd, /dev/dri). Switches from alpine/ollama (CPU) to ollama/ollama:*-rocm.
+# (/dev/kfd, /dev/dri). Switches from the slim CPU image to ollama/ollama:*-rocm.
 
 services:
 

@@ -4,6 +4,8 @@
 # Expose app frontend / backend
 #   EXPOSE_FRONTEND_PORT                 Host port for the HTTPS frontend (default: 4777)
 #   EXPOSE_BACKEND_PORT                  Host port for the HTTPS backend (default: 5777)
+#   EXPOSE_CONFIG_DIR                    Host folder with expose.toml and the TLS files, mounted read-only (default: ../config)
+#                                        On macOS the folder must be shared with the Podman machine (e.g. under /Users).
 #
 # MariaDB (expose application database)
 #   EXPOSE_MARIADB_DATABASE              Application database name (default: expose)
@@ -22,6 +24,7 @@
 #   EXPOSE_TEMPORAL_ADDRESS              Frontend gRPC address as seen by clients/UI/admin (default: temporal:7233)
 #   EXPOSE_TEMPORAL_NAMESPACE            Default namespace created at startup (default: expose)
 #   EXPOSE_TEMPORAL_NAMESPACE_RETENTION  Retention for that namespace (default: 72h)
+#   EXPOSE_TEMPORAL_UI_PORT              Host port for temporal-ui (default: 8234; 8233 is the local dev server)
 #   EXPOSE_TEMPORAL_UI_CORS_ORIGINS      Allowed CORS origins for temporal-ui (default: http://localhost:3000)
 #
 # Ollama (optional; not started unless a profile is enabled)
@@ -42,6 +45,9 @@ services:
     privileged: false
     ports:
       - "${EXPOSE_FRONTEND_PORT:-4777}:443"
+    volumes:
+      - "${EXPOSE_CONFIG_DIR:-../config}/nginx-cert.pem:/config/nginx-cert.pem:ro"
+      - "${EXPOSE_CONFIG_DIR:-../config}/nginx-key.pem:/config/nginx-key.pem:ro"
     depends_on:
       - backend
 
@@ -51,6 +57,8 @@ services:
       dockerfile: podman/expose-backend/Containerfile
     restart: unless-stopped
     privileged: false
+    # Maps the host user to the image user (uid 777), so the mounted 0600 key stays readable (rootless only).
+    userns_mode: "keep-id:uid=777,gid=777"
     ports:
       - "${EXPOSE_BACKEND_PORT:-5777}:5001"
     environment:
@@ -60,10 +68,20 @@ services:
       Services__YFinance__GrpcUrl: "http://yfinance:50061"
     volumes:
       - backend-logs:/expose/logs
+      - "${EXPOSE_CONFIG_DIR:-../config}/expose.toml:/config/expose.toml:ro"
+      - "${EXPOSE_CONFIG_DIR:-../config}/kestrel-cert.pem:/config/kestrel-cert.pem:ro"
+      - "${EXPOSE_CONFIG_DIR:-../config}/kestrel-key.pem:/config/kestrel-key.pem:ro"
     depends_on:
-      - yfinance
-      - ai
-      - temporal
+      yfinance:
+        condition: service_started
+      ai:
+        condition: service_started
+      mariadb:
+        condition: service_started
+      temporal:
+        condition: service_healthy
+      temporal-namespace:
+        condition: service_completed_successfully
 
   yfinance:
     build:
@@ -82,7 +100,7 @@ services:
 
   ollama:
     # Optional: enable exactly one of ollama-cpu | ollama-nvidia | ollama-amd.
-    # Default build is slim CPU (PR #13-style). NVIDIA/AMD overlays switch image + devices.
+    # Default build is slim CPU. NVIDIA/AMD overlays switch image + devices.
     profiles: [ "ollama-cpu", "ollama-nvidia", "ollama-amd" ]
     build:
       context: ../
@@ -99,6 +117,7 @@ services:
       dockerfile: podman/mariadb/Containerfile
     restart: unless-stopped
     privileged: false
+    # Confinement is disabled on purpose for database performance.
     security_opt:
       - seccomp=unconfined
       - apparmor=unconfined
@@ -118,6 +137,7 @@ services:
       dockerfile: podman/temporal-db/Containerfile
     restart: unless-stopped
     privileged: false
+    # Confinement is disabled on purpose for database performance.
     security_opt:
       - seccomp=unconfined
       - apparmor=unconfined
@@ -152,7 +172,7 @@ services:
       DB_PORT: 3306
       MYSQL_SEEDS: temporal-db
       MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
-      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD:-temporal}"
+      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD}"
       DBNAME: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
       VISIBILITY_DBNAME: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
       ENABLE_ES: "false"
@@ -182,7 +202,7 @@ services:
       DB_PORT: 3306
       MYSQL_SEEDS: temporal-db
       MYSQL_USER: "${EXPOSE_TEMPORAL_MYSQL_USER:-temporal}"
-      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD:-temporal}"
+      MYSQL_PWD: "${EXPOSE_TEMPORAL_MYSQL_PASSWORD}"
       DBNAME: "${EXPOSE_TEMPORAL_DB_NAME:-temporal}"
       VISIBILITY_DBNAME: "${EXPOSE_TEMPORAL_VISIBILITY_DB_NAME:-temporal_visibility}"
       SKIP_DB_CREATE: "true"
@@ -237,6 +257,8 @@ services:
     environment:
       TEMPORAL_ADDRESS: "${EXPOSE_TEMPORAL_ADDRESS:-temporal:7233}"
       TEMPORAL_CORS_ORIGINS: "${EXPOSE_TEMPORAL_UI_CORS_ORIGINS:-http://localhost:3000}"
+    ports:
+      - "${EXPOSE_TEMPORAL_UI_PORT:-8234}:8080"
 
 
 volumes:

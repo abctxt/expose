@@ -40,7 +40,7 @@ services:
     # ports:
     #   - "3307:3306"
     # volumes:
-    #   - /path/to/expose/db:/var/lib/mysql:delegated
+    #   - /path/to/expose/db:/var/lib/mysql:Z,delegated
 
   temporal-db:
     environment:
@@ -53,7 +53,7 @@ services:
     # ports:
     #   - "3308:3306"
     # volumes:
-    #   - /path/to/expose/temporal-db:/var/lib/mysql:delegated
+    #   - /path/to/expose/temporal-db:/var/lib/mysql:Z,delegated
 
   temporal:
     environment:
@@ -82,5 +82,4 @@ services:
     environment:
       <<: *env
       # TEMPORAL_CORS_ORIGINS: "http://localhost:3000"
-    # ports:
-    #   - "8080:8080"
+    # Host port comes from EXPOSE_TEMPORAL_UI_PORT (default 8234); ports added here are published in addition.
