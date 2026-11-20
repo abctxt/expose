@@ -1,8 +1,1 @@
-**/.*
-!src/expose-ai/.npmrc
-**/*.pdb
-**/node_modules
-**/bin
-**/obj
-**/__pycache__
-src/expose-frontend/dist
+../.containerignore
