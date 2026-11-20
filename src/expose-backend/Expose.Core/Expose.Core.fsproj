@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Expose.FSharp\Expose.FSharp.fsproj" />
+    <ProjectReference Include="..\Expose.Lang\Expose.Lang.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

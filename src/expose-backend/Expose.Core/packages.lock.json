@@ -22,7 +22,7 @@
         "resolved": "10.5.0",
         "contentHash": "fE29B8ssrV+90g1Y6l049rECsZD4pw8ZWLqoK/76b3RRXYDQS6FA2fgCiOuH8IfD8gUhcf45PLFRiOFWE64Tug=="
       },
-      "expose.fsharp": {
+      "expose.lang": {
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "[11.0.101, )",

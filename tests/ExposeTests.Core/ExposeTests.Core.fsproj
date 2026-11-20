@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <AssemblyName>Expose.TestCore</AssemblyName>
+    <AssemblyName>ExposeTests.Core</AssemblyName>
     <RootNamespace>Expose</RootNamespace>
     <TargetFramework>net11.0</TargetFramework>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\expose-backend\ExpCore\ExpCore.fsproj" />
+    <ProjectReference Include="..\..\src\expose-backend\Expose.Core\Expose.Core.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

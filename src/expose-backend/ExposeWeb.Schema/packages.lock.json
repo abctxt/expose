@@ -252,22 +252,22 @@
           "System.Composition.Runtime": "10.0.1"
         }
       },
-      "Expose.Core": {
+      "expose.core": {
         "type": "Project",
         "dependencies": {
-          "Expose.FSharp": "[1.0.0, )",
+          "Expose.Lang": "[1.0.0, )",
           "FSharp.Core": "[11.0.101, )",
           "FsToolkit.ErrorHandling": "[5.2.0, )"
         }
       },
-      "Expose.Data": {
+      "expose.data": {
         "type": "Project",
         "dependencies": {
           "Expose.Core": "[1.0.0, )",
           "Microsoft.EntityFrameworkCore": "[11.0.0, )"
         }
       },
-      "expose.fsharp": {
+      "expose.lang": {
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "[11.0.101, )",

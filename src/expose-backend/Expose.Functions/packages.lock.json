@@ -61,22 +61,22 @@
         "resolved": "10.5.0",
         "contentHash": "fE29B8ssrV+90g1Y6l049rECsZD4pw8ZWLqoK/76b3RRXYDQS6FA2fgCiOuH8IfD8gUhcf45PLFRiOFWE64Tug=="
       },
-      "Expose.Core": {
+      "expose.core": {
         "type": "Project",
         "dependencies": {
-          "Expose.FSharp": "[1.0.0, )",
+          "Expose.Lang": "[1.0.0, )",
           "FSharp.Core": "[11.0.101, )",
           "FsToolkit.ErrorHandling": "[5.2.0, )"
         }
       },
-      "Expose.Data": {
+      "expose.data": {
         "type": "Project",
         "dependencies": {
           "Expose.Core": "[1.0.0, )",
           "Microsoft.EntityFrameworkCore": "[11.0.0, )"
         }
       },
-      "expose.fsharp": {
+      "expose.lang": {
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "[11.0.101, )",

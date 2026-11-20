@@ -684,22 +684,30 @@
           "System.IO.Hashing": "8.0.0"
         }
       },
-      "Expose.Core": {
+      "expose.core": {
         "type": "Project",
         "dependencies": {
-          "Expose.FSharp": "[1.0.0, )",
+          "Expose.Lang": "[1.0.0, )",
           "FSharp.Core": "[11.0.101, )",
           "FsToolkit.ErrorHandling": "[5.2.0, )"
         }
       },
-      "Expose.Data": {
+      "expose.data": {
         "type": "Project",
         "dependencies": {
           "Expose.Core": "[1.0.0, )",
           "Microsoft.EntityFrameworkCore": "[11.0.0, )"
         }
       },
-      "expose.fsharp": {
+      "expose.functions": {
+        "type": "Project",
+        "dependencies": {
+          "Expose.Data": "[1.0.0, )",
+          "FSharp.Core": "[11.0.101, )",
+          "FsToolkit.ErrorHandling": "[5.2.0, )"
+        }
+      },
+      "expose.lang": {
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "[11.0.101, )",
@@ -707,22 +715,14 @@
           "ServiceStack.Text": "[10.5.0, )"
         }
       },
-      "Expose.Functions": {
-        "type": "Project",
-        "dependencies": {
-          "Expose.Data": "[1.0.0, )",
-          "FSharp.Core": "[11.0.101, )",
-          "FsToolkit.ErrorHandling": "[5.2.0, )"
-        }
-      },
-      "expose.schema": {
+      "exposeweb.schema": {
         "type": "Project",
         "dependencies": {
           "Expose.Data": "[1.0.0, )",
           "Microting.EntityFrameworkCore.MySql": "[11.0.0, )"
         }
       },
-      "expose.workflows": {
+      "exposeweb.workflows": {
         "type": "Project",
         "dependencies": {
           "Temporalio": "[1.22.0, )"

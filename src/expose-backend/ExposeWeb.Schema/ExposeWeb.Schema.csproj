@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExpData\ExpData.csproj" />
+    <ProjectReference Include="..\Expose.Data\Expose.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

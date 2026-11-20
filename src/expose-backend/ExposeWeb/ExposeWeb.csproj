@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExpCore\ExpCore.fsproj" />
-    <ProjectReference Include="..\ExpData\ExpData.csproj" />
-    <ProjectReference Include="..\ExpFunctions\ExpFunctions.fsproj" />
-    <ProjectReference Include="..\Expose.FSharp\Expose.FSharp.fsproj" />
-    <ProjectReference Include="..\Expose.Schema\Expose.Schema.csproj" />
-    <ProjectReference Include="..\Expose.Workflows\Expose.Workflows.csproj" />
-    <ProjectReference Include="..\Expose.Generator\Expose.Generator.csproj"
+    <ProjectReference Include="..\Expose.Core\Expose.Core.fsproj" />
+    <ProjectReference Include="..\Expose.Data\Expose.Data.csproj" />
+    <ProjectReference Include="..\Expose.Functions\Expose.Functions.fsproj" />
+    <ProjectReference Include="..\Expose.Lang\Expose.Lang.fsproj" />
+    <ProjectReference Include="..\ExposeWeb.Schema\ExposeWeb.Schema.csproj" />
+    <ProjectReference Include="..\ExposeWeb.Workflows\ExposeWeb.Workflows.csproj" />
+    <ProjectReference Include="..\ExposeWeb.Generator\ExposeWeb.Generator.csproj"
                       OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 

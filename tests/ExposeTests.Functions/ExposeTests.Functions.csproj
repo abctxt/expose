@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <AssemblyName>Expose.TestFunctions</AssemblyName>
+    <AssemblyName>ExposeTests.Functions</AssemblyName>
     <RootNamespace>Expose</RootNamespace>
     <TargetFramework>net11.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\expose-backend\ExpFunctions\ExpFunctions.fsproj" />
+    <ProjectReference Include="..\..\src\expose-backend\Expose.Functions\Expose.Functions.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,19 +1,20 @@
 <Solution>
   <!-- Common language module -->
-  <Project Path="src/expose-backend/Expose.FSharp/Expose.FSharp.fsproj" />
+  <Project Path="src/expose-backend/Expose.Lang/Expose.Lang.fsproj" />
 
   <!-- High-level modules -->
-  <Project Path="src/expose-backend/ExpCore/ExpCore.fsproj" />
-  <Project Path="src/expose-backend/ExpData/ExpData.csproj" />
-  <Project Path="src/expose-backend/ExpFunctions/ExpFunctions.fsproj" />
+  <Project Path="src/expose-backend/Expose.Core/Expose.Core.fsproj" />
+  <Project Path="src/expose-backend/Expose.Data/Expose.Data.csproj" />
+  <Project Path="src/expose-backend/Expose.Functions/Expose.Functions.fsproj" />
 
   <!-- Low-level modules -->
-  <Project Path="src/expose-backend/Expose/Expose.csproj" />
-  <Project Path="src/expose-backend/Expose.Schema/Expose.Schema.csproj" />
-  <Project Path="src/expose-backend/Expose.Workflows/Expose.Workflows.csproj" />
-  <Project Path="src/expose-backend/Expose.Generator/Expose.Generator.csproj" />
+  <Project Path="src/expose-backend/ExposeWeb/ExposeWeb.csproj" />
+  <Project Path="src/expose-backend/ExposeWeb.Schema/ExposeWeb.Schema.csproj" />
+  <Project Path="src/expose-backend/ExposeWeb.Workflows/ExposeWeb.Workflows.csproj" />
+  <Project Path="src/expose-backend/ExposeWeb.Generator/ExposeWeb.Generator.csproj" />
 
   <!-- Test modules -->
-  <Project Path="tests/ExpTests.Core/ExpTests.Core.fsproj" />
-  <Project Path="tests/ExpTests.Functions/ExpTests.Functions.csproj" />
+  <Project Path="tests/ExposeTests.Core/ExposeTests.Core.fsproj" />
+  <Project Path="tests/ExposeTests.Functions/ExposeTests.Functions.csproj" />
+  <!-- One might attach the e2e folder in Rider manually. -->
 </Solution>

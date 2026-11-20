@@ -148,15 +148,15 @@
           "xunit.v3.runner.common": "[4.0.3]"
         }
       },
-      "Expose.Core": {
+      "expose.core": {
         "type": "Project",
         "dependencies": {
-          "Expose.FSharp": "[1.0.0, )",
+          "Expose.Lang": "[1.0.0, )",
           "FSharp.Core": "[11.0.101, )",
           "FsToolkit.ErrorHandling": "[5.2.0, )"
         }
       },
-      "expose.fsharp": {
+      "expose.lang": {
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "[11.0.101, )",
