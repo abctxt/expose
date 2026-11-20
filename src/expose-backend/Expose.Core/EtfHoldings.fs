@@ -1,11 +1,43 @@
 module Expose.Core.EtfHoldings
 
 open System
-open Expose.Core.Common.Types
 
 
-type EtfHolding = {
+type Document = {
     Guid: Guid
     Name: string
-    WebUrl: Url option
+    FileRef: Guid
+    HomepageUrl: Url option
+    DownloadUrl: Url option
+    ParsingRule: ParsingRule option
+}
+
+and ParsingRule = Csv of CsvParsingRule | Xlsx of XslxParsingRule | AI of ChaoticParseAI
+
+
+and CsvParsingRule = {
+    SkipRows: uint
+    Separator: CsvColumnSeparator
+}
+
+and CsvColumnSeparator = Comma | Semicolon | Other of char
+
+
+and ChaoticParseAI = {
+    Instructions: string option
+}
+
+
+and XslxParsingRule = {
+    SheetNumber: uint
+    FirstRowIndex: uint
+    LastRowIndex: uint
+    FirstColumnIndex: uint
+    LastColumnIndex: uint
+}
+
+
+type Download = {
+    Guid: Guid
+    Document: Document
 }

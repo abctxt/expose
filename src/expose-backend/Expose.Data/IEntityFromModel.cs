@@ -1,4 +1,4 @@
-namespace Expose.Data.Common;
+namespace Expose.Data;
 
 
 public interface IEntityFromModel<out TSelf, in TModel>

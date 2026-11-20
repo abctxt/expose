@@ -32,9 +32,9 @@ public class EtfHoldingsTests
 
     private async Task TestFunction(ExposeDb db, CancellationToken ct)
     {
-        var env = new EtfHoldings.EtfHoldingsEnv(ct, db, new FileStorage(), new XlsxParser(), new CsvParser());
+        var env = new EtfHoldings.EtfHoldingsEnv(ct, db, new XlsxParser(), new CsvParser(), new FileStorage());
 
-        var res = await EtfHoldings.listEtfHoldings(env);
+        var res = await EtfHoldings.listDocuments(env);
 
         await Assert.That(res.IsOk).IsTrue();
     }
@@ -45,7 +45,10 @@ public class EtfHoldingsTests
     /// </summary>
     private sealed class ExposeDb : DbContext, IEtfHoldingsContext
     {
-        public DbSet<EtfHoldingsDocument> Documents { get; set; } = null!;
+        public DbSet<EtfHoldingsDocumentRow> Documents { get; set; } = null!;
+        public DbSet<EtfHoldingsDownloadRow> Downloads { get; set; } = null!;
+        public DbSet<EtfHoldingsParsingRuleRow> ParsingRules { get; set; } = null!;
+        public DbSet<EtfHoldingsLookupRow> Lookups { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -55,12 +58,27 @@ public class EtfHoldingsTests
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EtfHoldingsDocument>();
+            modelBuilder.Entity<EtfHoldingsDocumentRow>();
         }
     }
 
 
-    private sealed class FileStorage : IFileStorageService {}
-    private sealed class XlsxParser : ISpreadsheetParser {}
-    private sealed class CsvParser : ICsvTableParser {}
+    private sealed class FileStorage : IFileStorage
+    { }
+
+
+    private sealed class HttpDownloader : IHttpDownloader
+    { }
+
+
+    private sealed class XlsxParser : IWorksheetParser
+    { }
+
+
+    private sealed class CsvParser : ICsvTableParser
+    { }
+
+
+    private sealed class OllamaChatClient : IOllamaChatClient
+    { }
 }

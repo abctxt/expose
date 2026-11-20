@@ -19,8 +19,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Common\Types.fs" />
+    <Compile Include="CommonTypes.fs" />
+    <Compile Include="Securities.fs" />
+    <Compile Include="Portfolio.fs" />
+    <Compile Include="Watchlist.fs" />
+    <Compile Include="NewsFlow.fs" />
+    <Compile Include="Notifications.fs" />
     <Compile Include="EtfHoldings.fs" />
+    <Compile Include="Automations.fs" />
+    <Compile Include="Integrations.fs" />
+    <Compile Include="AiChat.fs" />
+    <Compile Include="Search.fs" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <RootNamespace>Expose.Schema</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
