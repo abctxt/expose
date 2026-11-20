@@ -9,7 +9,7 @@ ARG logs=/expose/logs
 
 
 # Prepare OS
-RUN microdnf update -y && microdnf install -y tzdata shadow-utils aspnetcore-runtime-10.0
+RUN microdnf update -y && microdnf install -y tzdata shadow-utils aspnetcore-runtime-11.0
 
 # Add user + application paths
 RUN useradd --system --no-create-home -U -u 777 -s /sbin/nologin $user && \

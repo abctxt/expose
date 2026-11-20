@@ -1,1 +1,10 @@
-src/expose-ai/node_modules
+.git
+.nuget
+**/node_modules
+**/bin
+**/obj
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+src/expose-frontend/dist
