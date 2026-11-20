@@ -82,7 +82,7 @@ let buildApplication() =
         RedirectStandardOutput = true,
         RedirectStandardError = true,
         RedirectStandardInput = false,
-        Arguments = $"publish --nologo -v minimal -r {buildFor} --self-contained false src/expose-backend/ExposeWeb -o \"{buildDirFullPath}\""))
+        Arguments = $"publish --nologo -v minimal -r {buildFor} src/expose-backend/ExposeWeb -o \"{buildDirFullPath}\""))
 
     let logTask = fun (args: DataReceivedEventArgs) ->
         Console.WriteLine(args.Data)
