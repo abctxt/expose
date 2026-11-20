@@ -56,7 +56,7 @@ const Dashboard = () => {
     const open = useAppSelector(state => state.dashboard.viewportOpen)
     const viewport = useAppSelector(state => state.dashboard.viewport)
     const gridLocked = useAppSelector(state => state.dashboard.gridLocked)
-    const uiSize = useAppSelector(state => state.setup.uiSize)
+    const uiSize = useAppSelector(state => state._appearance.uiSize)
     const viewLabel = views.find(view => view.id === viewport)
     const toggleLabel = open ? t("dashboard", "viewport_collapse") : t("dashboard", "viewport_expand")
     const gridLabel = gridLocked ? t("dashboard", "grid_unlock") : t("dashboard", "grid_lock")

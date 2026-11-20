@@ -23,8 +23,8 @@ jobs:
 
       - name: Run 'dotnet test'
         run: |
-          dotnet test --no-build --project tests/ExpTests.Core/ExpTests.Core.fsproj -c Release -v minimal
-          dotnet test --no-build --project tests/ExpTests.Functions/ExpTests.Functions.csproj -c Release -v minimal
+          dotnet test --no-build --project tests/ExposeTests.Core/ExposeTests.Core.fsproj -c Release -v minimal
+          dotnet test --no-build --project tests/ExposeTests.Functions/ExposeTests.Functions.csproj -c Release -v minimal
 
   frontend:
     runs-on: ubuntu-latest

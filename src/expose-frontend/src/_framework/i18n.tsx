@@ -19,7 +19,7 @@ const map = {
 
 // Create a hook for translations
 export const useTranslation = () => {
-    const locale = useAppSelector(state => state.setup.locale)
+    const locale = useAppSelector(state => state._appearance.locale)
 
     const t = <TKey extends keyof Translation>(
         fstKey: TKey,

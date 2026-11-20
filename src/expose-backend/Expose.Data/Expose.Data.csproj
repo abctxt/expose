@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>Expose.Data</AssemblyName>
     <RootNamespace>Expose.Data</RootNamespace>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExpCore\ExpCore.fsproj" />
+    <ProjectReference Include="..\Expose.Core\Expose.Core.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="11.0.0" />
   </ItemGroup>
 
 </Project>
