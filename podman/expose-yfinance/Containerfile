@@ -1,0 +1,27 @@
+FROM python:3.11.17-slim
+
+ARG user=expose
+ARG home=/expose
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=${home}/src
+
+RUN useradd --system --no-create-home --uid 777 --home-dir ${home} --shell /usr/sbin/nologin ${user} && \
+    mkdir -p ${home}
+
+COPY src/expose-yfinance/pyproject.toml ${home}/pyproject.toml
+COPY src/expose-yfinance/src ${home}/src
+COPY src/expose-yfinance/protos ${home}/protos
+
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir -e ${home} && \
+    chown -R ${user}:${user} ${home}
+
+EXPOSE 50061/tcp
+EXPOSE 8091/tcp
+
+USER ${user}
+WORKDIR ${home}
+
+CMD ["python", "-m", "expose_yfinance.main"]

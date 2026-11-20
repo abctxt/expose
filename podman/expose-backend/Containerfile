@@ -16,7 +16,7 @@ RUN useradd --system --no-create-home -U -u 777 -s /sbin/nologin $user && \
     mkdir -p $target $config $data $logs
 
 # Copy build artifacts
-COPY podman/backend/build/.  $target/
+COPY podman/expose-backend/build/.  $target/
 COPY config/expose.toml /config/expose.toml
 COPY config/kestrel-cert.pem /config/kestrel-cert.pem
 COPY config/kestrel-key.pem /config/kestrel-key.pem

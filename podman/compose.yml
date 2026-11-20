@@ -1,6 +1,16 @@
 # Host-side environment variables (compose interpolation).
 # Set via shell env or an env file; override defaults in compose.override.yml when needed.
 #
+# Expose app frontend / backend
+#   EXPOSE_FRONTEND_PORT                 Host port for the HTTPS frontend (default: 4777)
+#   EXPOSE_BACKEND_PORT                  Host port for the HTTPS backend (default: 5777)
+#
+# MariaDB (expose application database)
+#   EXPOSE_MARIADB_DATABASE              Application database name (default: expose)
+#   EXPOSE_MARIADB_USER                  Application DB user (default: expose)
+#   EXPOSE_MARIADB_PASSWORD              Application DB user password (required on first boot)
+#   EXPOSE_MARIADB_ROOT_PASSWORD         MariaDB root password (required on first boot)
+#
 # Temporal MySQL (temporal-db)
 #   EXPOSE_TEMPORAL_DB_NAME              Temporal persistence database (default: temporal)
 #   EXPOSE_TEMPORAL_VISIBILITY_DB_NAME   Temporal visibility database (default: temporal_visibility)
@@ -27,7 +37,7 @@ services:
   frontend:
     build:
       context: ../
-      dockerfile: podman/frontend/Containerfile
+      dockerfile: podman/expose-frontend/Containerfile
     restart: unless-stopped
     privileged: false
     ports:
@@ -38,7 +48,7 @@ services:
   backend:
     build:
       context: ../
-      dockerfile: podman/backend/Containerfile
+      dockerfile: podman/expose-backend/Containerfile
     restart: unless-stopped
     privileged: false
     ports:
@@ -58,14 +68,14 @@ services:
   yfinance:
     build:
       context: ../
-      dockerfile: podman/exp-yfinance/Containerfile
+      dockerfile: podman/expose-yfinance/Containerfile
     restart: unless-stopped
     privileged: false
 
   ai:
     build:
       context: ../
-      dockerfile: podman/exp-ai/Containerfile
+      dockerfile: podman/expose-ai/Containerfile
     restart: unless-stopped
     privileged: false
 
