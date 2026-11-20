@@ -38,3 +38,6 @@ _generated/
 
 # Local reference sample, not part of the product
 /tools/sample/
+
+# Test files
+/tests/**/*.xlsx
