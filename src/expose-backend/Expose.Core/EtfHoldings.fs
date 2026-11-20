@@ -7,5 +7,6 @@ open Expose.Core.Common.Types
 type EtfHolding = {
     Guid: Guid
     Name: string
-    WebUrl: Url option
+    HomepageUrl: Url option
+    DownloadUrl: Url option
 }

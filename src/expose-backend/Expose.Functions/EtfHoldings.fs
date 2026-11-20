@@ -21,7 +21,8 @@ type EtfHoldingsEnv = {
 type EtfHoldingObj = {
     guid: Guid
     name: string
-    webUrl: string option
+    homepageUrl: string option
+    downloadUrl: string option
 }
 
 
@@ -32,7 +33,12 @@ let listEtfHoldings (env: EtfHoldingsEnv) = taskResult {
 
     if items.Count > 0 then
         let res = items
-                    .Select(fun x -> {guid = x.Guid7; name = x.Name; webUrl = if x.WebUrl <> null then Some x.WebUrl else None})
+                    .Select(fun x -> {
+                        guid = x.Guid7
+                        name = x.Name
+                        homepageUrl = Option.ofObj x.HomepageUrl
+                        downloadUrl = Option.ofObj x.DownloadUrl
+                    })
                     .ToList()
         return! Ok res
     else
@@ -42,11 +48,11 @@ let listEtfHoldings (env: EtfHoldingsEnv) = taskResult {
 
 [<Query>]
 let readEtfHolding (env: EtfHoldingsEnv) (id: Guid) = taskResult {
-    return! Ok { guid = Guid.CreateVersion7(); name = ""; webUrl = Some "" }
+    return! Ok { guid = Guid.CreateVersion7(); name = ""; homepageUrl = Some ""; downloadUrl = Some "" }
 }
 
 
 [<Mutation>]
 let saveEtfHolding (env: EtfHoldingsEnv) (obj: EtfHoldingObj) = taskResult {
-    return! Ok { guid = Guid.CreateVersion7(); name = ""; webUrl = Some "" }
+    return! Ok { guid = Guid.CreateVersion7(); name = ""; homepageUrl = Some ""; downloadUrl = Some "" }
 }
